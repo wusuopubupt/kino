@@ -1,7 +1,7 @@
 package com.mathandcs.kino.abacus.utils
 
 /**
-  * @author ${user.name}
+  * Created by dash wang 2/11/16
   */
 object StringUtil {
 

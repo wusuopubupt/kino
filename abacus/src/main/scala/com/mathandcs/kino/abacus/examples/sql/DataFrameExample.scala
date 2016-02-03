@@ -4,7 +4,7 @@ import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark
 
 /**
-  * Created by dashwang on 10/13/16.
+  * Created by dashwang on 02/13/16.
   */
 
 case class Person(name: String, age: Int)
