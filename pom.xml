@@ -99,6 +99,12 @@
                 <version>${spark.version}</version>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-streaming-kafka${scala.version.suffix}</artifactId>
+                <version>${spark.version}</version>
+                <scope>compile</scope>
+            </dependency>
             <!--hadoop-->
             <dependency>
                 <groupId>org.apache.hadoop</groupId>

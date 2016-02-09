@@ -1,3 +1,6 @@
+架构图：
+![](./kafka_zk.png)
+
 ### 安装zookeeper:
 
 ```shell
