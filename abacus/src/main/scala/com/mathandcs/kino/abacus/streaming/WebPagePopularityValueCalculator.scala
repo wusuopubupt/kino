@@ -47,7 +47,9 @@ object WebPagePopularityValueCalculator {
       (pageID, popValue)
     }
     }
+
     //sum the previous popularity value and current value
+    /*
     val updatePopularityValue = (iterator: Iterator[(String, Seq[Double], Option[Double])]) => {
       iterator.flatMap(t => {
         val newValue: Double = t._2.sum
@@ -58,9 +60,19 @@ object WebPagePopularityValueCalculator {
     val initialRDD = ssc.sparkContext.parallelize(List(("page1", 0.00)))
     val stateDstream = popularityData.updateStateByKey[Double](updatePopularityValue,
       new HashPartitioner(ssc.sparkContext.defaultParallelism), true, initialRDD)
-    //set the checkpoint interval to avoid too frequently data checkpoint which may
-    //may significantly reduce operation throughput
-    stateDstream.checkpoint(Duration(8 * processingInterval.toInt * 1000))
+    */
+    val addFunction = (curValues: Seq[Double], preValueState: Option[Double]) => {
+      val currentSum = curValues.sum
+      val previousSum = preValueState.getOrElse(0.0)
+      Some(currentSum + previousSum)
+    }
+    val initialRDD = ssc.sparkContext.parallelize(List(("page1", 0.00)))
+    val stateDstream = popularityData.updateStateByKey[Double](addFunction,
+      new HashPartitioner(ssc.sparkContext.defaultParallelism), initialRDD)
+
+        //set the checkpoint interval to avoid too frequently data checkpoint which may
+        //may significantly reduce operation throughput
+        stateDstream.checkpoint(Duration(8 * processingInterval.toInt * 1000))
     //after calculation, we need to sort the result and only show the top 10 hot pages
     stateDstream.foreachRDD { rdd => {
       val sortedData = rdd.map { case (k, v) => (v, k) }.sortByKey(false)
