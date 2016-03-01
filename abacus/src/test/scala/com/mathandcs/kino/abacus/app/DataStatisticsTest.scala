@@ -238,11 +238,13 @@ class DataStatisticsTest extends FlatSpec with Logging {
     assert("{\"date\":\"2017-01-01\",\"timestamp\":\"2017-01-01T01:01:00.000Z\"}".equals(write(metric)))
   }
 
+  /*
   it should "execute run method" in {
     alert("single-data-statistics-config, will work successfully")
     val args = Array("src/test/resources/DataStat.json")
     val app = new DataStatistics()
     app.execute(args(0))
   }
+  */
 
 }

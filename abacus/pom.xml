@@ -33,6 +33,14 @@
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-hive${scala.version.suffix}</artifactId>
+            <!-- fix "java.lang.NoSuchMethodError: org.codehaus.commons.compiler.Location.<init>(Ljava/lang/String;II)V"
+                 by mvn:dependency:tree  -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.codehaus.janino</groupId>
+                    <artifactId>commons-compiler</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>

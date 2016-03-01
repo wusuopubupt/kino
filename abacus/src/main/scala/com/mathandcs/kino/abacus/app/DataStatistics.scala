@@ -44,7 +44,7 @@ class DataStatistics extends BaseApp {
   var dataCount: Long = 0L
 
   override def run(config: AppConfig): Unit = {
-    val rawInputDF = DataImport.loadTSVToDataFrame(config.inputTable.url, config.inputTable.schema, null)
+    val rawInputDF = DataImport.loadTSVToDataFrame(config.inputTables(0).url, config.inputTables(0).schema, null)
 
     // check partition not exceeding PARTITION_UPPER_BOUND
     if (PARTITION_UPPER_BOUND < rawInputDF.rdd.getNumPartitions) {
@@ -58,7 +58,7 @@ class DataStatistics extends BaseApp {
     val jsonContent = write(metrics)
     log.info(s"Calculation completed, report json content is: $jsonContent")
     val metricsRdd = SparkUtil.sparkContext.makeRDD(Seq(jsonContent))
-    metricsRdd.saveAsTextFile(config.outputTable.url)
+    metricsRdd.saveAsTextFile(config.outputTables(0).url)
   }
 
   def assembleReport(inputDF: DataFrame): List[SingleMetric] = {
