@@ -1,0 +1,27 @@
+[0m[[0minfo[0m] [0mPackaging /root/spark-script/target/scala-2.10/sort_2.10-1.0.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	WordCount$.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/WordCount$.class[0m
+[0m[[0mdebug[0m] [0m	Sort$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	WordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/WordCount$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	WordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/WordCount$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	Sort$.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$.class[0m
+[0m[[0mdebug[0m] [0m	Sort$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	WordCount.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/WordCount.class[0m
+[0m[[0mdebug[0m] [0m	WordCount$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/WordCount$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	Sort$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	Sort$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	Sort$$anonfun$main$1.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort$$anonfun$main$1.class[0m
+[0m[[0mdebug[0m] [0m	Sort.class[0m
+[0m[[0mdebug[0m] [0m	  /root/spark-script/target/scala-2.10/classes/Sort.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m
