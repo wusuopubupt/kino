@@ -1,0 +1,23 @@
+[0m[[0minfo[0m] [0mPackaging /Users/dashwang/Project/kino/target/scala-2.10/kino_2.10-1.0.jar ...[0m
+[0m[[0mdebug[0m] [0mInput file mappings:[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$2.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$4$$anonfun$apply$1$$anonfun$apply$2.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$4$$anonfun$apply$1$$anonfun$apply$2.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$4$$anonfun$5.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$4$$anonfun$5.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$parseCatFeatures$1.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$parseCatFeatures$1.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$4$$anonfun$apply$1.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$4$$anonfun$apply$1.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$4.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$1.class[0m
+[0m[[0mdebug[0m] [0m	FeatureTrans$$anonfun$3.class[0m
+[0m[[0mdebug[0m] [0m	  /Users/dashwang/Project/kino/target/scala-2.10/classes/FeatureTrans$$anonfun$3.class[0m
+[0m[[0minfo[0m] [0mDone packaging.[0m

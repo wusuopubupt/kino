@@ -23,10 +23,11 @@ object FeatureTrans {
     }
 
     def main(args: Array[String]) {
-        val conf = new SparkConf().setMaster("yarn-cluster")
+        //val conf = new SparkConf().setMaster("yarn-cluster")
+        val conf = new SparkConf().setMaster("local[4]")
         val sc = new SparkContext(conf)
 
-        var ctrRDD = sc.textFile("file:///Users/dashwang/Project/kino/src/main/resouce/train.dat")
+        var ctrRDD = sc.textFile("file:///Users/dashwang/Project/kino/src/main/resource/ctr_feature/train.dat")
         println("Total records : " + ctrRDD.count)
 
         var train_raw_rdd = ctrRDD.cache()
@@ -89,7 +90,7 @@ object FeatureTrans {
         }
 
         ohe_train_rdd.take(10)
-        ohe_train_rdd.saveAsTextFile("file:///Users/dashwang/Project/kino/src/main/resouce/output/")
+        ohe_train_rdd.saveAsTextFile("file:///Users/dashwang/Project/kino/src/main/resource/output/")
         //res15: Array[org.apache.spark.mllib.regression.LabeledPoint] = 
         //  Array((0.0,[43127.0,50023.0,57445.0,13542.0,31092.0,14800.0,23414.0,54121.0,
         //     17554.0,2.0,15706.0,320.0,50.0,1722.0,0.0,35.0,0.0]))
