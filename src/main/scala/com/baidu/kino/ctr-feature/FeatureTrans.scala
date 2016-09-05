@@ -24,7 +24,9 @@ object FeatureTrans {
 
     def main(args: Array[String]) {
         //val conf = new SparkConf().setMaster("yarn-cluster")
-        val conf = new SparkConf().setMaster("local[4]")
+        val conf = new SparkConf()
+        conf.setAppName(this.getClass.getName)
+        conf.setMaster("local")
         val sc = new SparkContext(conf)
 
         var ctrRDD = sc.textFile("file:///Users/dashwang/Project/kino/src/main/resource/ctr_feature/train.dat")
