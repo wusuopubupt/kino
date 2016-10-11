@@ -1,9 +1,9 @@
-package com.mathandcs
+package com.mathandcs.kino.spark
 
 /**
  * @author ${user.name}
  */
-object HelloWorld {
+object TableJoin {
   
   def main(args : Array[String]) {
     println( "Hello World!" )
