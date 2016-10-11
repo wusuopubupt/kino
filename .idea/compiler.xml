@@ -22,10 +22,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="abacus" />
         <module name="helloworld" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="abacus" target="1.7" />
       <module name="helloworld" target="1.7" />
       <module name="kino" target="1.7" />
     </bytecodeTargetLevel>
