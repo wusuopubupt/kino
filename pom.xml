@@ -7,10 +7,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>helloworld</module>
-        <!--
-        <module>junit-playground</module>
-		<module>spark-playground</module>
-		-->
+        <module>abacus</module>
   </modules>
     <packaging>pom</packaging>
 
