@@ -1,4 +1,4 @@
-package com.mathandcs
+package com.mathandcs.kino
 
 /**
  * @author ${user.name}

@@ -1,4 +1,4 @@
-package com.mathandcs;
+package com.mathandcs.kino;
 
 public class HelloWorldJava {
     public static void main(String args[]) {
