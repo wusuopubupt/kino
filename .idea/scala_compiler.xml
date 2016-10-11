@@ -8,5 +8,12 @@
         <parameter value="$PROJECT_DIR$/helloworld/target/.scala_dependencies" />
       </parameters>
     </profile>
+    <profile name="Maven 2" modules="abacus">
+      <parameters>
+        <parameter value="-make:transitive" />
+        <parameter value="-dependencyfile" />
+        <parameter value="$PROJECT_DIR$/abacus/target/.scala_dependencies" />
+      </parameters>
+    </profile>
   </component>
 </project>
