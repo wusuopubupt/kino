@@ -22,12 +22,11 @@ import com.mathandcs.kino.utils.SparkUtil
 object WordCount {
   def main(args: Array[String]) {
     val sc = SparkUtil.sparkContext
-    // working directory: $MODULE_DIR$
-    val textFile = sc.textFile("src/main/resources/tags.txt")
+    val textFile = sc.textFile("abacus/src/main/resources/tags.txt")
     val counts = textFile.flatMap(line => line.split(" "))
       .map(word => (word, 1))
       .reduceByKey(_ + _)
 
-    counts.saveAsTextFile("src/main/resources/output/wordcount")
+    counts.saveAsTextFile("abacus/src/main/resources/output/wordcount")
   }
 }
