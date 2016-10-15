@@ -16,7 +16,7 @@
  */
 
 // scalastyle:off println
-package com.mathandcs.kino.examples
+package com.mathandcs.kino.agile.examples
 
 import org.apache.spark.SparkContext._
 import org.apache.spark.{SparkConf, SparkContext}

@@ -16,9 +16,9 @@
  */
 
 // scalastyle:off println
-package com.mathandcs.kino.examples
+package com.mathandcs.kino.agile.examples
 
-import com.mathandcs.kino.utils.SparkUtil
+import com.mathandcs.kino.agile.utils.SparkUtil
 import org.apache.spark._
 import org.apache.spark.storage.StorageLevel
 

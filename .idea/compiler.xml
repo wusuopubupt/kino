@@ -23,11 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="abacus" />
-        <module name="helloworld" />
+        <module name="agile" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="abacus" target="1.7" />
+      <module name="agile" target="1.7" />
       <module name="helloworld" target="1.7" />
       <module name="kino" target="1.7" />
     </bytecodeTargetLevel>

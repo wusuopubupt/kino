@@ -1,4 +1,4 @@
-package com.mathandcs.kino;
+package com.mathandcs.kino.agile;
 
 public class HelloWorldJava {
     public static void main(String args[]) {

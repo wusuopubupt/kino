@@ -15,29 +15,18 @@
  * limitations under the License.
  */
 
-// scalastyle:off println
-package com.mathandcs.kino.examples
+package com.mathandcs.kino.agile.examples
 
-import com.mathandcs.kino.utils.SparkUtil
-import org.apache.spark.SparkConf
+import com.mathandcs.kino.agile.utils.SparkUtil
 
-import scala.math.random
-
-/** Computes an approximation to pi */
-object SparkPi {
+object WordCount {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Spark Pi")
-    //val spark = new SparkContext(conf)
-    val spark = SparkUtil.sparkContext
-    val slices = if (args.length > 0) args(0).toInt else 2
-    val n = math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow
-    val count = spark.parallelize(1 until n, slices).map { i =>
-      val x = random * 2 - 1
-      val y = random * 2 - 1
-      if (x*x + y*y < 1) 1 else 0
-    }.reduce(_ + _)
-    println("Pi is roughly " + 4.0 * count / (n - 1))
-    spark.stop()
+    val sc = SparkUtil.sparkContext
+    val textFile = sc.textFile("abacus/src/main/resources/tags.txt")
+    val counts = textFile.flatMap(line => line.split(" "))
+      .map(word => (word, 1))
+      .reduceByKey(_ + _)
+
+    counts.saveAsTextFile("abacus/src/main/resources/output/wordcount")
   }
 }
-// scalastyle:on println

@@ -1,4 +1,4 @@
-package com.mathandcs.kino.examples.sql
+package com.mathandcs.kino.agile.examples.sql
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -18,7 +18,7 @@ package com.mathandcs.kino.examples.sql
  */
 
 // scalastyle:off println
-import com.mathandcs.kino.utils.SparkUtil
+import com.mathandcs.kino.agile.utils.SparkUtil
 import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._

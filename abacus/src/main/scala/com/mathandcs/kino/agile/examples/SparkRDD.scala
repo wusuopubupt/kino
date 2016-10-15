@@ -1,6 +1,6 @@
-package com.mathandcs.kino.examples
+package com.mathandcs.kino.agile.examples
 
-import com.mathandcs.kino.utils.SparkUtil
+import com.mathandcs.kino.agile.utils.SparkUtil
 
 /**
   * Created by wangdongxu on 10/11/16.

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/abacus/abacus.iml" filepath="$PROJECT_DIR$/abacus/abacus.iml" />
-      <module fileurl="file://$PROJECT_DIR$/helloworld/helloworld.iml" filepath="$PROJECT_DIR$/helloworld/helloworld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/agile/agile.iml" filepath="$PROJECT_DIR$/agile/agile.iml" />
       <module fileurl="file://$PROJECT_DIR$/kino.iml" filepath="$PROJECT_DIR$/kino.iml" />
     </modules>
   </component>
