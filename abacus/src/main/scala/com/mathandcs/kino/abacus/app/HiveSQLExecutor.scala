@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.inference.{InferRequest, InferResponse}
-import com.mathandcs.kino.abacus.io.DataReader
+import com.mathandcs.kino.abacus.io.{DataReader, DataWriter}
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.Logging
 import org.apache.spark.sql.{DataFrame, RowFactory}
@@ -49,8 +49,8 @@ class HiveSQLExecutor extends BaseApp {
         log.info(s"Skipping empty sql statement, before trimming sql is: [$query]")
       }
     }
-    log.info(s"Saving output data to : ${appConfig.outputTables(0).url}")
-    outputDF.rdd.saveAsTextFile(appConfig.outputTables(0).url)
+
+    DataWriter.save(outputDF, appConfig.outputTables(0).url, appConfig.outputTables(0).format)
   }
 }
 
