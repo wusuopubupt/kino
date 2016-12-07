@@ -14,7 +14,7 @@
       <entry name="!?*.aj" />
     </wildcardResourcePatterns>
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="false">
+      <profile default="true" name="Default" enabled="true">
         <processorPath useClasspath="true" />
       </profile>
       <profile default="false" name="Maven default annotation processors profile" enabled="true">
@@ -29,7 +29,6 @@
     <bytecodeTargetLevel>
       <module name="abacus" target="1.7" />
       <module name="agile" target="1.7" />
-      <module name="helloworld" target="1.7" />
       <module name="kino" target="1.7" />
     </bytecodeTargetLevel>
   </component>

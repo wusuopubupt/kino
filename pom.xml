@@ -8,6 +8,7 @@
     <modules>
         <module>abacus</module>
         <module>agile</module>
+        <module>effective-java</module>
     </modules>
     <dependencies>
         <dependency>
