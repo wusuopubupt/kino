@@ -12,6 +12,10 @@
     <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
+    <properties>
+        <quartz.version>2.2.3</quartz.version>
+    </properties>
+
     <dependencies>
         <!-- spark -->
         <dependency>
@@ -121,6 +125,16 @@
             <groupId>net.objecthunter</groupId>
             <artifactId>exp4j</artifactId>
             <version>0.4.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>${quartz.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz-jobs</artifactId>
+            <version>${quartz.version}</version>
         </dependency>
     </dependencies>
 
