@@ -14,6 +14,7 @@
 
     <properties>
         <quartz.version>2.2.3</quartz.version>
+        <spark.avro.version>2.0.1</spark.avro.version>
     </properties>
 
     <dependencies>
@@ -45,6 +46,11 @@
                     <artifactId>commons-compiler</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.databricks</groupId>
+            <artifactId>spark-avro${scala.version.suffix}</artifactId>
+            <version>${spark.avro.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>

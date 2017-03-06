@@ -2,9 +2,11 @@ package com.mathandcs.kino.abacus.app
 
 import java.lang.reflect.{ParameterizedType, Type}
 
+import org.json4s.jackson.Serialization.read
 import com.google.gson._
 import com.mathandcs.kino.abacus.app.config.AppConfig
 import org.apache.spark.Logging
+import org.json4s.DefaultFormats
 
 /**
   * Created by dash wang on 2/1/17.

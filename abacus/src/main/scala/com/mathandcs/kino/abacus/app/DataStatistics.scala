@@ -38,13 +38,13 @@ class DataStatistics extends BaseApp {
     )
   )
 
-  implicit val formats = native.Serialization.formats(NoTypeHints) + SqlDateSerializer
+   implicit val formats = native.Serialization.formats(NoTypeHints) + SqlDateSerializer
 
   // line number of current table
   var dataCount: Long = 0L
 
   override def run(config: AppConfig): Unit = {
-    val rawInputDF = DataImport.loadTSVToDataFrame(config.inputTables(0).url, config.inputTables(0).schema, null)
+    val rawInputDF = DataImport.loadToDataFrame(config.inputTables(0), null)
 
     // check partition not exceeding PARTITION_UPPER_BOUND
     if (PARTITION_UPPER_BOUND < rawInputDF.rdd.getNumPartitions) {
