@@ -10,6 +10,8 @@ import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.{StructType, _}
 import org.apache.spark.sql.{DataFrame, Row}
 
+import scala.collection.mutable.ListBuffer
+
 /**
   * Created by dash wang on 2/28/17.
   */
@@ -28,6 +30,10 @@ object DataImport extends Logging {
     "Short" -> ShortType,
     "Byte" -> ByteType
   )
+
+  val sparkSqlTypeToScalaTypeMap: Map[DataType, String] = scalaTypeToSparkSqlTypeMap.map {
+    _.swap
+  }
 
   val COLUMN_SEPARATOR = "\t"
 
@@ -102,6 +108,15 @@ object DataImport extends Logging {
     StructType(scalaSchema.map {
       case (filed) => StructField(filed.colName, transferScalaTypeToSparkSqlType(filed.colType))
     })
+  }
+
+  def transferSparkSqlSchemaToScalaSchema(sparkSqlSchema: StructType) = {
+    var scalaSchema = new ListBuffer[Field]
+    for (field <- sparkSqlSchema.fields) {
+      val scalaField = new Field(field.name, sparkSqlTypeToScalaTypeMap.apply(field.dataType))
+      scalaSchema += scalaField
+    }
+    scalaSchema.toList
   }
 
   def transferScalaTypeToSparkSqlType(scalaType: String): DataType = {

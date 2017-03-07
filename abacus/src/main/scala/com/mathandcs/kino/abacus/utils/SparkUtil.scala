@@ -16,10 +16,13 @@ object SparkUtil {
 
   var withHiveContext: Boolean = false
 
-  lazy val sqlContext = if (withHiveContext) getHiveContext else getSqlContext
-
   // function should be called precede sqlContext
-  def switchToHiveContext() = withHiveContext = true
+  def switchToHiveContext() = {
+    withHiveContext = true
+    this
+  }
+
+  lazy val sqlContext = if (withHiveContext) getHiveContext else getSqlContext
 
   lazy val javaSparkContext = getJavaSparkContext
 
