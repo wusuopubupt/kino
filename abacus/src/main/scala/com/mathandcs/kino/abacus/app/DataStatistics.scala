@@ -6,6 +6,7 @@ import java.sql.{Date, Timestamp}
 import com.mathandcs.kino.abacus.app.DataStatistics.StatisticsDataTypeEnum.StatisticsDataTypeEnum
 import com.mathandcs.kino.abacus.app.DataStatistics._
 import com.mathandcs.kino.abacus.config.AppConfig
+import com.mathandcs.kino.abacus.io.DataReader
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types._
@@ -44,7 +45,7 @@ class DataStatistics extends BaseApp {
   var dataCount: Long = 0L
 
   override def run(config: AppConfig): Unit = {
-    val rawInputDF = DataImport.loadToDataFrame(config.inputTables(0), null)
+    val rawInputDF = DataReader.loadToDataFrame(config.inputTables(0), null)
 
     // check partition not exceeding PARTITION_UPPER_BOUND
     if (PARTITION_UPPER_BOUND < rawInputDF.rdd.getNumPartitions) {

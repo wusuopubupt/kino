@@ -2,6 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.app.RegressionModelEval._
 import com.mathandcs.kino.abacus.config.AppConfig
+import com.mathandcs.kino.abacus.io.DataReader
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.sql.DataFrame
 import org.json4s.DefaultFormats
@@ -18,7 +19,7 @@ class RegressionModelEval extends BaseApp {
   var labelField: String = null
 
   override def run(appConfig: AppConfig): Unit = {
-    var rawInputDF = DataImport.loadToDataFrame(appConfig.inputTables(0), null)
+    var rawInputDF = DataReader.loadToDataFrame(appConfig.inputTables(0), null)
 
     scoreField = appConfig.extra.get("scoreField").toString
     labelField = appConfig.extra.get("labelField").toString

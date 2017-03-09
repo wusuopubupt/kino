@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.config.AppConfig
+import com.mathandcs.kino.abacus.io.DataReader
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.NullWritable
@@ -42,7 +43,7 @@ class TemporalSplit extends BaseApp {
     assert(splitOutputRoot != null && splitOutputRoot.length > 0, "split output path is null")
     assert(timestampCol != null && timestampCol.length > 0, "timestamp column is null")
 
-    val tableDF = DataImport.loadToDataFrame(config.inputTables(0), null)
+    val tableDF = DataReader.loadToDataFrame(config.inputTables(0), null)
 
     // better way: find first null value and break out
     val emptyTimestampColCount = tableDF.filter(s"$timestampCol is null").count()
@@ -73,7 +74,7 @@ class TemporalSplit extends BaseApp {
     val partitionNum = Math.ceil((endTime - startTime) / splitIntervalInSec).toShort
     log.info(s"Partition num: ${partitionNum}")
 
-    val instanceDF = DataImport.loadToDataFrame(config.inputTables(1), null)
+    val instanceDF = DataReader.loadToDataFrame(config.inputTables(1), null)
     val joinedPairRdd = broadcastJoin(instanceDF, timestampLineIdPairRDD, startTime, splitIntervalInSec, fileNumPerPartition)
     val subPathList = splitRDD(joinedPairRdd, partitionNum, splitOutputRoot)
     sc.parallelize(subPathList).saveAsTextFile(config.outputTables(0).url)

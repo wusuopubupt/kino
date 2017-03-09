@@ -2,6 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.inference.{InferRequest, InferResponse}
+import com.mathandcs.kino.abacus.io.DataReader
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.Logging
 import org.apache.spark.sql.{DataFrame, RowFactory}
@@ -24,7 +25,7 @@ class HiveSQLExecutor extends BaseApp {
 
     for (i <- appConfig.inputTables.indices) {
       try {
-        val data = DataImport.loadToDataFrame(appConfig.inputTables(0), null)
+        val data = DataReader.loadToDataFrame(appConfig.inputTables(0), null)
         val tableName = appConfig.extra.get("tableNames").asInstanceOf[java.util.List[String]].get(i)
         data.registerTempTable(tableName)
       } catch {
@@ -59,7 +60,7 @@ object HiveSQLExecutor extends Logging {
     // Create empty dataframe with specified schema
     for (table <- inferRequest.inputTables) {
       val rowRDD = SparkUtil.sparkContext.parallelize(List(RowFactory.create(AnyRef)))
-      val structType = DataImport.transferScalaSchemaToSparkSqlSchema(table.schema)
+      val structType = DataReader.transferScalaSchemaToSparkSqlSchema(table.schema)
       val df = SparkUtil.switchToHiveContext().sqlContext.createDataFrame(rowRDD, structType)
       df.registerTempTable(table.name)
     }
@@ -71,7 +72,7 @@ object HiveSQLExecutor extends Logging {
         val trimmedSql = statement.trim
         if (trimmedSql.length > 0) {
           val outputDF = SparkUtil.switchToHiveContext().sqlContext.sql(trimmedSql)
-          val outputSchema = DataImport.transferSparkSqlSchemaToScalaSchema(outputDF.schema)
+          val outputSchema = DataReader.transferSparkSqlSchemaToScalaSchema(outputDF.schema)
           val errors = List.empty[Error]
           inferResponse = new InferResponse(outputSchema, errors)
         } else {

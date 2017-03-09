@@ -2,6 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.app.ClassificationModelEval._
 import com.mathandcs.kino.abacus.config.AppConfig
+import com.mathandcs.kino.abacus.io.DataReader
 import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
 import org.apache.spark.Partitioner
 import org.apache.spark.sql.DataFrame
@@ -21,7 +22,7 @@ class ClassificationModelEval extends BaseApp {
   implicit val formats = DefaultFormats
 
   override def run(config: AppConfig): Unit = {
-    val rawInputDF = DataImport.loadToDataFrame(config.inputTables(0), null)
+    val rawInputDF = DataReader.loadToDataFrame(config.inputTables(0), null)
 
     val scoreField = config.extra.get("scoreField").toString
     val labelField = config.extra.get("labelField").toString

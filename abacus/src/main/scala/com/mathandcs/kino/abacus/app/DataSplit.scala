@@ -2,6 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.app.DataSplit.ColumnNames
 import com.mathandcs.kino.abacus.config.AppConfig
+import com.mathandcs.kino.abacus.io.DataReader
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
 import org.apache.spark.storage.StorageLevel
@@ -21,7 +22,7 @@ class DataSplit extends BaseApp {
   override def run(appConfig: AppConfig) = {
     configMap = appConfig.extra
     val splitMethod = DataSplit.MethodEnum(appConfig.extra.get("method").asInstanceOf[Int])
-    val df = DataImport.loadToDataFrame(appConfig.inputTables(0), null)
+    val df = DataReader.loadToDataFrame(appConfig.inputTables(0), null)
     val splittedDFs = splitMethod match {
       case DataSplit.MethodEnum.SplitByRatio => partitionByLevelAndSplitByRatio(df, configMap.get("levelBy").toString)
       case _ => throw new RuntimeException(s"Unsupported split method: ${splitMethod}")
