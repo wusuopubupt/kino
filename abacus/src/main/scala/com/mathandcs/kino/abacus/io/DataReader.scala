@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.app
+package com.mathandcs.kino.abacus.io
 
 import java.text.SimpleDateFormat
 
@@ -15,7 +15,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by dash wang on 2/28/17.
   */
-object DataImport extends Logging {
+object DataReader extends Logging {
 
   // refer: https://spark.apache.org/docs/1.6.1/sql-programming-guide.html
   val scalaTypeToSparkSqlTypeMap: Map[String, DataType] = Map(
