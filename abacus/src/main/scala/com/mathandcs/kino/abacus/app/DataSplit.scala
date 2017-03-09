@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.app.DataSplit.ColumnNames
 import com.mathandcs.kino.abacus.config.AppConfig
-import com.mathandcs.kino.abacus.io.DataReader
+import com.mathandcs.kino.abacus.io.{DataReader, DataWriter}
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.functions._
 import org.apache.spark.storage.StorageLevel
@@ -28,7 +28,7 @@ class DataSplit extends BaseApp {
       case _ => throw new RuntimeException(s"Unsupported split method: ${splitMethod}")
     }
     for (i <- splittedDFs.indices) {
-      splittedDFs(i).rdd.saveAsTextFile(appConfig.outputTables(i).url)
+      DataWriter.save(splittedDFs(i), appConfig.outputTables(i).url, appConfig.outputTables(i).format)
     }
   }
 
