@@ -1,0 +1,14 @@
+android apache api
+application archetype
+assets build build-system
+client clojure cloud codehaus
+config database doc
+eclipse example extension
+github google groovy gwt
+http ide io jboss json
+library logging maven
+module osgi persistence
+platform plugin resource rest
+scala sdk security server service spring
+testing ui web web-framework
+ webapp webserver xml
