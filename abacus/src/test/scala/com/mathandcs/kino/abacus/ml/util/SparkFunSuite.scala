@@ -2,12 +2,12 @@ package com.mathandcs.kino.abacus.ml.util
 
 // scalastyle:off
 import org.apache.spark.Logging
-import org.scalatest.{FunSuite, Outcome}
+import org.scalatest.{FunSpec, Outcome}
 
 /**
   * Base abstract class for all unit tests in Spark for handling common functionality.
   */
-private abstract class SparkFunSuite extends FunSuite with Logging {
+abstract class SparkFuncSpecWithLog extends FunSpec with Logging {
   // scalastyle:on
 
   /**

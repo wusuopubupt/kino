@@ -23,7 +23,7 @@ import com.mathandcs.kino.abacus.ml.rdd.RDDFunctions._
 /**
  * Computes the area under the curve (AUC) using the trapezoidal rule.
  */
-private[evaluation] object AreaUnderCurve {
+object AreaUnderCurve {
 
   /**
    * Uses the trapezoidal rule to compute the area under the line connecting the two input points.
