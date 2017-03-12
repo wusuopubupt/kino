@@ -1,6 +1,6 @@
-package com.mathandcs.kino.agile.examples.sql
+package com.mathandcs.kino.abacus.examples.sql
 
-import com.mathandcs.kino.agile.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtil
 
 /**
   * Created by wangdongxu on 10/13/16.

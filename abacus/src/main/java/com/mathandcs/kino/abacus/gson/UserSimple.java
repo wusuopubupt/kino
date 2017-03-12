@@ -1,4 +1,4 @@
-package com.mathandcs.kino.agile.gson;
+package com.mathandcs.kino.abacus.gson;
 
 import com.google.gson.annotations.Expose;
 import lombok.Data;

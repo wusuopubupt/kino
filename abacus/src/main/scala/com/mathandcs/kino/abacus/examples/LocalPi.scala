@@ -15,18 +15,23 @@
  * limitations under the License.
  */
 
-package com.mathandcs.kino.agile.examples
+// scalastyle:off println
+package com.mathandcs.kino.abacus.examples
 
-import com.mathandcs.kino.agile.utils.SparkUtil
+import scala.math.random
 
-object WordCount {
+import org.apache.spark._
+import org.apache.spark.SparkContext._
+
+object LocalPi {
   def main(args: Array[String]) {
-    val sc = SparkUtil.sparkContext
-    val textFile = sc.textFile("abacus/src/main/resources/tags.txt")
-    val counts = textFile.flatMap(line => line.split(" "))
-      .map(word => (word, 1))
-      .reduceByKey(_ + _)
-
-    counts.saveAsTextFile("abacus/src/main/resources/output/wordcount")
+    var count = 0
+    for (i <- 1 to 100000) {
+      val x = random * 2 - 1
+      val y = random * 2 - 1
+      if (x*x + y*y < 1) count += 1
+    }
+    println("Pi is roughly " + 4 * count / 100000.0)
   }
 }
+// scalastyle:on println

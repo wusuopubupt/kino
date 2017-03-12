@@ -1,4 +1,4 @@
-package com.mathandcs.kino.agile.yaml;
+package com.mathandcs.kino.abacus.yaml;
 
 import com.esotericsoftware.yamlbeans.YamlWriter;
 import org.junit.After;
@@ -26,9 +26,19 @@ public class MockUserTest {
 
     @Test
     public void testYamlWriter() throws Exception{
-        MockUser user = new MockUser();
-        user.name = "";
-        user.sex = "man";
+        MockUser user = new MockUser(2);
+
+        MockUser.Student stu1 = new MockUser.Student();
+        stu1.age = 1;
+        stu1.name = "Tom";
+        stu1.sex = "man";
+        user.students.add(stu1);
+
+        MockUser.Student stu2 = new MockUser.Student();
+        stu2.age = 2;
+        stu2.name = "";
+        stu2.sex = "";
+        user.students.add(stu2);
 
         YamlWriter writer = new YamlWriter(new FileWriter("/tmp/output.yml"));
         writer.getConfig().setClassTag("str", String.class);

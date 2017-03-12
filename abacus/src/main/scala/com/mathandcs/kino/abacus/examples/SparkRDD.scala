@@ -1,6 +1,6 @@
-package com.mathandcs.kino.agile.examples
+package com.mathandcs.kino.abacus.examples
 
-import com.mathandcs.kino.agile.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.rdd.RDD
 
 /**

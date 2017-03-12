@@ -16,27 +16,36 @@
  */
 
 // scalastyle:off println
-package com.mathandcs.kino.agile.examples
+package com.mathandcs.kino.abacus.examples
 
-import com.mathandcs.kino.agile.utils.SparkUtil
-import org.apache.spark.SparkConf
+import com.mathandcs.kino.abacus.utils.SparkUtil
+import org.apache.spark._
+import org.apache.spark.storage.StorageLevel
 
 import scala.math.random
 
-/** Computes an approximation to pi */
-object SparkPi {
+/**
+ *  Computes an approximation to pi
+ *  This example uses Tachyon to persist rdds during computation.
+ */
+object SparkTachyonPi {
   def main(args: Array[String]) {
-    val conf = new SparkConf().setAppName("Spark Pi")
-    //val spark = new SparkContext(conf)
+    val sparkConf = new SparkConf().setAppName("SparkTachyonPi")
+    //val spark = new SparkContext(sparkConf)
     val spark = SparkUtil.sparkContext
+
     val slices = if (args.length > 0) args(0).toInt else 2
-    val n = math.min(100000L * slices, Int.MaxValue).toInt // avoid overflow
-    val count = spark.parallelize(1 until n, slices).map { i =>
+    val n = 100000 * slices
+
+    val rdd = spark.parallelize(1 to n, slices)
+    rdd.persist(StorageLevel.OFF_HEAP)
+    val count = rdd.map { i =>
       val x = random * 2 - 1
       val y = random * 2 - 1
-      if (x*x + y*y < 1) 1 else 0
+      if (x * x + y * y < 1) 1 else 0
     }.reduce(_ + _)
-    println("Pi is roughly " + 4.0 * count / (n - 1))
+    println("Pi is roughly " + 4.0 * count / n)
+
     spark.stop()
   }
 }

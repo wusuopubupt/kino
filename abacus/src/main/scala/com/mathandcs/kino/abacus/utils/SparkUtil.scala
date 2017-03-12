@@ -1,4 +1,4 @@
-package com.mathandcs.kino.agile.utils
+package com.mathandcs.kino.abacus.utils
 
 import org.apache.spark.{SparkConf, SparkContext}
 

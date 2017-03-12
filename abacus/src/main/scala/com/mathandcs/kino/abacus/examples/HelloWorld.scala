@@ -1,4 +1,4 @@
-package com.mathandcs.kino.agile.examples
+package com.mathandcs.kino.abacus.examples
 
 /**
  * @author ${user.name}
