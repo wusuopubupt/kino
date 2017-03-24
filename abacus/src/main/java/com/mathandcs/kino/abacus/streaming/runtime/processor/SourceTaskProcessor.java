@@ -18,6 +18,7 @@ public class SourceTaskProcessor implements TaskProcessor {
 
     @Override
     public boolean process() throws Exception {
-        sourceOperator.run();
+        //sourceOperator.run();
+        return true;
     }
 }

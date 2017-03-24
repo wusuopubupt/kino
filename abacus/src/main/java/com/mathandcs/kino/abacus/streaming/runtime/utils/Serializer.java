@@ -1,7 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.runtime.utils;
 
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.Kryo.DefaultInstantiatorStrategy;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -170,7 +169,7 @@ public class Serializer {
 
         kryo.setClassLoader(Thread.currentThread().getContextClassLoader());
         kryo.setReferences(true);
-        kryo.setInstantiatorStrategy(new DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
+        //kryo.setInstantiatorStrategy(new DefaultInstantiatorStrategy(new StdInstantiatorStrategy()));
 
         kryo.register(Arrays.asList("").getClass(), new ArraysAsListSerializer());
         kryo.register(Collections.EMPTY_LIST.getClass(), new DefaultSerializers.CollectionsEmptyListSerializer());

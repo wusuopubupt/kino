@@ -20,7 +20,7 @@ public class MapOperator<T, R> extends AbstractOperator<R, MapFunction<T, R>> im
     public void processElement(StreamRecord<T> record) throws Exception {
         R result = userFunction.map(record.getValue());
         record.replaceValueWith(result);
-        output.collect(record.replaceValueWith(result));
+        //output.collect(record.replaceValueWith(result));
     }
 
     @Override

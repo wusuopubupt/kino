@@ -19,8 +19,6 @@ public class LocalExecutionEnvironment extends ExecutionEnvironment {
         super(config);
     }
 
-
-
     @Override
     public JobExecutionResult execute(StreamGraph streamGraph) throws Exception {
         executeStreamGraph(streamGraph);
@@ -38,8 +36,6 @@ public class LocalExecutionEnvironment extends ExecutionEnvironment {
             } catch (Exception e) {
                 LOG.warn("Failed to open operator.", e);
             }
-
-            source.getOperator().
         }
 
     }

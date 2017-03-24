@@ -1,14 +1,13 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
-import com.google.common.base.MoreObjects;
-import com.mathandcs.kino.abacus.streaming.api.collector.Output;
 import com.mathandcs.kino.abacus.streaming.api.context.RuntimeContext;
 import com.mathandcs.kino.abacus.streaming.api.functions.Function;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
-import java.io.Serializable;
 import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
 
 public abstract class AbstractOperator<OUT, Func extends Function> implements Operator<OUT>, Serializable {
 
@@ -19,7 +18,7 @@ public abstract class AbstractOperator<OUT, Func extends Function> implements Op
 
     protected ChainingStrategy chainingStrategy = ChainingStrategy.HEAD;
 
-    protected transient Output<StreamRecord<OUT>> output;
+    //protected transient Output<StreamRecord<OUT>> output;
 
     private transient RuntimeContext runtimeContext;
 

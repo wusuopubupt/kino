@@ -16,7 +16,9 @@ public class Worker {
     private final ArrayBlockingQueue<StreamElement> inputQueue = new ArrayBlockingQueue<>(512);
     private final ArrayBlockingQueue<StreamElement> outputQueue = new ArrayBlockingQueue<>(512);
 
-
-
-
+    public Worker(String host, int port, Thread receiverThread) {
+        this.host = host;
+        this.port = port;
+        this.receiverThread = receiverThread;
+    }
 }

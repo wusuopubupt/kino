@@ -20,7 +20,7 @@ public class FilterOperator<T> extends AbstractOperator<T, FilterFunction<T>> im
     public void processElement(StreamRecord<T> record) throws Exception {
         T in = record.getValue();
         if (userFunction.filter(in)) {
-            output.collect(record);
+            //output.collect(record);
         }
     }
 
