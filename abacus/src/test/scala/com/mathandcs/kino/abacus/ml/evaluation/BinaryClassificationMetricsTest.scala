@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.ml.evaluation
 
-import com.mathandcs.kino.abacus.ml.util.MLlibTestSparkContext
+import com.mathandcs.kino.abacus.ml.util.{AbacusFlatSpec, AbacusTestSparkContext}
 import com.mathandcs.kino.abacus.ml.util.TestingUtils._
 import org.apache.spark.Logging
 import org.scalatest.FlatSpec
@@ -8,18 +8,18 @@ import org.scalatest.FlatSpec
 /**
   * Created by dashwang on 3/12/17.
   */
-class BinaryClassificationMetricsTest extends FlatSpec with Logging with MLlibTestSparkContext{
+class BinaryClassificationMetricsTest extends AbacusFlatSpec with Logging with AbacusTestSparkContext{
 
   def areWithinEpsilon(x: (Double, Double)): Boolean = x._1 ~= (x._2) absTol 1E-5
 
   def pairsWithinEpsilon(x: ((Double, Double), (Double, Double))): Boolean =
     (x._1._1 ~= x._2._1 absTol 1E-5) && (x._1._2 ~= x._2._2 absTol 1E-5)
 
-  def assertSequencesMatch(left: Array[Double], right: Seq[Double]): Unit = {
+  def assertSequencesMatch(left: Seq[Double], right: Seq[Double]): Unit = {
     assert(left.zip(right).forall(areWithinEpsilon))
   }
 
-  def assertTupleSequencesMatch(left: Array[(Double, Double)],
+  def assertTupleSequencesMatch(left: Seq[(Double, Double)],
                                         right: Seq[(Double, Double)]): Unit = {
     assert(left.zip(right).forall(pairsWithinEpsilon))
   }
