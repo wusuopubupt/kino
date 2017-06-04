@@ -17,7 +17,7 @@ public class AnnotationUtil {
             if (field.isAnnotationPresent(IntType.class)) {
                 IntType intVal = field.getAnnotation(IntType.class);
 
-                map.put(intVal.key(),
+                map.put(field.getName(),
                         new FloatType(intVal.defaultValue(), intVal.min() * 1.0f, intVal.max() * 1.0f, intVal.openClose()));
             }
         }
