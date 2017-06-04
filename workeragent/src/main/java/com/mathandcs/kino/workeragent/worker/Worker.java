@@ -1,6 +1,6 @@
 package com.mathandcs.kino.workeragent.worker;
 
-import com.mathandcs.kino.workeragent.task.Task;
+import com.mathandcs.kino.workeragent.core.Task;
 
 /**
  * Created by wangdongxu on 6/3/17.

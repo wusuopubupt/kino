@@ -2,8 +2,9 @@ package com.mathandcs.kino.workeragent;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.*;
-import com.mathandcs.kino.workeragent.task.Task;
-import com.mathandcs.kino.workeragent.task.impl.MockTask;
+import com.mathandcs.kino.workeragent.client.TaskManagerClient;
+import com.mathandcs.kino.workeragent.client.TaskManagerClientImpl;
+import com.mathandcs.kino.workeragent.core.Task;
 import com.mathandcs.kino.workeragent.worker.Worker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,8 @@ public class WorkerAgent implements CommandLineRunner {
 
     @Autowired
     private WorkerRegister workerRegister = new WorkerRegister();
+    @Autowired
+    private TaskManagerClient taskManagerClient = new TaskManagerClientImpl();
     @Value("${server.port}")
     private int workerAgentPort;
 
@@ -76,7 +79,7 @@ public class WorkerAgent implements CommandLineRunner {
 
     private Task pullTask() {
         // TODO
-        return new MockTask();
+        return taskManagerClient.pullTask();
     }
 
     private void runTask(final Task task) throws Exception {

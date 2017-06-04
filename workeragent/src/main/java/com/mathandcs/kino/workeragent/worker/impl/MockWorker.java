@@ -1,7 +1,7 @@
 package com.mathandcs.kino.workeragent.worker.impl;
 
 import com.google.common.base.Preconditions;
-import com.mathandcs.kino.workeragent.task.Task;
+import com.mathandcs.kino.workeragent.core.Task;
 import com.mathandcs.kino.workeragent.worker.Worker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
