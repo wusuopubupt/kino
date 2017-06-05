@@ -1,7 +1,7 @@
 #!/bin/bash
 set -xe
 class_path="../target/workeragent-0.0.1-SNAPSHOT.jar:../target/dependency/*"
-entrance="com.mathandcs.kino.workeragent.WorkerAgent"
+entrance="com.mathandcs.kino.workeragent.Application"
 spring_profile="prd"
 server_port="8080"
 log_dir="../logs"
