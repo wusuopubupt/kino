@@ -12,7 +12,6 @@
         <module>abacus</module>
         <module>agile</module>
         <module>effective-java</module>
-        <module>workeragent</module>
     </modules>
 
     <properties>
