@@ -1,7 +1,7 @@
 package com.mathandcs.kino.abacus.workeragent;
 
-import com.mathandcs.kino.workeragent.worker.Worker;
-import com.mathandcs.kino.workeragent.worker.WorkerInfo;
+import com.mathandcs.kino.abacus.workers.Worker;
+import com.mathandcs.kino.abacus.workers.WorkerInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

@@ -2,10 +2,10 @@ package com.mathandcs.kino.abacus.workeragent;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.*;
-import com.mathandcs.kino.workeragent.client.TaskManagerClient;
-import com.mathandcs.kino.workeragent.client.TaskManagerClientImpl;
-import com.mathandcs.kino.workeragent.core.Task;
-import com.mathandcs.kino.workeragent.worker.Worker;
+import com.mathandcs.kino.abacus.core.Task;
+import com.mathandcs.kino.abacus.workeragent.client.TaskManagerClient;
+import com.mathandcs.kino.abacus.workeragent.client.TaskManagerClientImpl;
+import com.mathandcs.kino.abacus.workers.Worker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

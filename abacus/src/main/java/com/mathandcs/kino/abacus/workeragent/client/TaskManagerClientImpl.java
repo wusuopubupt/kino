@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.workeragent.client;
 
-import com.mathandcs.kino.workeragent.core.Task;
+import com.mathandcs.kino.abacus.core.Task;
 import org.springframework.stereotype.Component;
 
 /**
