@@ -5,8 +5,8 @@ package com.mathandcs.kino.abacus.workflow;
  */
 public class WorkflowRunner implements Runnable {
 
-	@Override 	
-	public void run() {}
+    @Override
+    public void run() {
 
-
+    }
 }

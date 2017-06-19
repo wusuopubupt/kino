@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.workeragent.core;
+package com.mathandcs.kino.abacus.core;
 
 import lombok.Data;
 

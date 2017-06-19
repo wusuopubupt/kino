@@ -1,6 +1,6 @@
-package com.mathandcs.kino.abacus.workeragent.worker;
+package com.mathandcs.kino.abacus.workers;
 
-import com.mathandcs.kino.workeragent.core.Task;
+import com.mathandcs.kino.abacus.core.Task;
 
 /**
  * Created by wangdongxu on 6/3/17.

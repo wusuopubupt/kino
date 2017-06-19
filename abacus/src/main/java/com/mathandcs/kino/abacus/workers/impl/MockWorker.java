@@ -1,8 +1,8 @@
-package com.mathandcs.kino.abacus.workeragent.worker.impl;
+package com.mathandcs.kino.abacus.workers.impl;
 
 import com.google.common.base.Preconditions;
-import com.mathandcs.kino.workeragent.core.Task;
-import com.mathandcs.kino.workeragent.worker.Worker;
+import com.mathandcs.kino.abacus.core.Task;
+import com.mathandcs.kino.abacus.workers.Worker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
