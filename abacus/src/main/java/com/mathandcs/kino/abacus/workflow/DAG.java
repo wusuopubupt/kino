@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.workflow.graph;
+package com.mathandcs.kino.abacus.workflow;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

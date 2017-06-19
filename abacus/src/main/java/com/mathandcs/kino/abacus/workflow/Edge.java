@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.workflow.graph;
+package com.mathandcs.kino.abacus.workflow;
 
 import lombok.Data;
 

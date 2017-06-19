@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.workeragent;
 
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.*;
-import com.mathandcs.kino.abacus.core.Task;
+import com.mathandcs.kino.abacus.workflow.Task;
 import com.mathandcs.kino.abacus.workeragent.client.TaskManagerClient;
 import com.mathandcs.kino.abacus.workeragent.client.TaskManagerClientImpl;
 import com.mathandcs.kino.abacus.workers.Worker;

@@ -1,9 +1,9 @@
-package com.mathandcs.kino.abacus.core;
+package com.mathandcs.kino.abacus.workflow;
 
 import lombok.Data;
 
 /**
- * Created by wangdongxu on 6/4/17.
+ * Created by dashwang on 6/4/17.
  */
 @Data
 public class Task {
