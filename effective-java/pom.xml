@@ -34,6 +34,10 @@
     </pluginRepositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+        </dependency>
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
