@@ -1,5 +1,8 @@
 package com.mathandcs.kino.abacus.workflow;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +12,7 @@ import java.util.List;
 /**
  * Created by dashwang on 6/14/17.
  */
+@Data
 public class DAG {
 
     private int id;
@@ -54,5 +58,19 @@ public class DAG {
             this.endNodes = new ArrayList<>();
 
         }
+    }
+
+    /**
+     * Build DAG structure from input object
+     *
+     * @param flowObject
+     * @return DAG
+     */
+    public DAG loadDAGFromObject(JsonObject flowObject) {
+        DAG dag = new DAG();
+
+        // Loading nodes
+        JsonArray nodeList = flowObject.get("nodes").getAsJsonArray();
+        return dag;
     }
 }

@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.workflow.job;
 
+import com.mathandcs.kino.abacus.exception.JobExecutionException;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class commandLineJob extends Job {
         private String stdErr;
     }
 
-    private ExecutorResult execute(String... command) throws JobException {
+    private ExecutorResult execute(String... command) throws JobExecutionException {
 
         ExecutorResult result = new ExecutorResult();
         StringBuffer stdOutBuffer = new StringBuffer();
@@ -70,7 +71,7 @@ public class commandLineJob extends Job {
             result.setExitCode(p.exitValue());
 
         } catch (Exception e) {
-            throw new JobException("Command execution failed.", e);
+            throw new JobExecutionException("Command execution failed.", e);
         }
 
         return result;
