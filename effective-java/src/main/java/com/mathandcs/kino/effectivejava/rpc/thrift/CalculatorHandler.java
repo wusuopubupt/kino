@@ -35,15 +35,18 @@ public class CalculatorHandler implements Calculator.Iface {
         log = new HashMap<Integer, SharedStruct>();
     }
 
+    @Override
     public void ping() {
         System.out.println("ping()");
     }
 
+    @Override
     public int add(int n1, int n2) {
         System.out.println("add(" + n1 + "," + n2 + ")");
         return n1 + n2;
     }
 
+    @Override
     public int calculate(int logid, Work work) throws InvalidOperation {
         System.out.println("calculate(" + logid + ", {" + work.op + "," + work.num1 + "," + work.num2 + "})");
         int val = 0;
@@ -81,11 +84,13 @@ public class CalculatorHandler implements Calculator.Iface {
         return val;
     }
 
+    @Override
     public SharedStruct getStruct(int key) {
         System.out.println("getStruct(" + key + ")");
         return log.get(key);
     }
 
+    @Override
     public void zip() {
         System.out.println("zip()");
     }
