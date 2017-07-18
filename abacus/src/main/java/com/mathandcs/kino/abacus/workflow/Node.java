@@ -10,9 +10,15 @@ public class Node {
 
     private int id;
     private String type;
+    private NodeStatus status;
 
     public Node(int id) {
         this.id = id;
+    }
+
+    // check if input is ready
+    public boolean isInputReady() {
+        return false;
     }
 
 }

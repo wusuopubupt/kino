@@ -25,32 +25,12 @@ public class DAG {
     private static final Logger LOGGER = LoggerFactory.getLogger(DAG.class);
 
     /**
-     * 0   1
-     * 2
-     * 3   4
-     * <p>
-     * {
-     * "input_edges" : {
-     * 2 : 0,
-     * 2 : 1,
-     * 3 : 2,
-     * 4 : 3
-     * }
-     * "output_edges" : {
-     * 0 : 0,
-     * 1 : 1,
-     * 2 : 2,3
-     * }
-     * "nodes" : [0,1,2,3,4]
-     * },
-     * "edges": [
-     * [0,2],
-     * [1,2],
-     * [2,3],
-     * [2,4]
-     * ]
-     * }
-     * }
+     *      0
+     *      |
+     *      1    2
+     *      |
+     *      3
+     *
      */
     public void initialize() {
         if (this.startNodes == null) {

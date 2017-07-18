@@ -1,24 +1,25 @@
 package com.mathandcs.kino.abacus.workflow;
 
-import lombok.Data;
-
 /**
- * Created by dashwang on 6/14/17.
+ * Created by dashwang on 27/10/2016.
  */
-@Data
-public class NodeStatus {
+public enum NodeStatus {
+    SELECTED(5),
+    AWAITING(0),
+    RUNNING(1),
+    SUCCEEDED(2),
+    FAILED(3),
+    TERMINATED(5);
 
-    private int id;
-    private String type;
-    private NodeStatus status;
 
-    public NodeStatus(int id) {
-        this.id = id;
+    private final int value;
+
+    NodeStatus(int value) {
+        this.value = value;
     }
 
-    // check if input is ready
-    public boolean isInputReady() {
-        return false;
+    public int getValue() {
+        return this.value;
     }
 
 }
