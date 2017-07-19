@@ -1,7 +1,9 @@
 ### DAGScheduler
 
 --
-DAGScheduler把RDD Lineage(逻辑计划)转化成tage DAG（物理计划）执行。
+DAGScheduler把RDD血缘关系(逻辑计划)转化成由Stage组成的DAG(物理计划）执行。
+
+内部依赖SparkContext， TaskScheduler， BlockManagerMaster， MapOutputTrackerMaster和LiveListenerBus等模块， 现仅对事件调度做分析。
 
 #### 0. 关键成员变量
 
@@ -15,6 +17,7 @@ DAGScheduler把RDD Lineage(逻辑计划)转化成tage DAG（物理计划）执�
   private[scheduler] val jobIdToStageIds = new HashMap[Int, HashSet[Int]]
   // stageId -> stage
   private[scheduler] val stageIdToStage = new HashMap[Int, Stage]
+  // shuffleId -> shuffleMapStage
   private[scheduler] val shuffleToMapStage = new HashMap[Int, ShuffleMapStage]
 
   // 待运行、运行中和运行失败的Stage
@@ -32,6 +35,9 @@ DAGScheduler把RDD Lineage(逻辑计划)转化成tage DAG（物理计划）执�
   
 
 #### 1. DAGSchedulerEventLoop：
+
+DAGScheduler提供的核心功能就是利用DAGSchedulerEventLoop这个事件循环处理各种DAGSchedulerEvent
+
 ```scala
 /* 继承自EventLoop抽象类 */
 private[scheduler] class DAGSchedulerEventProcessLoop(dagScheduler: DAGScheduler)
@@ -71,7 +77,23 @@ private[scheduler] class DAGSchedulerEventProcessLoop(dagScheduler: DAGScheduler
 
 #### 2. DAGSchedulerEvent
 
-定义了一系列DAGSchedulerEvent类型的case class
+定义了一系列DAGSchedulerEvent类型的case class, 包括：
+
+* JobSubmitted
+* MapStageSubmitted
+* StageCancelled
+* JobCancelled
+* JobGroupCancelled
+* AllJobsCancelled
+* BeginEvent
+* GettingResultEvent
+* CompletionEvent
+* ExecutorAdded
+* ExecutorLost
+* TaskSetFailed
+* ResubmitFailedStages
+
+在DAGScheduler内部实现的DAGSchedulerEventProcessLoop会对上面声明的各种event做onReceive()处理。
 
 ```scala
 package org.apache.spark.scheduler
@@ -152,6 +174,123 @@ private[scheduler] case object ResubmitFailedStages extends DAGSchedulerEvent
 
 ```
 
-#### 3. 
+#### 3. submitJob事件
+流层图如下：
+![](../images/DAGScheduler-submitJob.png)
+
+DAGScheduler内部其实用了2个EventLoop： DAGSchedulerEventProcessLoop和ListenerBus
+
+**handleJobSubmitted**内部调用submitStage方法,这里会根据RDD的依赖关系，递归的查找上游依赖的stage并执行submitStatge方法
+
+```scala
+ /** Submits stage, but first recursively submits any missing parents. */
+  private def submitStage(stage: Stage) {
+    val jobId = activeJobForStage(stage)
+    if (jobId.isDefined) {
+      logDebug("submitStage(" + stage + ")")
+      if (!waitingStages(stage) && !runningStages(stage) && !failedStages(stage)) {
+        val missing = getMissingParentStages(stage).sortBy(_.id)
+        logDebug("missing: " + missing)
+        // 如果当前stage上游没有带运行的stage，直接提交task
+        if (missing.isEmpty) {
+          logInfo("Submitting " + stage + " (" + stage.rdd + "), which has no missing parents")
+          submitMissingTasks(stage, jobId.get)
+        } else {
+          for (parent <- missing) {
+            submitStage(parent)
+          }
+          waitingStages += stage
+        }
+      }
+    } else {
+      abortStage(stage, "No active job for stage " + stage.id, None)
+    }
+  }
+```
+submitStage内部调用了getMissingParentStage方法:
+
+```scala
+  private def getMissingParentStages(stage: Stage): List[Stage] = {
+    val missing = new HashSet[Stage]
+    val visited = new HashSet[RDD[_]]
+    // We are manually maintaining a stack here to prevent StackOverflowError
+    // caused by recursively visiting
+    val waitingForVisit = new Stack[RDD[_]]
+    def visit(rdd: RDD[_]) {
+      if (!visited(rdd)) {
+        visited += rdd
+        val rddHasUncachedPartitions = getCacheLocs(rdd).contains(Nil)
+        if (rddHasUncachedPartitions) {
+          // 根据stage中RDD的依赖获取上游需要执行的shuffleMapStage
+          for (dep <- rdd.dependencies) {
+            dep match {
+               // 宽依赖，根据shufDep.shuffleId获取stage
+              case shufDep: ShuffleDependency[_, _, _] =>
+                val mapStage = getShuffleMapStage(shufDep, stage.firstJobId)
+                if (!mapStage.isAvailable) {
+                  missing += mapStage
+                }
+              // 窄依赖，则继续递归 
+              case narrowDep: NarrowDependency[_] =>
+                waitingForVisit.push(narrowDep.rdd)
+            }
+          }
+        }
+      }
+    }
+    waitingForVisit.push(stage.rdd)
+    while (waitingForVisit.nonEmpty) {
+      visit(waitingForVisit.pop())
+    }
+    missing.toList
+  }
+```
+
+**JobWaiter**接口：
+
+```scala
+
+  // job成功，设置jobResult为JobSucceeded, 并执行notifyAll
+  override def taskSucceeded(index: Int, result: Any): Unit = synchronized {
+    if (_jobFinished) {
+      throw new UnsupportedOperationException("taskSucceeded() called on a finished JobWaiter")
+    }
+    resultHandler(index, result.asInstanceOf[T])
+    finishedTasks += 1
+    if (finishedTasks == totalTasks) {
+      _jobFinished = true
+      jobResult = JobSucceeded
+      this.notifyAll()
+    }
+  }
+
+  // job失败，设置jobResult为JobFailed, 并执行notifyAll
+  override def jobFailed(exception: Exception): Unit = synchronized {
+    _jobFinished = true
+    jobResult = JobFailed(exception)
+    this.notifyAll()
+  }
+
+  // awaitResult使线程执行wait
+  def awaitResult(): JobResult = synchronized {
+    while (!_jobFinished) {
+      this.wait()
+    }
+    return jobResult
+  }
+```
+
+**JobWatcher**的使用：wait直到其他线程有notify：
+
+```scala
+    val waiter = submitJob(rdd, func, partitions, callSite, resultHandler, properties)
+    waiter.awaitResult() match {
+      case JobSucceeded => ...
+      case JobFailed(exception: Exception) => ...
+    }
+
+```
+
+
 
 
