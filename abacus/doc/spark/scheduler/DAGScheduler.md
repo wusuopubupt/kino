@@ -1,7 +1,37 @@
 ### DAGScheduler
 
-#### 1. DAGScheduler Transforming RDD Lineage(逻辑计划) Into Stage DAG（物理计划）
-#### 2. DAGSchedulerEventLoop：
+--
+DAGScheduler把RDD Lineage(逻辑计划)转化成tage DAG（物理计划）执行。
+
+#### 0. 关键成员变量
+
+```scala
+  // job、stage的关联
+  // next job ID
+  private[scheduler] val nextJobId = new AtomicInteger(0)
+  // next stage ID
+  private val nextStageId = new AtomicInteger(0)
+  // jobId -> {stageId1, stageId2 ... stageIdN}
+  private[scheduler] val jobIdToStageIds = new HashMap[Int, HashSet[Int]]
+  // stageId -> stage
+  private[scheduler] val stageIdToStage = new HashMap[Int, Stage]
+  private[scheduler] val shuffleToMapStage = new HashMap[Int, ShuffleMapStage]
+
+  // 待运行、运行中和运行失败的Stage
+  private[scheduler] val waitingStages = new HashSet[Stage]
+  private[scheduler] val runningStages = new HashSet[Stage
+  private[scheduler] val failedStages = new HashSet[Stage]
+
+  // RDD的cache位置， rddId -> [0:host0, 1:host2 ... n:hostx]
+  private val cacheLocs = new HashMap[Int, IndexedSeq[Seq[TaskLocation]]]
+
+  // eventLoop
+  private[scheduler] val eventProcessLoop = new DAGSchedulerEventProcessLoop(this)
+  taskScheduler.setDAGScheduler(this)
+```
+  
+
+#### 1. DAGSchedulerEventLoop：
 ```scala
 /* 继承自EventLoop抽象类 */
 private[scheduler] class DAGSchedulerEventProcessLoop(dagScheduler: DAGScheduler)
@@ -31,61 +61,18 @@ private[scheduler] class DAGSchedulerEventProcessLoop(dagScheduler: DAGScheduler
     case JobSubmitted(jobId, rdd, func, partitions, callSite, listener, properties) =>
       dagScheduler.handleJobSubmitted(jobId, rdd, func, partitions, callSite, listener, properties)
 
-    case MapStageSubmitted(jobId, dependency, callSite, listener, properties) =>
-      dagScheduler.handleMapStageSubmitted(jobId, dependency, callSite, listener, properties)
-
-    case StageCancelled(stageId) =>
-      dagScheduler.handleStageCancellation(stageId)
-
-    case JobCancelled(jobId) =>
-      dagScheduler.handleJobCancellation(jobId)
-
-    case JobGroupCancelled(groupId) =>
-      dagScheduler.handleJobGroupCancelled(groupId)
-
-    case AllJobsCancelled =>
-      dagScheduler.doCancelAllJobs()
-
-    case ExecutorAdded(execId, host) =>
-      dagScheduler.handleExecutorAdded(execId, host)
-
-    case ExecutorLost(execId) =>
-      dagScheduler.handleExecutorLost(execId, fetchFailed = false)
-
-    case BeginEvent(task, taskInfo) =>
-      dagScheduler.handleBeginEvent(task, taskInfo)
-
-    case GettingResultEvent(taskInfo) =>
-      dagScheduler.handleGetTaskResult(taskInfo)
-
-    case completion @ CompletionEvent(task, reason, _, _, taskInfo, taskMetrics) =>
-      dagScheduler.handleTaskCompletion(completion)
-
-    case TaskSetFailed(taskSet, reason, exception) =>
-      dagScheduler.handleTaskSetFailed(taskSet, reason, exception)
+    case ...
 
     case ResubmitFailedStages =>
       dagScheduler.resubmitFailedStages()
   }
-
-  override def onError(e: Throwable): Unit = {
-    logError("DAGSchedulerEventProcessLoop failed; shutting down SparkContext", e)
-    try {
-      dagScheduler.doCancelAllJobs()
-    } catch {
-      case t: Throwable => logError("DAGScheduler failed to cancel all jobs.", t)
-    }
-    dagScheduler.sc.stop()
-  }
-
-  override def onStop(): Unit = {
-    // Cancel any active jobs in postStop hook
-    dagScheduler.cleanUpAfterSchedulerStop()
-  }
 }
 ```
 
-#### DAGSchedulerEvent
+#### 2. DAGSchedulerEvent
+
+定义了一系列DAGSchedulerEvent类型的case class
+
 ```scala
 package org.apache.spark.scheduler
 
@@ -164,5 +151,7 @@ case class TaskSetFailed(taskSet: TaskSet, reason: String, exception: Option[Thr
 private[scheduler] case object ResubmitFailedStages extends DAGSchedulerEvent
 
 ```
+
+#### 3. 
 
 
