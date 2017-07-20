@@ -1,17 +1,40 @@
 package com.mathandcs.kino.abacus.examples.sql
 
 import com.mathandcs.kino.abacus.utils.SparkUtil
+import org.apache.spark
 
 /**
   * Created by wangdongxu on 10/13/16.
   */
+
+case class Person(name: String, age: Int)
+
 object DataFrameExample {
   def main(args: Array[String]) {
     val sc = SparkUtil.sparkContext
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
+    //
+    // Spark SQL
+    //
+
     // Create the DataFrame
     val df = sqlContext.read.json("abacus/src/main/resources/people.json")
+    df.registerTempTable("people")
+
+    // Create an RDD of Person objects and register it as a table.
+    //import sqlContext.implicits._
+    //val people = sc.textFile("abacus/src/main/resources/people.txt").map(_.split(",")).map(p => Person(p(0), p(1).trim.toInt)).toDF()
+    //people.registerTempTable("people")
+
+    val sqlDF = sqlContext.sql("SELECT name, age FROM people WHERE age >= 13 AND age <= 19")
+    sqlDF.show()
+    sqlDF.explain(true)
+
+
+    //
+    // DataFrame
+    //
 
     // Show the content of the DataFrame
     df.show()
@@ -51,5 +74,6 @@ object DataFrameExample {
     // null 1
     // 19   1
     // 30   1
+
   }
 }
