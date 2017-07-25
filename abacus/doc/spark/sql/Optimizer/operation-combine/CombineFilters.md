@@ -1,6 +1,12 @@
 ### 合并相邻的过滤器(Combine Filters)
-合并相邻的过滤条件，例如：
-```select name from (select name, time from t1 where time > 1) tmp_t where time > 8```
+* 合并相邻的过滤条件
+
+例如sql：
+
+```sql 
+select name from (select name, time from t1 where time > 1) tmp_t where time > 8
+```
+
 优化后的筛选条件变为: time > 1 && time > 8, 即 time > 8
     
 
@@ -18,7 +24,14 @@ Project [_1#0 AS name#5]
 
 ```
 
-源码如下：
+相当于执行：
+
+```sql
+select name from t1 where time > 8
+
+```
+
+* 源码如下：
 
 ```scala
 object CombineFilters extends Rule[LogicalPlan] {

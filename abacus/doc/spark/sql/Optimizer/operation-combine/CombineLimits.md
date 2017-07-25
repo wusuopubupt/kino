@@ -1,9 +1,14 @@
 ### 合并limit语句(Combine Limits)
 
-* 合并相邻的限制条件，例如：
-```select name from (select name, date from t1 limit 100) tmp_t limit 10```
+* 合并相邻的限制条件
 
-   外层的limit 10小于子查询的limit 100，所以子查询内部的limit 100会被优化为limit 10(见下面的Optimized Logical Plan): 
+例如sql：
+
+```sql
+select name from (select name, date from t1 limit 100) tmp_t limit 10
+```
+
+外层的limit 10小于子查询的limit 100，所以子查询内部的limit 100会被优化为limit 10(见下面的Optimized Logical Plan): 
    
 ``` sql
 scala> sqlContext.sql("select name from (select name, date from t1 limit 100) tmp_t limit 10")
@@ -36,6 +41,13 @@ Limit 10
 Limit 10
 +- Project [_1#0 AS name#5]
    +- LogicalRDD [_1#0,_2#1,_3#2,_4#3,_5...
+```
+
+相当于执行:
+
+```sql
+select name from t1 limit 10
+
 ```
 
 * 源码如下：
