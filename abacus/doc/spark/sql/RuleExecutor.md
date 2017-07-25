@@ -1,6 +1,10 @@
 ### RuleExecutor
 
 #### spark sql优化规则执行器
+如图所示：ruleExecutor的作用是分批次(batch)执行一系列的优化规则直到稳定点(fixpoint)或最大迭代次数
+![](../images/ruleExecutor.png)
+
+源码如下：
 
 ```scala
 /** 优化规则执行器 */
