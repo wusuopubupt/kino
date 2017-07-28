@@ -64,7 +64,10 @@
             <artifactId>netty-all</artifactId>
             <version>4.0.29.Final</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

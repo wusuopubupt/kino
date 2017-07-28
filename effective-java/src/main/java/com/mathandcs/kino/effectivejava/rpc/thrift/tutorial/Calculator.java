@@ -163,7 +163,7 @@ public class Calculator {
     public void send_zip() throws org.apache.thrift.TException
     {
       zip_args args = new zip_args();
-      sendBaseOneway("zip", args);
+      //sendBaseOneway("zip", args);
     }
 
   }
