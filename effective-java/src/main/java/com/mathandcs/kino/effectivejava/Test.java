@@ -1,7 +1,7 @@
 package com.mathandcs.kino.effectivejava;
 
 /**
- * Created by wangdongxu on 4/14/17.
+ * Created by dashwang on 4/14/17.
  */
 public class Test {
 
