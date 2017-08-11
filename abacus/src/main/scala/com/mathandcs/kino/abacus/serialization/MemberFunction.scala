@@ -23,7 +23,8 @@ class MemberFunction(conf: String) extends Serializable {
     result.collect()
   }
 
-  // 如果定义在这里,在filter中使用时,会抛Task not Serializable Exception
+  // 引用了某类的成员函数，会导致该类及所有成员都需要支持序列化
+  // 如果定义在这里,在filter中使用时,会抛Task not Serializable Exception (因为sc不可序列化)
   /*
   def addWWW(item: String): String = {
     if (item.startsWith("www")) {
