@@ -9,28 +9,28 @@ import java.util.*;
  */
 public class MapBenchmark {
 
-    public static HashMap<String, String> hashMap = new HashMap<>();
-    public static TreeMap<String, String> treeMap = new TreeMap<>();
-    public static LinkedHashMap<String, String> linkedMap = new LinkedHashMap<>();
+    public HashMap<String, String> hashMap = new HashMap<>();
+    public TreeMap<String, String> treeMap = new TreeMap<>();
+    public LinkedHashMap<String, String> linkedMap = new LinkedHashMap<>();
 
-    public static ArrayList<String> list = new ArrayList<>();
+    public static ArrayList<String> LIST = new ArrayList<>();
     public static int REPEATS = 1000;
 
     static {
         for (int i = 0; i < 10000; i++) {
-            list.add(Integer.toString(i, 16));
+            LIST.add(Integer.toString(i, 16));
         }
     }
 
     private static void get(Map<String, String> map) {
-        for (String s : list) {
+        for (String s : LIST) {
             map.get(s);
         }
     }
 
     private static void put(Map<String, String> map) {
         map.clear();
-        for (String s : list) {
+        for (String s : LIST) {
             map.put(s, s);
         }
     }
@@ -41,7 +41,8 @@ public class MapBenchmark {
             put(map);
         }
         long finish = System.currentTimeMillis();
-        System.out.println("Time to put() " + (repeats * map.size()) + " entries in a " + setName + ": " + (finish - start));
+        System.out.println("Time to put() " + (repeats * map.size()) + " entries in a "
+                + setName + ": " + (finish - start));
     }
 
     private static void measureTimeToGet(Map<String, String> map, String setName, int repeats) {
@@ -50,20 +51,22 @@ public class MapBenchmark {
             get(map);
         }
         long finish = System.currentTimeMillis();
-        System.out.println("Time to get() " + (repeats * map.size()) + " entries in a " + setName + ": " + (finish - start));
+        System.out.println("Time to get() " + (repeats * map.size()) + " entries in a "
+                + setName + ": " + (finish - start));
     }
 
     public static void main(String[] args) {
+        MapBenchmark mapBenchmark = new MapBenchmark();
         System.out.println("Start to put elements");
 
-        measureTimeToPut(hashMap, "HashMap", REPEATS);
-        measureTimeToPut(treeMap, "TreeMap", REPEATS);
-        measureTimeToPut(linkedMap, "LinkedMap", REPEATS);
+        measureTimeToPut(mapBenchmark.hashMap, "HashMap", REPEATS);
+        measureTimeToPut(mapBenchmark.treeMap, "TreeMap", REPEATS);
+        measureTimeToPut(mapBenchmark.linkedMap, "LinkedMap", REPEATS);
 
         System.out.println("\n\nStar to get elements");
 
-        measureTimeToGet(hashMap, "HashMap", REPEATS);
-        measureTimeToGet(treeMap, "TreeMap", REPEATS);
-        measureTimeToGet(linkedMap, "LinkedMap", REPEATS);
+        measureTimeToGet(mapBenchmark.hashMap, "HashMap", REPEATS);
+        measureTimeToGet(mapBenchmark.treeMap, "TreeMap", REPEATS);
+        measureTimeToGet(mapBenchmark.linkedMap, "LinkedMap", REPEATS);
     }
 }
