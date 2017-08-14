@@ -1,0 +1,20 @@
+### 为什么在覆盖equals时一定也要覆盖hashCode呢？
+
+**因为先hashmap, 后equals !**
+
+下面用HashMap来阐述原因，首先假设key1和key2的值在业务逻辑领域是相等的，即它们应该是同一个对象，HashMap已经存储了key1，现在要查找key2是否存在，正确的结果应该是存在。
+
+**Java中的HashMap实际上是一个链表数组，即首先HashMap是一个数组，然后数组中的每一个元素是一个链表(更通用的概念可以称为桶bucket，Java中的HashMap用Entry类描述链表的结点结构)，HashMap在执行Put,Contains之类的操作时，会首先根据你提供的Key计算hashCode值,然后根据这个hashCode值在数组中找到某一个链表或桶(通常是找到链表的起始结点)，这一步操作利用了hashCode()方法，如果你覆盖了就会用你提供的方法，在找到某一个链表的起始结点后，就会遍历链表，然后通过equals方法来寻找是否存在与Key的值相等的结点，如果执行equals方法后的结果相等，HashMap就认为已经存在这个元素，这一步如果你覆盖了equals方法就会用到你提供的equals方法。**
+
+通过上面的描述，我们发现equals方法和hashCode方法如果不同时按你自己逻辑覆盖的话，HashMap就会出问题。比如你只覆盖了equals方法而没有覆盖hashCode方法，那么HashMap在第一步寻找链表的时候会出错，**有同样值的两个对象Key1和Key2并不会指向同一个链表或桶，因为你没有提供自己的hashCode方法，那么就会使用Object的hashCode方法，该方法是根据内存地址来比较两个对象是否一致**，由于Key1和Key2有不桶的内存地址，所以会指向不同的链表，这样HashMap会认为key2不存在，虽然我们期望Key1和Key2是同一个对象；反之如果只覆盖了hashCode方法而没有覆盖equals方法，那么虽然第一步操作会使Key1和Key2找到同一个链表，但是由于equals没有覆盖，那么在遍历链表的元素时，key1.equals(key2)也会失败(事实上Object的equals方法也是比较内存地址)，从而HashMap认为不存在Key2对象，这同样也是不正确的。
+
+####以下内容摘自Effective Java:
+覆盖equals时总要覆盖hashCode，一个很常见的错误根源在没有覆盖hashCode方法。在每个覆盖了equals方法的类中,也必须覆盖hashCode方法。如果不这样做的话，就会违反Object.hashCode的通用约定,从而导致该类无法结合所有基于散列的集合一起正常工作，这样的集合包括HashMap、HashSet和Hashtable。
+
+下面是约定的内容，摘自Object规范[JavaSE6]:
+
+* 在应用程序的执行期间，只要对象的equals方法所用到的信息没有被修改，那么对这同一个对象调用多次，hashCode方法都必须始终如一地返回同一个整数。在同一个应用程序的多次执行过程中，每次执行所返回的整数可以不一致。
+
+* 如果两个对象根据equals(Object)方法比较是相等的，那么调用这两个对象中任意一个对象的hashCode方法都必须产生同样的整数结果。
+
+* 如果两个对象根据equals(Object)方法比较是不相等的，那么调用这两个对象中的任意一个对象的hashCode方法，则不一定要产生不同的整数结果。但是程序员应该知道，给不相同的对象产生截然不同的整数结果，有可能提高散列表(hash table)的性能。
