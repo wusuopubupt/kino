@@ -8,6 +8,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 object SparkUtil {
 
-  val sparkContext = new SparkContext(new SparkConf().setMaster("local[*]").setAppName("spark-app-template"))
+  val sparkConf = new SparkConf().setMaster("local[*]").setAppName("spark-app-template")
 
+  val sparkContext = new SparkContext(sparkConf)
 }
