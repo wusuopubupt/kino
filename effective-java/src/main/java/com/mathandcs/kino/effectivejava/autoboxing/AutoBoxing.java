@@ -26,12 +26,12 @@ public class AutoBoxing {
         // false
         System.out.println(a == b);
 
-        // 和primitive类型的==, 是比较的值, 所以都为true
-        int i5 = 129;
-        int i6 = 129;
-        // true
-        System.out.println(i5 == i6);
 
+        // 自动拆箱
+        Integer x = new Integer(1);
+        int y = x;  // 执行了 int y = x.intValue()
+
+        // 当Integer和int执行==操作时,Integer会自动拆箱为int，所以为true
         Integer i7 = 1;
         int i8 = 1;
         // true
@@ -42,9 +42,7 @@ public class AutoBoxing {
         // true
         System.out.println(i9 == i10);
 
-        // 自动拆箱
-        Integer x = new Integer(1);
-        int y = x;  // 执行了 int y = x.intValue()
+
     }
 
     public static void main(String[] args) {
