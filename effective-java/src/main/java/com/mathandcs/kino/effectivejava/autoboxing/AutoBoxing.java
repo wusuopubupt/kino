@@ -3,7 +3,9 @@ package com.mathandcs.kino.effectivejava.autoboxing;
 /**
  * Created by dashwang on 8/20/17.
  * <p>
- * ref: http://www.cnblogs.com/danne823/archive/2011/04/22/2025332.html
+ * ref:
+ * 1. http://www.cnblogs.com/danne823/archive/2011/04/22/2025332.html
+ * 2. http://www.cnblogs.com/liuling/archive/2013/05/05/intAndInteger.html
  */
 public class AutoBoxing {
 
