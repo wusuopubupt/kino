@@ -3,14 +3,17 @@ package com.mathandcs.kino.effectivejava.generic;
 /**
  * Created by dashwang on 8/28/17.
  * <p>
+ * ref: https://docs.oracle.com/javase/tutorial/java/generics/index.html
+ * <p>
+ * <p>
  * L is the first element's type
  * R is the second element's type
  */
-public class Pair<L, R> {
+public class GenericClass<L extends Number, R> {
     private L first;
     private R second;
 
-    public Pair(L first, R second) {
+    public GenericClass(L first, R second) {
         this.first = first;
         this.second = second;
     }
@@ -38,9 +41,9 @@ public class Pair<L, R> {
     @Override
     public boolean equals(Object other) {
         return
-                other instanceof Pair &&
-                        equals(first, ((Pair) other).first) &&
-                        equals(second, ((Pair) other).second);
+                other instanceof GenericClass &&
+                        equals(first, ((GenericClass) other).first) &&
+                        equals(second, ((GenericClass) other).second);
     }
 
     @Override
