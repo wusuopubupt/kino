@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.janino;
+package com.mathandcs.kino.effectivejava.jvm.janino;
 
 import org.codehaus.commons.compiler.CompileException;
 import org.codehaus.janino.ScriptEvaluator;

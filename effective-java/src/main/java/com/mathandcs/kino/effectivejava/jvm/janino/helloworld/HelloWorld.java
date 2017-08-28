@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.janino.helloworld;
+package com.mathandcs.kino.effectivejava.jvm.janino.helloworld;
 
 /**
  * Created by dashwang on 7/28/17.

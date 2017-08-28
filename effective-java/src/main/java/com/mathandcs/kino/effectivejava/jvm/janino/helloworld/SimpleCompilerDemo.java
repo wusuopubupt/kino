@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.janino.helloworld;
+package com.mathandcs.kino.effectivejava.jvm.janino.helloworld;
 
 import org.codehaus.janino.SimpleCompiler;
 
