@@ -8,6 +8,7 @@ import java.sql.Date
 object ReflectConstructor {
 
   // 反射获取带参数的构造器
+  // 参考: https://stackoverflow.com/questions/1641104/instantiate-object-with-reflection-using-constructor-arguments
   def initClass[T](clazz: java.lang.Class[T])(args:AnyRef*): T = {
     //val constructor = clazz.getConstructors()(0)
     val constructor = clazz.getConstructor(classOf[Long])
