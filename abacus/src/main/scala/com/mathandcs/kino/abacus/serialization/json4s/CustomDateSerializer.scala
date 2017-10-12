@@ -3,6 +3,7 @@ package com.mathandcs.kino.abacus.serialization.json4s
 import java.sql.{Date, Timestamp}
 import java.util.logging.Logger
 
+import com.google.gson.Gson
 import org.apache.spark.Logging
 import org.json4s.{CustomSerializer, NoTypeHints}
 import org.json4s.JsonAST.{JNull, JString}
@@ -33,10 +34,17 @@ object CustomDateSerializer extends Logging {
                        )
 
   def main(args: Array[String]): Unit = {
+    // json4s
     val metric = new DateMetric(Date.valueOf("2017-01-01"), Timestamp.valueOf("2017-01-01 01:01:00"))
     log.info(s"metric is " + metric)
-    log.info(s"serialized json is: " + write(metric))
+    log.info(s"json4s serialized json is: " + write(metric))
     assert("{\"date\":\"2017-01-01\",\"timestamp\":\"2017-01-01T01:01:00.000Z\"}".equals(write(metric)))
+
+    // gson
+    val gson = new Gson()
+    val json = gson.toJson(metric)
+    log.info("gson serialized json is:" + json)
+    assert("{\"date\":\"Jan 1, 2017\",\"timestamp\":\"Jan 1, 2017 1:01:00 AM\"}".equals(json))
 
   }
 }
