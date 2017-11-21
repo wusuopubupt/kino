@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.workers;
 import com.mathandcs.kino.abacus.workflow.Task;
 
 /**
- * Created by wangdongxu on 6/3/17.
+ * Created by dashwang on 6/3/17.
  */
 public interface Worker {
 

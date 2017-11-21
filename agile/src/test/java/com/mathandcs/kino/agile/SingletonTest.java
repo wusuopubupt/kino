@@ -6,7 +6,7 @@ import org.junit.Test;
 import java.lang.reflect.Constructor;
 
 /**
- * Created by wangdongxu on 10/15/16.
+ * Created by dashwang on 10/15/16.
  */
 public class SingletonTest {
 

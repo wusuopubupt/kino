@@ -6,7 +6,7 @@ import scala.concurrent.{Await, Future, Promise}
 import scala.util.Success
 
 /**
-  * Created by wangdongxu on 10/12/17.
+  * Created by dashwang on 10/12/17.
   * ref: https://stackoverflow.com/questions/34808024/how-do-i-wait-for-a-scala-futures-onsuccess-callback-to-complete
   */
 object FutureAndPromise {

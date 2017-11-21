@@ -5,7 +5,7 @@ import java.util.ListIterator;
 import java.util.RandomAccess;
 
 /**
- * Created by wangdongxu on 8/28/17.
+ * Created by dashwang on 8/28/17.
  *
  * ref: http://www.cnblogs.com/en-heng/p/5041124.html
  *

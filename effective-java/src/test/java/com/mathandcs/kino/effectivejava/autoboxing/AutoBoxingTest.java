@@ -7,7 +7,7 @@ import org.junit.After;
 /** 
 * AutoBoxing Tester. 
 * 
-* @author wangdongxu 
+* @author dashwang
 * @since <pre>Aug 20, 2017</pre> 
 * @version 1.0 
 */ 

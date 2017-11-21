@@ -10,7 +10,7 @@ import java.io.FileWriter;
 /**
  * MockUser Tester.
  *
- * @author wangdongxu
+ * @author dashwang
  * @version 1.0
  * @since <pre>Mar 8, 2017</pre>
  */

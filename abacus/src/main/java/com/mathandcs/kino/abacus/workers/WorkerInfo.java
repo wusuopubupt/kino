@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.workers;
 import lombok.Data;
 
 /**
- * Created by wangdongxu on 6/4/17.
+ * Created by dashwang on 6/4/17.
  */
 @Data
 public class WorkerInfo {

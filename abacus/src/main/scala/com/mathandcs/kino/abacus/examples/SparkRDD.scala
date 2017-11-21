@@ -4,7 +4,7 @@ import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.rdd.RDD
 
 /**
-  * Created by wangdongxu on 10/11/16.
+  * Created by dashwang on 10/11/16.
   */
 object SparkRDD {
   def main(args: Array[String]) {

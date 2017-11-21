@@ -3,7 +3,7 @@ package com.mathandcs.kino.effectivejava.cache;
 import org.junit.Test;
 
 /**
- * Created by wangdongxu on 6/12/17.
+ * Created by dashwang on 6/12/17.
  *
  * maven并行跑测试
  * ref: http://memorynotfound.com/run-junit-tests-parallel-using-maven/

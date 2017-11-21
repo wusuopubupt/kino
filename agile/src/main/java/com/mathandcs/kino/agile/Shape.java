@@ -1,7 +1,7 @@
 package com.mathandcs.kino.agile;
 
 /**
- * Created by wangdongxu on 10/15/16.
+ * Created by dashwang on 10/15/16.
  */
 public class Shape {}
 

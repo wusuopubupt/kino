@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by wangdongxu on 3/8/17.
+ * Created by dashwang on 3/8/17.
  */
 public class MockUser {
 

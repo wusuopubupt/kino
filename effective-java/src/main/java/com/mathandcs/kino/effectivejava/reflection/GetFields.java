@@ -1,7 +1,7 @@
 package com.mathandcs.kino.effectivejava.reflection;
 
 /**
- * Created by wangdongxu on 3/31/17.
+ * Created by dashwang on 3/31/17.
  */
 
 import java.lang.reflect.*;
