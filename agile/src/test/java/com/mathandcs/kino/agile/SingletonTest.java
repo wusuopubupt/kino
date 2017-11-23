@@ -1,5 +1,6 @@
 package com.mathandcs.kino.agile;
 
+import com.mathandcs.kino.agile.singleton.Singleton;
 import junit.framework.Assert;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class SingletonTest {
 
     @Test
     public void testNoPublicConstructor() throws ClassNotFoundException {
-        Class singleton = Class.forName("com.mathandcs.kino.agile.Singleton");
+        Class singleton = Class.forName("com.mathandcs.kino.agile.singleton.Singleton");
         Constructor[] constructors = singleton.getConstructors();
         Assert.assertEquals("singleton has public constructors", 0, constructors.length);
     }
