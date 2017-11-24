@@ -14,6 +14,14 @@ public class V5PowerAdapter implements V5Power {
 
     @Override
     public int providePower() {
-        return 0;
+        // 1. get 220v power
+        int power = v220Power.providePower();
+
+        // 2. transfer 220v power to 5v power
+        if(power > 0) {
+            System.out.println("Transfer 220v power to 5v power by adapter!");
+        }
+
+        return 5;
     }
 }

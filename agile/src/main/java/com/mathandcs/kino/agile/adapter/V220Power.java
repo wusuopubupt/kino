@@ -7,6 +7,7 @@ package com.mathandcs.kino.agile.adapter;
  */
 public class V220Power {
     public int providePower() {
+        System.out.println("Raw input power is: 200v");
         return 220;
     }
 }
