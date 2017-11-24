@@ -1,4 +1,4 @@
-package com.mathandcs.kino.agile.ChainOfResponsibility;
+package com.mathandcs.kino.agile.chainOfResponsibility;
 
 /**
  * Created by dashwang on 11/21/17.
