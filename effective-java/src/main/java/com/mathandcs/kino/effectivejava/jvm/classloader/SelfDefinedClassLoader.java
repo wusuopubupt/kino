@@ -22,7 +22,8 @@ public class SelfDefinedClassLoader extends ClassLoader {
 
     public Class findClass(String className) {
         byte[] data = loadClassData(className);
-        return defineClass(className, data, 0, data.length);
+        Class clazz = defineClass(data, 0, data.length);
+        return clazz;
     }
 
     private byte[] loadClassData(String className) {
