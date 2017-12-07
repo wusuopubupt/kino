@@ -22,10 +22,18 @@ public class Loader {
         return services;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         List<MyPrintService> myPrintServices = loadService(MyPrintService.class);
         for(MyPrintService myPrintService : myPrintServices) {
+            // 使用service loader创建出来的对象, 用于无状态的场景
             myPrintService.print();
+            // foo
+            // bar
+        }
+
+        for(MyPrintService myPrintService : myPrintServices) {
+            // 通过反射创建一个新对象, 用于有状态的场景
+            myPrintService.getClass().newInstance().print();
             // foo
             // bar
         }
