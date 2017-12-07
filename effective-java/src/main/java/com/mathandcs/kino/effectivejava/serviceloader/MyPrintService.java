@@ -1,7 +1,10 @@
 package com.mathandcs.kino.effectivejava.serviceloader;
 
 /**
- * Created by wangdongxu on 12/7/17.
+ * Created by dashwang on 12/7/17.
+ *
+ * see: resources/META-INF/services/com.mathandcs.kino.effectivejava.serviceloader.MyPrintService
  */
 public interface MyPrintService {
+    void print();
 }

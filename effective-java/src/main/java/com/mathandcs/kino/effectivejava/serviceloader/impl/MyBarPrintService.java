@@ -8,6 +8,6 @@ import com.mathandcs.kino.effectivejava.serviceloader.MyPrintService;
 public class MyBarPrintService implements MyPrintService{
     @Override
     public void print() {
-        System.out.println("foo");
+        System.out.println("bar");
     }
 }
