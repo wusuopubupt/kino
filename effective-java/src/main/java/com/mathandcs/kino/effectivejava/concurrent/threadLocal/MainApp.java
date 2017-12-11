@@ -15,6 +15,11 @@ public class MainApp {
 
     private static final ExecutorService threadPool = Executors.newCachedThreadPool();
 
+
+    private static void run() throws Exception {
+
+    }
+
     private static void runSimpleDateFormat(DateFormat df) throws Exception {
         for (int c = 0; c < 3; c++) {
             threadPool.submit(new Callable<Void>() {
@@ -90,13 +95,23 @@ public class MainApp {
 //        pool-1-thread-2 : Fri Dec 08 06:02:20 CST 2017
 //        pool-1-thread-1 : Wed Dec 08 06:02:20 CST 1
 //        pool-1-thread-1 : Fri Dec 08 06:02:20 CST 2017
-
-
         System.out.println("########\n\n");
+
+        // thread safe, but slower than ThreadLocal
         SyncSimpleDateFormat syncDF = new SyncSimpleDateFormat();
         runSyncSimpleDateFormat(syncDF);
         threadPool.awaitTermination(1, TimeUnit.SECONDS);
 
+        // output is:
+//        pool-1-thread-2 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-3 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-1 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-2 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-3 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-1 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-2 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-3 : Fri Dec 08 06:02:20 CST 2017
+//        pool-1-thread-1 : Fri Dec 08 06:02:20 CST 2017
         System.out.println("########\n\n");
 
         // thread safe
