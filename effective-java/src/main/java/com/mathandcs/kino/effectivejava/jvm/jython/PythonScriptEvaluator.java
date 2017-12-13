@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.compiler.jpython;
+package com.mathandcs.kino.effectivejava.jvm.jython;
 
 import org.python.core.PyFunction;
 import org.python.core.PyInteger;
