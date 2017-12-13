@@ -25,6 +25,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <encoding>UTF-8</encoding>
         <scala.version>2.10.0</scala.version>
+        <jython.standalone.version>2.7.0</jython.standalone.version>
     </properties>
 
     <repositories>
@@ -72,6 +73,11 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.python</groupId>
+            <artifactId>jython-standalone</artifactId>
+            <version>${jython.standalone.version}</version>
         </dependency>
     </dependencies>
 
