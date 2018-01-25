@@ -11,6 +11,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.ServiceLoader;
 
 /**
@@ -58,6 +59,11 @@ public class MultiJarsURLClassLoader extends URLClassLoader {
         multiJarsURLClassLoader.addJarsByScanDirectory("/tmp");
         Thread.currentThread().setContextClassLoader(multiJarsURLClassLoader);
         ServiceLoader<MyPrintService> serviceServiceLoader = ServiceLoader.load(MyPrintService.class);
-        serviceServiceLoader.iterator().next().print();
+        Iterator<MyPrintService> iter = serviceServiceLoader.iterator();
+        while(iter.hasNext()) {
+            iter.next().print();
+            // foo
+            // bar
+        }
     }
 }
