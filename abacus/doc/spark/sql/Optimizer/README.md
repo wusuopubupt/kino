@@ -20,3 +20,5 @@ Spark SQL优化原理
     ├── PredictionPushDown.md
     └── PushPredicateThroughJoin.md
 ```
+
+![](../..//images/spark_sql_catalyst_optimizer.png)
