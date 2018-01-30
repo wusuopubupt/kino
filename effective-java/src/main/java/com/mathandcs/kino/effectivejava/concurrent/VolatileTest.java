@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
  *
  *  1.保证被修饰变量对所有线程的可见性, 但是无法保证被修饰变量在并发下的原子性
  *  2.作为内存屏障,阻止指令重排
+ *  3.不能保证原子性!
  *
  * @author dashwang
  * @date 4/9/17
