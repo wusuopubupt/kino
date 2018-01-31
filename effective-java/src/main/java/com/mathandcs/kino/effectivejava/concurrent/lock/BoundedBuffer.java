@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.concurrent;
+package com.mathandcs.kino.effectivejava.concurrent.lock;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
