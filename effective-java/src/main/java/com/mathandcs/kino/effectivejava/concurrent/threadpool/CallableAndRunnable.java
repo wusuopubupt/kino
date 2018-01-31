@@ -1,5 +1,5 @@
 
-package com.mathandcs.kino.effectivejava.concurrent;
+package com.mathandcs.kino.effectivejava.concurrent.threadpool;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mathandcs.kino.effectivejava.concurrent;
+package com.mathandcs.kino.effectivejava.concurrent.synchronize;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
