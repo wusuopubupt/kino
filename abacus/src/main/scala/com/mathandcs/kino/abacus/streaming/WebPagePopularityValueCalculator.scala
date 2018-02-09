@@ -5,13 +5,14 @@ import org.apache.spark.streaming.{Duration, Seconds, StreamingContext}
 import org.apache.spark.{HashPartitioner, SparkConf}
 
 /**
-  * Created by dash wang on 2/9/18.
+  * Created by dash wang on 2/9/16.
   *
   * ref: https://www.ibm.com/developerworks/cn/opensource/os-cn-spark-practice2/
   */
 object WebPagePopularityValueCalculator {
-  private val checkpointDir = "popularity-data-checkpoint"
+  private val checkpointDir = "/tmp/popularity-data-checkpoint"
   private val msgConsumerGroup = "user-behavior-topic-message-consumer-group"
+  private val topic = "user-behavior-topic"
 
   def main(args: Array[String]) {
     if (args.length < 2) {
@@ -32,7 +33,7 @@ object WebPagePopularityValueCalculator {
       //kafka message consumer group ID
       msgConsumerGroup,
       //Map of (topic_name -> numPartitions) to consume. Each partition is consumed in its own thread
-      Map("user-behavior-topic" -> 3))
+      Map(topic -> 3))
     val msgDataRDD = kafkaStream.map(_._2)
     //for debug use only
     //println("Coming data in this interval...")
@@ -44,7 +45,8 @@ object WebPagePopularityValueCalculator {
       //calculate the popularity value
       val popValue: Double = dataArr(1).toFloat * 0.8 + dataArr(2).toFloat * 0.8 + dataArr(3).toFloat * 1
       (pageID, popValue)
-    }}
+    }
+    }
     //sum the previous popularity value and current value
     val updatePopularityValue = (iterator: Iterator[(String, Seq[Double], Option[Double])]) => {
       iterator.flatMap(t => {

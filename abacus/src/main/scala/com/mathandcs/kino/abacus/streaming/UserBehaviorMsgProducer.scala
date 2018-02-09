@@ -7,9 +7,8 @@ import kafka.producer.{KeyedMessage, Producer, ProducerConfig}
 import scala.util.Random
 
 /**
-  * Created by dash wang on 2/9/18.
+  * Created by dash wang on 2/9/16.
   */
-
 class UserBehaviorMsgProducer(brokers: String, topic: String) extends Runnable {
   private val brokerList = brokers
   private val targetTopic = topic
