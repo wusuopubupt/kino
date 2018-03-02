@@ -17,9 +17,9 @@ object DataImport extends Logging {
   // refer: https://spark.apache.org/docs/1.6.1/sql-programming-guide.html
   val scalaTypeToSparkSqlTypeMap: Map[String, DataType] = Map(
     "String" -> StringType,
-    "BooleanType" -> BooleanType,
+    "Boolean" -> BooleanType,
     "Date" -> DateType,
-    "TimeStamp" -> TimestampType,
+    "Timestamp" -> TimestampType,
     "Float" -> FloatType,
     "Double" -> DoubleType,
     "Integer" -> IntegerType,
@@ -84,7 +84,7 @@ object DataImport extends Logging {
   def transferScalaTypeToSparkSqlType(scalaType: String): DataType = {
     try {
       //val scalaType = StringUtils.capitalize(scalaType.toLowerCase())
-      if (scalaTypeToSparkSqlTypeMap.contains(scalaType)) {
+      if (! scalaTypeToSparkSqlTypeMap.contains(scalaType)) {
         log.error(s"DataType ${scalaType} not found!")
         throw new Exception("Incomplete type mapping")
       }
