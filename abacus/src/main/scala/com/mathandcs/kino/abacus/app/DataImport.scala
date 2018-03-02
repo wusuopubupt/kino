@@ -85,16 +85,14 @@ object DataImport extends Logging {
     try {
       //val scalaType = StringUtils.capitalize(scalaType.toLowerCase())
       if (! scalaTypeToSparkSqlTypeMap.contains(scalaType)) {
-        log.error(s"DataType ${scalaType} not found!")
-        throw new Exception("Incomplete type mapping")
+        throw new Exception(s"DataType ${scalaType} not found!")
       }
       scalaTypeToSparkSqlTypeMap.apply(scalaType)
     } catch {
       case ni: NoSuchElementException => {
-        log.error(s"Invalid datatype: ${scalaType}")
-        throw new Exception("Invalid schema", ni)
+        throw new Exception(s"Invalid datatype: ${scalaType}", ni)
       }
-      case _: Throwable => throw new Exception("Invalid schema: Uncaught error")
+      case t: Throwable => throw new Exception("Invalid schema, error: ", t)
     }
   }
 
