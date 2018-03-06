@@ -1,6 +1,6 @@
-package com.mathandcs.kino.abacus.app.config
+package com.mathandcs.kino.abacus.config
 
-import com.mathandcs.kino.abacus.app.common.Table
+import com.mathandcs.kino.abacus.common.Table
 
 /**
   * Created by dash wang on 2/28/17.

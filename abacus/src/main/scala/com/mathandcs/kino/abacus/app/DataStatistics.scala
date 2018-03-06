@@ -5,7 +5,7 @@ import java.sql.{Date, Timestamp}
 
 import com.mathandcs.kino.abacus.app.DataStatistics.StatisticsDataTypeEnum.StatisticsDataTypeEnum
 import com.mathandcs.kino.abacus.app.DataStatistics._
-import com.mathandcs.kino.abacus.app.config.AppConfig
+import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types._

@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import java.text.SimpleDateFormat
 
 import com.databricks.spark.avro._
-import com.mathandcs.kino.abacus.app.common.{Field, Format, Table}
+import com.mathandcs.kino.abacus.common.{Field, Format, Table}
 import com.mathandcs.kino.abacus.utils.{SparkUtil, TypeCast}
 import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD

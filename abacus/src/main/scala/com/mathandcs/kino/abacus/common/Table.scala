@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.app.common
+package com.mathandcs.kino.abacus.common
 
 /**
   * Created by dash wang on 3/1/17.
