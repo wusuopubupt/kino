@@ -1,7 +1,8 @@
 {
   "inputTables": [
     {
-      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/data/bank_data_with_date_timestamp_null.tsv",
+      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/data/bank_data_parquet",
+      "format" : "parquet",
       "schema": [
         {
           "colName": "age",
@@ -105,6 +106,7 @@
   "outputTables": [
     {
       "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data",
+      "format" : "tsv",
       "schema": [
         {
           "colName": "content",

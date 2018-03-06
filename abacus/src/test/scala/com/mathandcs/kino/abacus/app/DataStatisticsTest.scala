@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import java.sql.{Date, Timestamp}
 
 import com.mathandcs.kino.abacus.app.DataStatistics._
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
 import org.apache.spark.Logging
 import org.apache.spark.sql.Row
 import org.json4s.JsonAST.{JNull, JString}
@@ -242,6 +242,7 @@ class DataStatisticsTest extends FlatSpec with Logging {
     alert("single-data-statistics-config, will work successfully")
     val args = Array("src/test/resources/DataStat.json")
     val app = new DataStatistics()
+    HDFSUtil.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data")
     app.execute(args(0))
   }
 
