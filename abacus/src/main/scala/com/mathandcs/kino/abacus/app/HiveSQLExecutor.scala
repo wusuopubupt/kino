@@ -20,12 +20,12 @@ class HiveSQLExecutor extends BaseApp {
 
     sqlStatement = appConfig.extra.get("sqlStatement").toString
 
-    val sqlContext = SparkUtil.sqlContext
+    val sqlContext = SparkUtil.switchToHiveContext().sqlContext
 
     for (i <- appConfig.inputTables.indices) {
       try {
         val data = DataImport.loadToDataFrame(appConfig.inputTables(0), null)
-        val tableName = appConfig.extra.get("tableNames").asInstanceOf[List[String]](i)
+        val tableName = appConfig.extra.get("tableNames").asInstanceOf[java.util.List[String]].get(i)
         data.registerTempTable(tableName)
       } catch {
         case ex: Exception => throw new RuntimeException(s"fail to register ${i}th table", ex)
@@ -35,19 +35,21 @@ class HiveSQLExecutor extends BaseApp {
     log.info("registered tables: " + sqlContext.tableNames().mkString(","))
 
     log.info(sqlStatement)
-    var out: DataFrame = null
+    var outputDF: DataFrame = null
     val queries = sqlStatement.split(";")
     for (query <- queries) {
       // new line mark should be trimmed
       val trimmedSql: String = query.trim
       if (trimmedSql.length > 0) {
         log.info(s"Executing trimmed sql statement: [$trimmedSql]")
-        out = sqlContext.sql(trimmedSql)
+        outputDF = sqlContext.sql(trimmedSql)
       }
       else {
         log.info(s"Skipping empty sql statement, before trimming sql is: [$query]")
       }
     }
+    log.info(s"Saving output data to : ${appConfig.outputTables(0).url}")
+    outputDF.rdd.saveAsTextFile(appConfig.outputTables(0).url)
   }
 }
 

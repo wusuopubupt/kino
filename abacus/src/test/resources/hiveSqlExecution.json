@@ -105,7 +105,7 @@
   ],
   "outputTables": [
     {
-      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data",
+      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/sql-execution/data",
       "format" : "tsv",
       "schema": [
         {
@@ -116,7 +116,7 @@
     }
   ],
   "extra": {
-    "a" : 1,
-    "b" : "abc"
+    "sqlStatement" : "select date1 from bank_table",
+    "tableNames" : ["bank_table"]
   }
 }
