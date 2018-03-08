@@ -154,8 +154,8 @@ class ClassificationModelEval extends BaseApp {
     // do statistic
     val stat = secondarySortedPredictionLabels.mapPartitions(iter => {
       var preKey: String = null
-      var reversePairs: Long = 0
-      var preReversePairs: Long = 0
+      var reversePairsNum: Long = 0
+      var preReversePairsNum: Long = 0
       var posNum: Long = 0
       var negNum: Long = 0
       val groupInfos = ArrayBuffer.empty[GroupInfo]
@@ -190,20 +190,20 @@ class ClassificationModelEval extends BaseApp {
       iter.foreach {
         case (flightEvalTerm, index) => {
           if (null != preKey && !preKey.equals(flightEvalTerm.key)) {
-            collectGroupInfo(posNum, negNum, reversePairs)
+            collectGroupInfo(posNum, negNum, reversePairsNum)
             // begin another one group
             posNum = 0
             negNum = 0
-            reversePairs = 0
-            preReversePairs = 0
+            reversePairsNum = 0
+            preReversePairsNum = 0
           }
           if (flightEvalTerm.label >= 0.5) {
             // positive instance
-            reversePairs += preReversePairs
+            reversePairsNum += preReversePairsNum
             posNum += 1
           } else {
             // negative instance
-            preReversePairs += 1
+            preReversePairsNum += 1
             negNum += 1
           }
           // update key
@@ -211,7 +211,7 @@ class ClassificationModelEval extends BaseApp {
           // corner case
           if (null != preKey && iter.isEmpty) {
             // collect
-            collectGroupInfo(posNum, negNum, reversePairs)
+            collectGroupInfo(posNum, negNum, reversePairsNum)
           }
         }
       }
