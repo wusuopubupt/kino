@@ -240,7 +240,7 @@ class DataStatisticsTest extends FlatSpec with Logging {
 
   it should "execute run method" in {
     alert("single-data-statistics-config, will work successfully")
-    val args = Array("src/test/resources/DataStat.json")
+    val args = Array("src/test/resources/data-stat.json")
     val app = new DataStatistics()
     HDFSUtil.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data")
     app.execute(args(0))

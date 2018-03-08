@@ -9,6 +9,8 @@ import org.json4s.DefaultFormats
 
 /**
   * Created by dash wang on 2/28/17.
+  *
+  * partition by level, then split by ratio
   */
 class DataSplit extends BaseApp {
 
@@ -21,7 +23,7 @@ class DataSplit extends BaseApp {
     val splitMethod = DataSplit.MethodEnum(appConfig.extra.get("method").asInstanceOf[Int])
     val df = DataImport.loadToDataFrame(appConfig.inputTables(0), null)
     val splittedDFs = splitMethod match {
-      case DataSplit.MethodEnum.SplitByRatio => splitByLevel(df, configMap.get("levelBy").toString)
+      case DataSplit.MethodEnum.SplitByRatio => partitionByLevelAndSplitByRatio(df, configMap.get("levelBy").toString)
       case _ => throw new RuntimeException(s"Unsupported split method: ${splitMethod}")
     }
     for (i <- splittedDFs.indices) {
@@ -29,16 +31,16 @@ class DataSplit extends BaseApp {
     }
   }
 
-  def splitByLevel(df: DataFrame, levelBy: String): Array[DataFrame] = {
+  def partitionByLevelAndSplitByRatio(df: DataFrame, levelBy: String): Array[DataFrame] = {
     // create row id for later join
     val markDF = df.withColumn(ColumnNames.RowId.toString, monotonicallyIncreasingId()).persist(StorageLevel.MEMORY_AND_DISK)
 
     // make up the tuples to be selected and dropped ie. [row_id] + [level]
-    val triples = markDF.select(markDF(ColumnNames.RowId.toString), markDF(levelBy))
+    val tuples = markDF.select(markDF(ColumnNames.RowId.toString), markDF(levelBy))
       .repartition(markDF(levelBy)).persist(StorageLevel.MEMORY_AND_DISK)
 
     // count frequencies which is assumed to be fit into driver memory
-    val freq = triples.mapPartitions(iter => {
+    val freq = tuples.mapPartitions(iter => {
       val countMap = new scala.collection.mutable.HashMap[String, Long]()
       iter.foreach(row => {
         // level may be not string
@@ -54,13 +56,15 @@ class DataSplit extends BaseApp {
       .flatten // each single map do not share key
       .toMap
 
-    val sc = triples.sqlContext.sparkContext
-    val sqlContext = triples.sqlContext
+    log.info(s"Frequency is: ${freq}")
+
+    val sc = tuples.sqlContext.sparkContext
+    val sqlContext = tuples.sqlContext
     import sqlContext.implicits._
     val brFreq = sc.broadcast(freq)
 
     // select ids of minor part
-    val splitRatio = configMap.get("slitRatio").asInstanceOf[Double]
+    val splitRatio = configMap.get("splitRatio").asInstanceOf[Double]
     val majorFirst = splitRatio > 0.5
     val minorRatio =
       if (majorFirst)
@@ -68,7 +72,7 @@ class DataSplit extends BaseApp {
       else splitRatio
 
     // for later join
-    val selectIds = triples.mapPartitions(iter => {
+    val selectIds = tuples.mapPartitions(iter => {
       val curCountMap = new scala.collection.mutable.HashMap[String, Long]()
       val toCollect = scala.collection.mutable.ArrayBuffer.empty[Long]
       iter.foreach(row => {
@@ -92,10 +96,17 @@ class DataSplit extends BaseApp {
       toCollect.toIterator
     }).toDF(ColumnNames.InclusiveId.toString).cache()
 
-    triples.unpersist()
+    // for debug
+    selectIds.show(100000)
+
+    tuples.unpersist()
 
     val allRecords = markDF.join(selectIds, markDF(ColumnNames.RowId.toString) ===
       selectIds(ColumnNames.InclusiveId.toString), "left").cache()
+
+    // for debug
+    allRecords.show()
+
     val minorPart = allRecords.filter(allRecords(ColumnNames.InclusiveId.toString).isNotNull)
       .drop(ColumnNames.RowId.toString)
       .drop(ColumnNames.InclusiveId.toString)
@@ -126,7 +137,6 @@ object DataSplit {
     type AppendColumnNames = Value
     val RowId = Value("row_id")
     val InclusiveId = Value("id")
-    val OrderBy = Value("orderBy")
   }
 
 }

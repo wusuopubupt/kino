@@ -19,7 +19,7 @@ class HiveSQLExecutorTest extends FlatSpec with Logging {
 
   it should "execute run method" in {
     alert("single-data-statistics-config, will work successfully")
-    val args = Array("src/test/resources/hiveSqlExecution.json")
+    val args = Array("src/test/resources/hive-sql-execution.json")
     val app = new HiveSQLExecutor()
     HDFSUtil.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/sql-execution/data")
     app.execute(args(0))

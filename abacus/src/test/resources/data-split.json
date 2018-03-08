@@ -1,0 +1,316 @@
+{
+  "inputTables": [
+    {
+      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/data/bank_data_with_date_timestamp_null.tsv",
+      "format": "tsv",
+      "schema": [
+        {
+          "colName": "age",
+          "colType": "Integer"
+        },
+        {
+          "colName": "job",
+          "colType": "String"
+        },
+        {
+          "colName": "marital",
+          "colType": "String"
+        },
+        {
+          "colName": "education",
+          "colType": "String"
+        },
+        {
+          "colName": "default",
+          "colType": "String"
+        },
+        {
+          "colName": "housing",
+          "colType": "Integer"
+        },
+        {
+          "colName": "loan",
+          "colType": "Integer"
+        },
+        {
+          "colName": "contact",
+          "colType": "String"
+        },
+        {
+          "colName": "month",
+          "colType": "String"
+        },
+        {
+          "colName": "day_of_week",
+          "colType": "String"
+        },
+        {
+          "colName": "duration",
+          "colType": "Integer"
+        },
+        {
+          "colName": "campaign",
+          "colType": "Integer"
+        },
+        {
+          "colName": "pdays",
+          "colType": "Integer"
+        },
+        {
+          "colName": "previous",
+          "colType": "Integer"
+        },
+        {
+          "colName": "poutcome",
+          "colType": "String"
+        },
+        {
+          "colName": "emp_var_rate",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_price_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_conf_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "euribor3m",
+          "colType": "Double"
+        },
+        {
+          "colName": "nr_employed",
+          "colType": "Double"
+        },
+        {
+          "colName": "y",
+          "colType": "Integer"
+        },
+        {
+          "colName": "date1",
+          "colType": "Date"
+        },
+        {
+          "colName": "date2",
+          "colType": "Date"
+        },
+        {
+          "colName": "date3",
+          "colType": "Timestamp"
+        }
+      ]
+    }
+  ],
+  "outputTables": [
+    {
+      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-split/data1",
+      "format": "tsv",
+      "schema": [
+        {
+          "colName": "age",
+          "colType": "Integer"
+        },
+        {
+          "colName": "job",
+          "colType": "String"
+        },
+        {
+          "colName": "marital",
+          "colType": "String"
+        },
+        {
+          "colName": "education",
+          "colType": "String"
+        },
+        {
+          "colName": "default",
+          "colType": "String"
+        },
+        {
+          "colName": "housing",
+          "colType": "Integer"
+        },
+        {
+          "colName": "loan",
+          "colType": "Integer"
+        },
+        {
+          "colName": "contact",
+          "colType": "String"
+        },
+        {
+          "colName": "month",
+          "colType": "String"
+        },
+        {
+          "colName": "day_of_week",
+          "colType": "String"
+        },
+        {
+          "colName": "duration",
+          "colType": "Integer"
+        },
+        {
+          "colName": "campaign",
+          "colType": "Integer"
+        },
+        {
+          "colName": "pdays",
+          "colType": "Integer"
+        },
+        {
+          "colName": "previous",
+          "colType": "Integer"
+        },
+        {
+          "colName": "poutcome",
+          "colType": "String"
+        },
+        {
+          "colName": "emp_var_rate",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_price_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_conf_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "euribor3m",
+          "colType": "Double"
+        },
+        {
+          "colName": "nr_employed",
+          "colType": "Double"
+        },
+        {
+          "colName": "y",
+          "colType": "Integer"
+        },
+        {
+          "colName": "date1",
+          "colType": "Date"
+        },
+        {
+          "colName": "date2",
+          "colType": "Date"
+        },
+        {
+          "colName": "date3",
+          "colType": "Timestamp"
+        }
+      ]
+    },
+    {
+      "url": "file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-split/data2",
+      "format": "tsv",
+      "schema": [
+        {
+          "colName": "age",
+          "colType": "Integer"
+        },
+        {
+          "colName": "job",
+          "colType": "String"
+        },
+        {
+          "colName": "marital",
+          "colType": "String"
+        },
+        {
+          "colName": "education",
+          "colType": "String"
+        },
+        {
+          "colName": "default",
+          "colType": "String"
+        },
+        {
+          "colName": "housing",
+          "colType": "Integer"
+        },
+        {
+          "colName": "loan",
+          "colType": "Integer"
+        },
+        {
+          "colName": "contact",
+          "colType": "String"
+        },
+        {
+          "colName": "month",
+          "colType": "String"
+        },
+        {
+          "colName": "day_of_week",
+          "colType": "String"
+        },
+        {
+          "colName": "duration",
+          "colType": "Integer"
+        },
+        {
+          "colName": "campaign",
+          "colType": "Integer"
+        },
+        {
+          "colName": "pdays",
+          "colType": "Integer"
+        },
+        {
+          "colName": "previous",
+          "colType": "Integer"
+        },
+        {
+          "colName": "poutcome",
+          "colType": "String"
+        },
+        {
+          "colName": "emp_var_rate",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_price_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "cons_conf_idx",
+          "colType": "Double"
+        },
+        {
+          "colName": "euribor3m",
+          "colType": "Double"
+        },
+        {
+          "colName": "nr_employed",
+          "colType": "Double"
+        },
+        {
+          "colName": "y",
+          "colType": "Integer"
+        },
+        {
+          "colName": "date1",
+          "colType": "Date"
+        },
+        {
+          "colName": "date2",
+          "colType": "Date"
+        },
+        {
+          "colName": "date3",
+          "colType": "Timestamp"
+        }
+      ]
+    }
+  ],
+  "extra": {
+    "levelBy": "age",
+    "splitRatio": 0.7
+  }
+}
