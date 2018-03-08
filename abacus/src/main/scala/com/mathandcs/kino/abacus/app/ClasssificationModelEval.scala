@@ -13,6 +13,8 @@ import scala.collection.mutable.ArrayBuffer
 
 /**
   * Created by dash wang on 2/7/17.
+  *
+  * mapPartitions + 二次排序 统计分组auc
   */
 class ClassificationModelEval extends BaseApp {
 
