@@ -1,7 +1,7 @@
 package com.mathandcs.kino.abacus
 
 import com.mathandcs.kino.abacus.app.AppFactory
-import com.mathandcs.kino.abacus.accumulator.AccumulatorListener
+import com.mathandcs.kino.abacus.accumulator.{AccumulatorListener, HDFSAccumulatorManager}
 import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.Logging
 
@@ -21,7 +21,8 @@ object Entrance extends Logging {
 
   def addListener() = {
     val sc = SparkUtil.sparkContext
-    val listener = new AccumulatorListener()
+    val accumulatorManager = new HDFSAccumulatorManager("hdfs:///tmp")
+    val listener = new AccumulatorListener(accumulatorManager)
     sc.addSparkListener(listener)
   }
 

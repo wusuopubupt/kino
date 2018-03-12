@@ -11,11 +11,6 @@ trait AccumulatorManager {
   var accumulatorPath: String = _
   var accumulator: Accumulator = _
 
-  def init(accumulatorPath: String) = {
-    this.accumulatorPath = accumulatorPath
-    this.accumulator = new Accumulator
-  }
-
   def getAccumulator() = {
     accumulator
   }
@@ -32,6 +27,12 @@ trait AccumulatorManager {
 }
 
 class HDFSAccumulatorManager extends AccumulatorManager with Logging {
+
+  def this(accumulatorPath: String) = {
+    this
+    this.accumulatorPath = accumulatorPath
+    this.accumulator = new Accumulator
+  }
 
   override def getAccumulator() = {
     super.getAccumulator()
