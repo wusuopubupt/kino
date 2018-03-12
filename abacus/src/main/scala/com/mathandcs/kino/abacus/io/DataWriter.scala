@@ -9,7 +9,7 @@ import org.apache.spark.sql.DataFrame
   * Created by dash wang on 10/18/16.
   */
 trait Saver {
-  abstract def save(df: DataFrame, url: String)
+  def save(df: DataFrame, url: String)
 }
 
 object TsvSaver extends Saver {

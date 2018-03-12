@@ -1,6 +1,8 @@
 package com.mathandcs.kino.abacus
 
-import com.mathandcs.kino.abacus.app.{AppFactory, DataStatistics}
+import com.mathandcs.kino.abacus.app.AppFactory
+import com.mathandcs.kino.abacus.accumulator.AccumulatorListener
+import com.mathandcs.kino.abacus.utils.SparkUtil
 import org.apache.spark.Logging
 
 /**
@@ -9,10 +11,18 @@ import org.apache.spark.Logging
 object Entrance extends Logging {
 
   def main(args: Array[String]) {
+    //addListener()
+
     val appClassName = args(0)
     val appConfigFile = args(1)
     val app = AppFactory.produce(appClassName)
     app.execute(appConfigFile)
+  }
+
+  def addListener() = {
+    val sc = SparkUtil.sparkContext
+    val listener = new AccumulatorListener()
+    sc.addSparkListener(listener)
   }
 
 }
