@@ -2,6 +2,7 @@ package com.mathandcs.kino.abacus.accumulator
 
 import java.io.File
 
+import com.google.gson.Gson
 import com.mathandcs.kino.abacus.common.Format
 import com.mathandcs.kino.abacus.io.DataWriter
 import com.mathandcs.kino.abacus.io.codec.Codec
@@ -59,7 +60,8 @@ class HDFSAccumulatorManager extends AccumulatorManager with Logging {
     }
     val fos = fs.create(accumulatorFile)
     ScalaUtils.tryWithSafeFinally{
-      fos.write(Codec.serialize(accumulator))
+      //fos.write(Codec.serialize(accumulator))
+      fos.write(new Gson().toJson(accumulator).getBytes)
     } {
       fos.close()
     }
