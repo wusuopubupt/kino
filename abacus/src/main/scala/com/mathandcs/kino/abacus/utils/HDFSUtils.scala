@@ -14,7 +14,7 @@ import org.apache.spark.Logging
 /**
   * Created by dash wang on 10/12/16.
   */
-object HDFSUtil extends Logging {
+object HDFSUtils extends Logging {
 
   case class DirectoryInfo(totalSize: Long, everyFileInfo: Array[(String, Long)])
 
@@ -97,7 +97,7 @@ object HDFSUtil extends Logging {
   }
 
   def dumpJson(data: Any, uri: String) = {
-    val r = SparkUtil.sparkContext.parallelize(Seq(new Gson().toJson(data))).repartition(1)
+    val r = SparkUtils.sparkContext.parallelize(Seq(new Gson().toJson(data))).repartition(1)
     deleteIfExist(uri)
     r.saveAsTextFile(uri)
   }
@@ -131,7 +131,7 @@ object HDFSUtil extends Logging {
   }
 
   def dumpText(data: String, uri: String) = {
-    val r = SparkUtil.sparkContext.parallelize(Seq(data)).repartition(1)
+    val r = SparkUtils.sparkContext.parallelize(Seq(data)).repartition(1)
     deleteIfExist(uri)
     r.saveAsTextFile(uri)
   }

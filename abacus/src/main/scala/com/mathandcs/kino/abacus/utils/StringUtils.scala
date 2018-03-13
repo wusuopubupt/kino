@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.utils
 /**
   * Created by dash wang 2/11/16
   */
-object StringUtil {
+object StringUtils {
 
   def main(args: Array[String]): Unit = {
     // 末尾是":"

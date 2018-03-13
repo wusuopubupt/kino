@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 import java.util.{Date, Locale}
 
 
-object FormatUtil {
+object FormatUtils {
 
   // Thread safe
   private val dateFormat = new ThreadLocal[SimpleDateFormat]() {
