@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat
 
 import com.databricks.spark.avro._
 import com.mathandcs.kino.abacus.common.{Field, Format, Table}
-import com.mathandcs.kino.abacus.utils.{SparkUtil, TypeCast}
+import com.mathandcs.kino.abacus.utils.{SparkUtils, TypeCast}
 import org.apache.spark.Logging
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.types.{StructType, _}
@@ -52,11 +52,11 @@ object DataReader extends Logging {
 
     val dfSchema = transferScalaSchemaToSparkSqlSchema(schema)
 
-    val sc = SparkUtil.sparkContext
+    val sc = SparkUtils.sparkContext
     val strRDD = sc.textFile(inputPath)
 
     val fieldsArray = new Array[Any](dfSchema.length)
-    val numDropLines = SparkUtil.sqlContext.sparkContext.accumulator(0)
+    val numDropLines = SparkUtils.sqlContext.sparkContext.accumulator(0)
 
     val dateFormatter = dateFormat match {
       case null => null
@@ -91,17 +91,17 @@ object DataReader extends Logging {
       }
     )
 
-    SparkUtil.sqlContext.createDataFrame(rowRDD, dfSchema)
+    SparkUtils.sqlContext.createDataFrame(rowRDD, dfSchema)
   }
 
   def loadParquetToDataFrame(inputPath: String): DataFrame = {
     log.info(s"Loading parquet data from path : $inputPath")
-    SparkUtil.sqlContext.read.parquet(inputPath)
+    SparkUtils.sqlContext.read.parquet(inputPath)
   }
 
   def loadAvroToDataFrame(inputPath: String): DataFrame = {
     log.info(s"Loading avro data from path : $inputPath")
-    SparkUtil.sqlContext.read.avro(inputPath)
+    SparkUtils.sqlContext.read.avro(inputPath)
   }
 
   def transferScalaSchemaToSparkSqlSchema(scalaSchema: List[Field]) = {

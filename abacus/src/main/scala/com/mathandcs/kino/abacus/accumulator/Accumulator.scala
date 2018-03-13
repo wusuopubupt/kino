@@ -2,12 +2,12 @@ package com.mathandcs.kino.abacus.accumulator
 
 import java.util
 
-import com.mathandcs.kino.abacus.utils.FormatUtil
+import com.mathandcs.kino.abacus.utils.FormatUtils
 import org.apache.spark.Logging
 
 import scala.collection.mutable
 
-class Accumulator() extends Logging {
+class Accumulator() extends Logging with Serializable {
 
   var numCompletedJobs: Int = 0
   var numFailedJobs: Int = 0
@@ -36,11 +36,11 @@ class Accumulator() extends Logging {
     map.put("numFailedStages", numFailedStages.toString)
     map.put("numCompletedTasks", numCompletedTasks.toString)
     map.put("numFailedTasks", numFailedTasks.toString)
-    map.put("executorRunTime", FormatUtil.formatDuration(executorRunTime))
-    map.put("executorGCTime", FormatUtil.formatDuration(executorGCTime))
-    map.put("resultSize", FormatUtil.formatBytes(resultSize))
-    map.put("numInputRecords", FormatUtil.formatBytes(numInputRecords))
-    map.put("numOutputRecords", FormatUtil.formatBytes(numOutputRecords))
+    map.put("executorRunTime", FormatUtils.formatDuration(executorRunTime))
+    map.put("executorGCTime", FormatUtils.formatDuration(executorGCTime))
+    map.put("resultSize", FormatUtils.formatBytes(resultSize))
+    map.put("numInputRecords", FormatUtils.formatBytes(numInputRecords))
+    map.put("numOutputRecords", FormatUtils.formatBytes(numOutputRecords))
     map
   }
 

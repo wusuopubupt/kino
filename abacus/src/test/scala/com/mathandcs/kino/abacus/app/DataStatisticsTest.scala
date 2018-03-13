@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import java.sql.{Date, Timestamp}
 
 import com.mathandcs.kino.abacus.app.DataStatistics._
-import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
+import com.mathandcs.kino.abacus.utils.{HDFSUtils, SparkUtils}
 import org.apache.spark.Logging
 import org.apache.spark.sql.Row
 import org.json4s.JsonAST.{JNull, JString}
@@ -45,8 +45,8 @@ class DataStatisticsTest extends FlatSpec with Logging {
       StructField(columnName, DateType, nullable = true)
     ))
 
-    val sc = SparkUtil.sparkContext
-    val sqlContext = SparkUtil.sqlContext
+    val sc = SparkUtils.sparkContext
+    val sqlContext = SparkUtils.sqlContext
     val curColRdd = sc.parallelize(List(
       Row(Date.valueOf("2017-01-01")),
       Row(Date.valueOf("2017-01-01")),
@@ -87,8 +87,8 @@ class DataStatisticsTest extends FlatSpec with Logging {
       StructField(columnName, TimestampType, nullable = true)
     ))
 
-    val sc = SparkUtil.sparkContext
-    val sqlContext = SparkUtil.sqlContext
+    val sc = SparkUtils.sparkContext
+    val sqlContext = SparkUtils.sqlContext
     val curColRdd = sc.parallelize(List(
       Row(Timestamp.valueOf("2017-01-01 01:02:00")),
       Row(Timestamp.valueOf("2017-01-01 01:02:00")),
@@ -131,8 +131,8 @@ class DataStatisticsTest extends FlatSpec with Logging {
       StructField(columnName, StringType, nullable = true)
     ))
 
-    val sc = SparkUtil.sparkContext
-    val sqlContext = SparkUtil.sqlContext
+    val sc = SparkUtils.sparkContext
+    val sqlContext = SparkUtils.sqlContext
     val curColRdd = sc.parallelize(List(
       Row(null),
       Row("bb"),
@@ -180,8 +180,8 @@ class DataStatisticsTest extends FlatSpec with Logging {
       StructField(doubleColName, DoubleType, nullable = true)
     ))
 
-    val sc = SparkUtil.sparkContext
-    val sqlContext = SparkUtil.sqlContext
+    val sc = SparkUtils.sparkContext
+    val sqlContext = SparkUtils.sqlContext
     val curColRdd = sc.parallelize(List(
       Row(0, 0L, 1.0),
       Row(0, 2L, 2.0),
@@ -242,7 +242,7 @@ class DataStatisticsTest extends FlatSpec with Logging {
     alert("single-data-statistics-config, will work successfully")
     val args = Array("src/test/resources/data-stat.json")
     val app = new DataStatistics()
-    HDFSUtil.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data")
+    HDFSUtils.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/data-stat/data")
     app.execute(args(0))
   }
 

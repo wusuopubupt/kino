@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.examples.sql
 
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark
 
 /**
@@ -11,7 +11,7 @@ case class Person(name: String, age: Int)
 
 object DataFrameExample {
   def main(args: Array[String]) {
-    val sc = SparkUtil.sparkContext
+    val sc = SparkUtils.sparkContext
     val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
     //

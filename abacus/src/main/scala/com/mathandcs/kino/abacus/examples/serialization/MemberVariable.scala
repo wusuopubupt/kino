@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.examples.serialization
 
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.rdd.RDD
 
 /**
@@ -11,7 +11,7 @@ import org.apache.spark.rdd.RDD
   *
   */
 class MemberVariable(conf: String) extends Serializable {
-  private val sc = SparkUtil.sparkContext
+  private val sc = SparkUtils.sparkContext
   val list = List("a.com", "www.b.com", "a.cn", "a.com.cn", "a.org")
   val rdd = sc.parallelize(list)
 
@@ -49,7 +49,7 @@ class MemberVariable(conf: String) extends Serializable {
 class MemberVariable2(conf: String) extends Serializable {
   // 使用关键字“@transent”标注，表示不序列化当前类中的这两个成员变量
   @transient
-  private val sc = SparkUtil.sparkContext
+  private val sc = SparkUtils.sparkContext
   val list = List("a.com", "www.b.com", "a.cn", "a.com.cn", "a.org")
   val rdd = sc.parallelize(list)
 

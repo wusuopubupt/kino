@@ -7,7 +7,7 @@ import com.mathandcs.kino.abacus.app.DataStatistics.StatisticsDataTypeEnum.Stati
 import com.mathandcs.kino.abacus.app.DataStatistics._
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.io.DataReader
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types._
 import org.apache.spark.storage.StorageLevel
@@ -58,7 +58,7 @@ class DataStatistics extends BaseApp {
     log.info("Finished assembling report, result is: " + metrics)
     val jsonContent = write(metrics)
     log.info(s"Calculation completed, report json content is: $jsonContent")
-    val metricsRdd = SparkUtil.sparkContext.makeRDD(Seq(jsonContent))
+    val metricsRdd = SparkUtils.sparkContext.makeRDD(Seq(jsonContent))
     metricsRdd.saveAsTextFile(config.outputTables(0).url)
   }
 
@@ -155,7 +155,7 @@ class DataStatistics extends BaseApp {
     curColDF.persist(StorageLevel.MEMORY_AND_DISK)
 
     val count = getDataCount(curColDF)
-    val zeroCountAcc = SparkUtil.sparkContext.accumulator(0L)
+    val zeroCountAcc = SparkUtils.sparkContext.accumulator(0L)
     // filter null value (since null.getAs[Int](0) will return 0)
     val statCounter = curColDF.filter(s"$columnName is not null").map(row => {
       val doubleVal = row.getAs[Double](0)
@@ -174,11 +174,11 @@ class DataStatistics extends BaseApp {
     val zeroRate = (zeroCountAcc.value * 1.0) / count
     val step = (max - min) / BUCKET_NUM
 
-    val brMin = SparkUtil.sparkContext.broadcast(min)
-    val brStep = SparkUtil.sparkContext.broadcast(step)
-    val brMean = SparkUtil.sparkContext.broadcast(mean)
+    val brMin = SparkUtils.sparkContext.broadcast(min)
+    val brStep = SparkUtils.sparkContext.broadcast(step)
+    val brMean = SparkUtils.sparkContext.broadcast(mean)
 
-    val sumOfSquaredDeviationAcc = SparkUtil.sparkContext.accumulator(0.0)
+    val sumOfSquaredDeviationAcc = SparkUtils.sparkContext.accumulator(0.0)
 
     val arrayOfCountMaps = curColDF.filter(s"$columnName is not null").mapPartitions(iter => {
       val countMap = new mutable.HashMap[Double, Long]()
@@ -239,7 +239,7 @@ class DataStatistics extends BaseApp {
     curColDF.persist(StorageLevel.MEMORY_AND_DISK)
 
     val count = getDataCount(curColDF)
-    val zeroCountAcc = SparkUtil.sparkContext.accumulator(0L)
+    val zeroCountAcc = SparkUtils.sparkContext.accumulator(0L)
     // filter null value (since null.getAs[Long](0) will return 0)
     val statCounter = curColDF.filter(s"$columnName is not null").map(row => {
       val longVal = row.getAs[Long](0)
@@ -258,11 +258,11 @@ class DataStatistics extends BaseApp {
     val missingRate = (count - statCounter.count) * 1.0 / count
     val step = if ((max - min) >= BUCKET_NUM) (max - min) / BUCKET_NUM else 1
 
-    val brMin = SparkUtil.sparkContext.broadcast(min)
-    val brStep = SparkUtil.sparkContext.broadcast(step)
-    val brMean = SparkUtil.sparkContext.broadcast(mean)
+    val brMin = SparkUtils.sparkContext.broadcast(min)
+    val brStep = SparkUtils.sparkContext.broadcast(step)
+    val brMean = SparkUtils.sparkContext.broadcast(mean)
 
-    val sumOfSquaredDeviationAcc = SparkUtil.sparkContext.accumulator(0.0)
+    val sumOfSquaredDeviationAcc = SparkUtils.sparkContext.accumulator(0.0)
 
     val arrayOfCountMaps = curColDF.filter(s"$columnName is not null").mapPartitions(iter => {
       val countMap = new mutable.HashMap[Long, Long]()
@@ -322,7 +322,7 @@ class DataStatistics extends BaseApp {
     // cache current column DataFrame
     curColDF.persist(StorageLevel.MEMORY_AND_DISK)
     val count = getDataCount(curColDF)
-    val zeroCountAcc = SparkUtil.sparkContext.accumulator(0L)
+    val zeroCountAcc = SparkUtils.sparkContext.accumulator(0L)
     // filter null value (since null.getAs[Int](0) will return 0)
     val statCounter = curColDF.filter(s"$columnName is not null").map(row => {
       val intVal = row.getAs[Int](0)
@@ -341,11 +341,11 @@ class DataStatistics extends BaseApp {
     val missingRate = (count - statCounter.count) * 1.0 / count
     val step = if ((max - min) >= BUCKET_NUM) (max - min) / BUCKET_NUM else 1
 
-    val brMin = SparkUtil.sparkContext.broadcast(min)
-    val brStep = SparkUtil.sparkContext.broadcast(step)
-    val brMean = SparkUtil.sparkContext.broadcast(mean)
+    val brMin = SparkUtils.sparkContext.broadcast(min)
+    val brStep = SparkUtils.sparkContext.broadcast(step)
+    val brMean = SparkUtils.sparkContext.broadcast(mean)
 
-    val sumOfSquaredDeviationAcc = SparkUtil.sparkContext.accumulator(0.0)
+    val sumOfSquaredDeviationAcc = SparkUtils.sparkContext.accumulator(0.0)
 
     val arrayOfCountMaps = curColDF.filter(s"$columnName is not null").mapPartitions(iter => {
       val countMap = new mutable.HashMap[Int, Long]()
@@ -402,9 +402,9 @@ class DataStatistics extends BaseApp {
   }
 
   def processStringTypeCol(curColDF: DataFrame, columnName: String): StringMetric = {
-    val missingCountAcc = SparkUtil.sparkContext.accumulator(0L)
-    val lineCountAcc = SparkUtil.sparkContext.accumulator(0L)
-    val sumLenAcc = SparkUtil.sparkContext.accumulator(0L)
+    val missingCountAcc = SparkUtils.sparkContext.accumulator(0L)
+    val lineCountAcc = SparkUtils.sparkContext.accumulator(0L)
+    val sumLenAcc = SparkUtils.sparkContext.accumulator(0L)
 
     val wordCount = curColDF.rdd.map(row => {
       val stringVal = row.getAs[String](0)
@@ -460,8 +460,8 @@ class DataStatistics extends BaseApp {
   def processGenericDateTypeCol[T >: Null <: java.util.Date : ClassTag](curColDF: DataFrame, columnName: String)
                                                                        (implicit clz: java.lang.Class[T]): GenericDateMetric[T] = {
 
-    val missingCountAcc = SparkUtil.sparkContext.accumulator(0L)
-    val lineCountAcc = SparkUtil.sparkContext.accumulator(0L)
+    val missingCountAcc = SparkUtils.sparkContext.accumulator(0L)
+    val lineCountAcc = SparkUtils.sparkContext.accumulator(0L)
 
     val wordCount = curColDF.rdd.map(row => {
       lineCountAcc += 1L

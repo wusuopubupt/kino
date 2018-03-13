@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import com.mathandcs.kino.abacus.app.ClassificationModelEval._
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.io.DataReader
-import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
+import com.mathandcs.kino.abacus.utils.{HDFSUtils, SparkUtils}
 import org.apache.spark.Partitioner
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.types.StringType
@@ -33,7 +33,7 @@ class ClassificationModelEval extends BaseApp {
     val metrics = new Metrics(groupAuc)
     val jsonContent = write(metrics)
     log.info(s"Calculation completed, report json content is: $jsonContent")
-    val metricsRdd = SparkUtil.sparkContext.makeRDD(Seq(jsonContent))
+    val metricsRdd = SparkUtils.sparkContext.makeRDD(Seq(jsonContent))
     metricsRdd.saveAsTextFile(config.outputTables(0).url)
   }
 
@@ -61,9 +61,9 @@ class ClassificationModelEval extends BaseApp {
       instanceRatio.toArray
     )
     log.info(s"Saving group auc json into $uri")
-    val partialGroupedAucRdd = SparkUtil.sparkContext.makeRDD(Seq(write(partialGroupedAuc)))
-    HDFSUtil.deleteIfExist(uri)
-    SparkUtil.sqlContext.read.json(partialGroupedAucRdd).repartition(1).write.json(uri)
+    val partialGroupedAucRdd = SparkUtils.sparkContext.makeRDD(Seq(write(partialGroupedAuc)))
+    HDFSUtils.deleteIfExist(uri)
+    SparkUtils.sqlContext.read.json(partialGroupedAucRdd).repartition(1).write.json(uri)
 
     val fullNegInstanceRatio = if (totalInstanceNum == 0) Double.NaN else fullNegInstanceCount * 1.0 / totalInstanceNum
     val fullPosInstanceRatio = if (totalInstanceNum == 0) Double.NaN else fullPosInstanceCount * 1.0 / totalInstanceNum
@@ -149,10 +149,10 @@ class ClassificationModelEval extends BaseApp {
     }).repartitionAndSortWithinPartitions(new FlightEvalTermPartitioner(partitions))
 
 
-    val fullNegGroupCount = SparkUtil.sparkContext.accumulator(0L)
-    val fullNegGroupInstanceCount = SparkUtil.sparkContext.accumulator(0L)
-    val fullPosGroupCount = SparkUtil.sparkContext.accumulator(0L)
-    val fullPosGroupInstanceCount = SparkUtil.sparkContext.accumulator(0L)
+    val fullNegGroupCount = SparkUtils.sparkContext.accumulator(0L)
+    val fullNegGroupInstanceCount = SparkUtils.sparkContext.accumulator(0L)
+    val fullPosGroupCount = SparkUtils.sparkContext.accumulator(0L)
+    val fullPosGroupInstanceCount = SparkUtils.sparkContext.accumulator(0L)
 
     // do statistic
     val stat = secondarySortedPredictionLabels.mapPartitions(iter => {

@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.examples
 
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.Accumulator
 
 import scala.collection.mutable
@@ -12,7 +12,7 @@ import scala.collection.mutable
   * ref: https://github.com/apache/spark/blob/master/core/src/test/scala/org/apache/spark/AccumulatorSuite.scala
   */
 object AccumulatorExamples {
-  val sc = SparkUtil.sparkContext
+  val sc = SparkUtils.sparkContext
 
   def main(args: Array[String]): Unit = {
 

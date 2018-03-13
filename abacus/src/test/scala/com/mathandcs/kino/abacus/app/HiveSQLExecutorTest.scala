@@ -4,7 +4,7 @@ import java.util
 
 import com.mathandcs.kino.abacus.common.Field
 import com.mathandcs.kino.abacus.inference.{InferRequest, Table}
-import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
+import com.mathandcs.kino.abacus.utils.{HDFSUtils, SparkUtils}
 import org.apache.spark.Logging
 import org.scalatest.FlatSpec
 
@@ -21,7 +21,7 @@ class HiveSQLExecutorTest extends FlatSpec with Logging {
     alert("single-data-statistics-config, will work successfully")
     val args = Array("src/test/resources/hive-sql-execution.json")
     val app = new HiveSQLExecutor()
-    HDFSUtil.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/sql-execution/data")
+    HDFSUtils.deleteIfExist("file:///Users/dashwang/Project/github/wusuopubupt/kino/abacus/src/test/resources/tmp/sql-execution/data")
     app.execute(args(0))
   }
 

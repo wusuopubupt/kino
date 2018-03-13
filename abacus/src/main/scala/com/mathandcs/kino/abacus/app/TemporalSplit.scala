@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.app
 
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.io.DataReader
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.hadoop.fs.Path
 import org.apache.hadoop.io.NullWritable
 import org.apache.hadoop.mapred.lib.MultipleTextOutputFormat
@@ -31,7 +31,7 @@ class TemporalSplit extends BaseApp {
   private val fileNamePrefix = "part-"
 
   override def run(config: AppConfig) = {
-    val sc = SparkUtil.sparkContext
+    val sc = SparkUtils.sparkContext
 
     val timestampCol = config.extra.get("timestampCol").toString
     val fileNumPerPartition = config.extra.get("fileNumPerPartition").asInstanceOf[Int]
@@ -84,7 +84,7 @@ class TemporalSplit extends BaseApp {
     val rddWithIndex = inputDF.rdd.zipWithIndex()
       .map(indexedRow => Row.fromSeq(indexedRow._2 +: indexedRow._1.toSeq))
     val newStructure = StructType(Seq(StructField(indexColName, LongType, true)).++(inputDF.schema.fields))
-    val sqlContext = SparkUtil.sqlContext
+    val sqlContext = SparkUtils.sqlContext
     sqlContext.createDataFrame(rddWithIndex, newStructure)
   }
 
@@ -112,7 +112,7 @@ class TemporalSplit extends BaseApp {
       val struct = StructType(Array(lineId, content))
     }
 
-    val sqlContext = SparkUtil.sqlContext
+    val sqlContext = SparkUtils.sqlContext
 
     // (lineId, lineContent)
     val dfLeftLarge = instanceDF
@@ -129,7 +129,7 @@ class TemporalSplit extends BaseApp {
 
     val bs = bucketSegments.collect()
     timestampLineIdPairRDD.unpersist()
-    val broadcastBucketSegments = SparkUtil.sparkContext.broadcast(bs)
+    val broadcastBucketSegments = SparkUtils.sparkContext.broadcast(bs)
 
     dfLeftLarge.mapPartitions(
       iterator => {

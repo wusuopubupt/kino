@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus
 
 import com.mathandcs.kino.abacus.app.AppFactory
 import com.mathandcs.kino.abacus.accumulator.{AccumulatorListener, HDFSAccumulatorManager}
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.Logging
 
 /**
@@ -11,7 +11,7 @@ import org.apache.spark.Logging
 object Entrance extends Logging {
 
   def main(args: Array[String]) {
-    //addListener()
+    addListener()
 
     val appClassName = args(0)
     val appConfigFile = args(1)
@@ -20,8 +20,8 @@ object Entrance extends Logging {
   }
 
   def addListener() = {
-    val sc = SparkUtil.sparkContext
-    val accumulatorManager = new HDFSAccumulatorManager("hdfs:///tmp")
+    val sc = SparkUtils.sparkContext
+    val accumulatorManager = new HDFSAccumulatorManager("hdfs://baidu-hadoop-yf-105:8020/tmp/a")
     val listener = new AccumulatorListener(accumulatorManager)
     sc.addSparkListener(listener)
   }

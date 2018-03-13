@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import com.google.gson._
 import com.mathandcs.kino.abacus.accumulator.Accumulator
 import com.mathandcs.kino.abacus.config.AppConfig
-import com.mathandcs.kino.abacus.io.serialization.GsonListAdapter
+import com.mathandcs.kino.abacus.io.codec.GsonListAdapter
 import org.apache.spark.Logging
 
 /**

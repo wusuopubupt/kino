@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.app
 
-import com.mathandcs.kino.abacus.utils.{HDFSUtil, SparkUtil}
+import com.mathandcs.kino.abacus.utils.{HDFSUtils, SparkUtils}
 import org.json4s.DefaultFormats
 import org.json4s.native.Serialization._
 import org.scalatest.{FlatSpec, FunSuite}
@@ -11,8 +11,8 @@ import org.scalatest.{FlatSpec, FunSuite}
 class ClassificationModelEvalTest extends FlatSpec {
 
   it should "get grouped auc" in {
-    val sc = SparkUtil.sparkContext
-    val sqlContext = SparkUtil.sqlContext
+    val sc = SparkUtils.sparkContext
+    val sqlContext = SparkUtils.sqlContext
     import sqlContext.implicits._
 
     alert("Sample data from spark example")
@@ -45,14 +45,14 @@ class ClassificationModelEvalTest extends FlatSpec {
     val mea = new ClassificationModelEval()
 
     val groupAucOutputUri = "file:///tmp/model_eval_grouped_auc"
-    HDFSUtil.deleteIfExist(groupAucOutputUri)
+    HDFSUtils.deleteIfExist(groupAucOutputUri)
     val mm = mea.getGroupedAuc(rawInputDF, "score", "label", "count", groupAucOutputUri)
 
     val str = write(mm)
 
     val mmRdd = sc.makeRDD(Seq(str))
 
-    val df = SparkUtil.sqlContext.read.json(mmRdd)
+    val df = SparkUtils.sqlContext.read.json(mmRdd)
 
     df.show(1, false)
 
