@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.examples.serialization
 
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import com.mathandcs.kino.abacus.examples.serialization.MemberFunction._
 import org.apache.spark.rdd.RDD
 
@@ -12,7 +12,7 @@ import org.apache.spark.rdd.RDD
   * http://blog.csdn.net/sogerno1/article/details/45935159
   */
 class MemberFunction(conf: String) extends Serializable {
-  val sc = SparkUtil.sparkContext
+  val sc = SparkUtils.sparkContext
   val list = List("a.com", "www.b.com", "a.cn", "a.com.cn", "a.org")
   val rdd = sc.parallelize(list)
 

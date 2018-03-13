@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.inference.{InferRequest, InferResponse}
 import com.mathandcs.kino.abacus.io.{DataReader, DataWriter}
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.Logging
 import org.apache.spark.sql.{DataFrame, RowFactory}
 import org.json4s.DefaultFormats
@@ -21,7 +21,7 @@ class HiveSQLExecutor extends BaseApp {
 
     sqlStatement = appConfig.extra.get("sqlStatement").toString
 
-    val sqlContext = SparkUtil.switchToHiveContext().sqlContext
+    val sqlContext = SparkUtils.switchToHiveContext().sqlContext
 
     for (i <- appConfig.inputTables.indices) {
       try {
@@ -59,9 +59,9 @@ object HiveSQLExecutor extends Logging {
   def inferSchema(inferRequest: InferRequest): InferResponse = {
     // Create empty dataframe with specified schema
     for (table <- inferRequest.inputTables) {
-      val rowRDD = SparkUtil.sparkContext.parallelize(List(RowFactory.create(AnyRef)))
+      val rowRDD = SparkUtils.sparkContext.parallelize(List(RowFactory.create(AnyRef)))
       val structType = DataReader.transferScalaSchemaToSparkSqlSchema(table.schema)
-      val df = SparkUtil.switchToHiveContext().sqlContext.createDataFrame(rowRDD, structType)
+      val df = SparkUtils.switchToHiveContext().sqlContext.createDataFrame(rowRDD, structType)
       df.registerTempTable(table.name)
     }
 
@@ -71,7 +71,7 @@ object HiveSQLExecutor extends Logging {
       for (statement <- statements) {
         val trimmedSql = statement.trim
         if (trimmedSql.length > 0) {
-          val outputDF = SparkUtil.switchToHiveContext().sqlContext.sql(trimmedSql)
+          val outputDF = SparkUtils.switchToHiveContext().sqlContext.sql(trimmedSql)
           val outputSchema = DataReader.transferSparkSqlSchemaToScalaSchema(outputDF.schema)
           val errors = List.empty[Error]
           inferResponse = new InferResponse(outputSchema, errors)
@@ -84,7 +84,7 @@ object HiveSQLExecutor extends Logging {
     } finally {
       // remove temp tables
       for (table <- inferRequest.inputTables) {
-        SparkUtil.switchToHiveContext().sqlContext.dropTempTable(table.name)
+        SparkUtils.switchToHiveContext().sqlContext.dropTempTable(table.name)
       }
     }
 

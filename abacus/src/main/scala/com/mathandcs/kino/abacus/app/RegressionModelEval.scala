@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.app
 import com.mathandcs.kino.abacus.app.RegressionModelEval._
 import com.mathandcs.kino.abacus.config.AppConfig
 import com.mathandcs.kino.abacus.io.DataReader
-import com.mathandcs.kino.abacus.utils.SparkUtil
+import com.mathandcs.kino.abacus.utils.SparkUtils
 import org.apache.spark.sql.DataFrame
 import org.json4s.DefaultFormats
 import org.json4s.native.Serialization.write
@@ -35,14 +35,14 @@ class RegressionModelEval extends BaseApp {
     log.info("Begin to assemble report info...")
     val metrics = assembleReport(predictionAndLabels)
     log.info("Calculation completed, wrap into metric map.")
-    val metricsRdd = SparkUtil.sparkContext.makeRDD(Seq(write(metrics)))
+    val metricsRdd = SparkUtils.sparkContext.makeRDD(Seq(write(metrics)))
 
     metricsRdd.saveAsTextFile(appConfig.outputTables(0).url)
   }
 
   def assembleReport(predictionAndLabels: DataFrame): Metrics = {
 
-    val sc = SparkUtil.sparkContext
+    val sc = SparkUtils.sparkContext
     val sumY = sc.accumulator[Double](0.0)
     val sumPrediction = sc.accumulator[Double](0.0)
     val sumAbsoluteDelta = sc.accumulator[Double](0.0)

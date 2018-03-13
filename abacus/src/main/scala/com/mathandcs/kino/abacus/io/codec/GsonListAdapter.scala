@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.io.serialization
+package com.mathandcs.kino.abacus.io.codec
 
 import java.lang.reflect.{ParameterizedType, Type}
 

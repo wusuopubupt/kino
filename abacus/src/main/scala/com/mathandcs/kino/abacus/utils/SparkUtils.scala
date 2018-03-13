@@ -8,7 +8,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 /**
   * Created by dashwang on 10/11/16.
   */
-object SparkUtil {
+object SparkUtils {
 
   val sparkConf = new SparkConf().setMaster("local[*]").setAppName("spark-app-template")
 
@@ -36,19 +36,19 @@ object SparkUtil {
   private val SPARK_SHUFFLE_CONSOLIDATE = "spark.shuffle.consolidateFiles"
 
   // after spark-1.3, the default shuffle strategy is sort shuffle
-  private lazy val originShuffleStrategy = SparkUtil.sparkConf.get(SPARK_SHUFFLE_MANAGER)
+  private lazy val originShuffleStrategy = SparkUtils.sparkConf.get(SPARK_SHUFFLE_MANAGER)
 
-  private lazy val originShuffleConsolidate = SparkUtil.sparkConf.get(SPARK_SHUFFLE_CONSOLIDATE)
+  private lazy val originShuffleConsolidate = SparkUtils.sparkConf.get(SPARK_SHUFFLE_CONSOLIDATE)
 
   // set to hash shuffle strategy with file consolidation
   def setShuffleStrategyToHashWithConsolidation(): Unit = {
-    SparkUtil.sparkConf.set(SPARK_SHUFFLE_MANAGER, "hash")
-    SparkUtil.sparkConf.set(SPARK_SHUFFLE_CONSOLIDATE, "true")
+    SparkUtils.sparkConf.set(SPARK_SHUFFLE_MANAGER, "hash")
+    SparkUtils.sparkConf.set(SPARK_SHUFFLE_CONSOLIDATE, "true")
   }
 
   def recoverShuffleStrategy(): Unit = {
-    SparkUtil.sparkConf.set(SPARK_SHUFFLE_MANAGER, originShuffleStrategy)
-    SparkUtil.sparkConf.set(SPARK_SHUFFLE_CONSOLIDATE, originShuffleConsolidate)
+    SparkUtils.sparkConf.set(SPARK_SHUFFLE_MANAGER, originShuffleStrategy)
+    SparkUtils.sparkConf.set(SPARK_SHUFFLE_CONSOLIDATE, originShuffleConsolidate)
   }
 
 

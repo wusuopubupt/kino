@@ -1,19 +1,18 @@
 package com.mathandcs.kino.abacus.app
 
-import java.lang.reflect.{ParameterizedType, Type}
-
-import org.json4s.jackson.Serialization.read
 import com.google.gson._
+import com.mathandcs.kino.abacus.accumulator.Accumulator
 import com.mathandcs.kino.abacus.config.AppConfig
-import com.mathandcs.kino.abacus.io.serialization.GsonListAdapter
+import com.mathandcs.kino.abacus.io.codec.GsonListAdapter
 import org.apache.spark.Logging
-import org.json4s.DefaultFormats
 
 /**
   * Created by dash wang on 2/1/17.
   */
 trait App {
   def run(config: AppConfig)
+
+  def getAccumulator(): Array[Accumulator]
 }
 
 abstract class BaseApp extends App with Logging with Serializable {
@@ -26,6 +25,10 @@ abstract class BaseApp extends App with Logging with Serializable {
   }
 
   def loadJson(path: String) = scala.io.Source.fromFile(path)("UTF-8").getLines().mkString("")
+
+  override def getAccumulator() = {
+    Array.empty[Accumulator]
+  }
 
 }
 
