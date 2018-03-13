@@ -9,9 +9,11 @@ class EntranceTest extends FlatSpec {
 
   behavior of "EntranceTest"
 
+  /*
   it should "main" in {
     val args = Array("DataSplit","src/test/resources/data-split.json")
     Entrance.main(args)
   }
+  */
 
 }
