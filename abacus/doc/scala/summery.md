@@ -1,3 +1,39 @@
+### 关于Case Class
+本质上case class是个语法糖，对你的类构造参数增加了getter访问，还有toString, hashCode, equals 等方法；
+
+最重要的是帮你实现了一个伴生对象，这个伴生对象里定义了apply 方法和 unapply 方法。apply方法是用于在构造对象时，减少new关键字；而unapply方法则是为模式匹配所服务。这两个方法可以看做两个相反的行为，apply是构造(工厂模式)，unapply是分解(解构模式)。case class在暴露了它的构造方式，所以要注意应用场景：当我们想要把某个类型暴露给客户，但又想要隐藏其数据表征时不适宜。
+
+反编译后的Case Class:
+
+``` java
+public class B implements scala.Product,scala.Serializable {
+    public B copy();
+    public java.lang.String productPrefix();
+    public int productArity();
+    public java.lang.Object productElement(int);
+    public scala.collection.Iterator<java.lang.Object> productIterator();
+    // 编译器对case类实现了equals/hashCode/toString等方法
+    public boolean canEqual(java.lang.Object);
+    public int hashCode();
+    public java.lang.String toString();
+    public boolean equals(java.lang.Object);
+    public B();
+}
+```
+反编译后的Case Class伴生对象:
+
+``` java
+//伴生对象也混入了AbstractFunction0 和 Serializable 特质
+public final class B$ extends scala.runtime.AbstractFunction0<B> implements scala.Serializable {
+    public static final B$ MODULE$;
+    public static {};
+    public final java.lang.String toString();
+    public B apply();
+    public boolean unapply(B); // 进行构造器模式匹配时的关键
+    public java.lang.Object apply();
+}
+```
+
 ### 关于new
 在Scala中有这样几种情况，不需要new关键字就可以得到对象的实例。
 
