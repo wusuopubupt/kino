@@ -5,8 +5,32 @@ package com.mathandcs.kino.abacus.stream.store.idempotent;
 
 /**
  *
- * @author fandu
- * @version $Id: IdempotentStore.java, v 0.1 2018年06月23日 下午4:53 fandu Exp $
+ * @author dash wang
+ * @date 2018-06-22
  */
-public class IdempotentStore {
+public interface IdempotentStore {
+
+    /**
+     *
+     * @param uniqueKey
+     * @param data
+     * @param version
+     * @param expire
+     * @return
+     */
+    IdempotentResult put(Object uniqueKey, Object data, int version, int expire);
+
+    /**
+     *
+     * @param uniqueKey
+     * @return
+     */
+    IdempotentResult delete(Object uniqueKey);
+
+    /**
+     *
+     * @param uniqueKey
+     * @return
+     */
+    IdempotentResult get(Object uniqueKey);
 }

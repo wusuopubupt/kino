@@ -3,10 +3,14 @@
  */
 package com.mathandcs.kino.abacus.stream.store.idempotent;
 
+import lombok.Data;
+
 /**
  *
- * @author fandu
- * @version $Id: IdempotentResult.java, v 0.1 2018年06月23日 下午5:04 fandu Exp $
+ * @author dash wang
  */
+@Data
 public class IdempotentResult {
+    private IdempotentResultEnum resultEnum;
+    private Object data;
 }
