@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.runtime.jobgraph;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.Data;
 
@@ -23,5 +24,10 @@ public class JobGraph {
             this.jobVertices.put(id, previous);
             throw new IllegalArgumentException("The JobGraph already contains a vertex with that id.");
         }
+    }
+
+    public List<JobVertex> getVerticesSortedTopologicallyFromSources() {
+        // TODO
+        return null;
     }
 }
