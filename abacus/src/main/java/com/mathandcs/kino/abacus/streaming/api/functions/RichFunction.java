@@ -6,5 +6,6 @@ import java.util.Map;
 public interface RichFunction extends Function {
 	void open(Map<String, Object> config) throws Exception;
 	void close() throws Exception;
+	void setRuntimeContext(RuntimeContext runtimeContext);
 	RuntimeContext getRuntimeContext();
 }
