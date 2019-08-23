@@ -7,7 +7,6 @@ import com.mathandcs.kino.abacus.streaming.api.functions.MapFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.sink.PrintSinkFunction;
 import com.mathandcs.kino.abacus.streaming.api.operators.*;
 import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
-import lombok.Getter;
 
 /**
  * A DataStream represents a stream of elements of the same type.A DataStream
@@ -19,12 +18,7 @@ import lombok.Getter;
  *  *
  * @param <IN> The type of the elements in this stream
  */
-public class DataStream<IN> implements Transformable {
-
-    protected AbstractID id;
-    protected ExecutionEnvironment env;
-    protected DataStream input;
-    protected Operator   operator;
+public class DataStream<IN> extends AbstractTransformable {
 
     public DataStream(ExecutionEnvironment env, DataStream input, Operator operator) {
         this.id = new AbstractID();
@@ -41,36 +35,29 @@ public class DataStream<IN> implements Transformable {
     }
 
     public <OUT> OneInputDataStream<IN, OUT> map(MapFunction<IN, OUT> mapper) {
-        return new OneInputDataStream(this, new MapOperator(mapper));
+        OneInputDataStream mapDataStream = new OneInputDataStream(this, new MapOperator(mapper));
+        env.addTransformable(mapDataStream);
+        return mapDataStream;
     }
 
     public <OUT> OneInputDataStream<IN, OUT> filter(FilterFunction<IN> filter) {
-        return new OneInputDataStream(this, new FilterOperator(filter));
+        OneInputDataStream filterDataStream = new OneInputDataStream(this, new FilterOperator(filter));
+        env.addTransformable(filterDataStream);
+        return filterDataStream;
     }
 
     public <OUT> OneInputDataStream<IN, OUT> flatMap(FlatMapFunction<IN, OUT> flatMapper) {
-        return new OneInputDataStream(this, new FlatMapOperator(flatMapper));
+        OneInputDataStream flatMapDataStream = new OneInputDataStream(this, new FlatMapOperator(flatMapper));
+        env.addTransformable(flatMapDataStream);
+        return flatMapDataStream;
     }
 
     public DataStreamSink<IN> print() {
         PrintSinkFunction<IN> printFunction = new PrintSinkFunction<>();
         SinkOperator sinkOperator = new SinkOperator(printFunction);
         DataStreamSink sink = new DataStreamSink(this, sinkOperator);
+        env.addTransformable(sink);
         return sink;
     }
 
-    @Override
-    public AbstractID getId() {
-        return id;
-    }
-
-    @Override
-    public Operator getOperator() {
-        return operator;
-    }
-
-    @Override
-    public Transformable getInput() {
-        return input;
-    }
 }

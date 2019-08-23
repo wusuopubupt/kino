@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
+import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.api.collector.Output;
 import com.mathandcs.kino.abacus.streaming.api.context.RuntimeContext;
 import com.mathandcs.kino.abacus.streaming.api.functions.Function;
@@ -34,5 +35,10 @@ public abstract class AbstractOperator<OUT, Func extends Function> implements Op
     @Override
     public void close() throws Exception {
 
+    }
+
+    @Override
+    public String toString() {
+        return getName();
     }
 }

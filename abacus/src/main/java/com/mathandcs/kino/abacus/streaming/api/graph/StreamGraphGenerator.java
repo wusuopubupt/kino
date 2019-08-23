@@ -33,11 +33,13 @@ public class StreamGraphGenerator {
     public StreamGraph generate() {
         streamGraph = new StreamGraph(executionConfig);
 
+        LOG.info("Transforables: {}.", transformables);
         for (Transformable transformable : transformables) {
-            transform(transformable);
+            alreadyTransformed.put(transformable, transform(transformable));
         }
 
         final StreamGraph builtStreamGraph = streamGraph;
+        LOG.info("Generated stream graph: {}.", builtStreamGraph.toJson());
 
         // clear
         alreadyTransformed.clear();
@@ -52,7 +54,7 @@ public class StreamGraphGenerator {
             return alreadyTransformed.get(transformable);
         }
 
-        LOG.info("Transforming " + transformable);
+        LOG.info("Transforming " + transformable.toString());
 
         Collection<AbstractID> transformedIds;
         if (transformable instanceof OneInputDataStream<?, ?>) {

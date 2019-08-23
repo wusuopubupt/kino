@@ -10,4 +10,5 @@ public interface Transformable {
     Operator getOperator();
 
     Transformable getInput();
+
 }

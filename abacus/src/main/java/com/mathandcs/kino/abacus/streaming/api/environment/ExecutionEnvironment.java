@@ -39,6 +39,11 @@ public abstract class ExecutionEnvironment implements Environment{
         return config;
     }
 
+    public void addTransformable(Transformable transformable) {
+        Preconditions.checkNotNull(transformable, "Transformable can not be null!");
+        transformables.add(transformable);
+    }
+
     public static ExecutionEnvironment getExecutionEnvironment(ExecutionConfig config) {
         if (config.getRunMode() == RunMode.LOCAL) {
             return new LocalExecutionEnvironment(config);

@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.api.graph;
 
+import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.api.common.ExecutionConfig;
 import com.mathandcs.kino.abacus.streaming.api.common.JobID;
 import com.mathandcs.kino.abacus.streaming.api.graph.tasks.AbstractInvokable;
@@ -143,4 +144,13 @@ public class StreamGraph extends StreamPlan {
         }
     }
 
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this)
+                .add("executionConfig", executionConfig)
+                .add("streamNodes", streamNodes)
+                .add("sources", sources)
+                .add("sinks", sinks)
+                .toString();
+    }
 }
