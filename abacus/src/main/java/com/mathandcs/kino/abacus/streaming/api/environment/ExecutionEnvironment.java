@@ -3,45 +3,67 @@ package com.mathandcs.kino.abacus.streaming.api.environment;
 import com.google.common.base.Preconditions;
 import com.mathandcs.kino.abacus.streaming.api.common.ExecutionConfig;
 import com.mathandcs.kino.abacus.streaming.api.common.JobExecutionResult;
+import com.mathandcs.kino.abacus.streaming.api.common.RunMode;
 import com.mathandcs.kino.abacus.streaming.api.datastream.DataStreamSource;
+import com.mathandcs.kino.abacus.streaming.api.datastream.Transformable;
+import com.mathandcs.kino.abacus.streaming.api.environment.cluster.ClusterExecutionEnvironment;
+import com.mathandcs.kino.abacus.streaming.api.environment.local.LocalExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.functions.SourceFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.source.FromElementsFunction;
 import com.mathandcs.kino.abacus.streaming.api.graph.StreamGraph;
+import com.mathandcs.kino.abacus.streaming.api.graph.StreamGraphGenerator;
 import com.mathandcs.kino.abacus.streaming.api.operators.SourceOperator;
-import com.mathandcs.kino.abacus.streaming.runtime.state.StateBackend;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public abstract class ExecutionEnvironment implements Environment{
 
-    /** The default name to use for a streaming job if no other name has been specified. */
-    public static final String DEFAULT_JOB_NAME = "Kino Streaming Job";
-
     /** The execution configuration for this environment. */
-    private final ExecutionConfig config = new ExecutionConfig();
+    private final ExecutionConfig config;
 
-    protected boolean isChainingEnabled = true;
-
-    /** The state backend used for storing k/v state and state snapshots. */
-    private StateBackend stateBackend;
+    /** The transformable list */
+    private List<Transformable> transformables = new ArrayList<>(16);
 
     // --------------------------------------------------------------------------------------------
     // Constructor and Properties
     // --------------------------------------------------------------------------------------------
 
+    public ExecutionEnvironment(ExecutionConfig config) {
+        this.config = config;
+    }
+
     public ExecutionConfig getConfig() {
         return config;
     }
 
+    public static ExecutionEnvironment getExecutionEnvironment(ExecutionConfig config) {
+        if (config.getRunMode() == RunMode.LOCAL) {
+            return new LocalExecutionEnvironment(config);
+        } else {
+            return new ClusterExecutionEnvironment(config);
+        }
+    }
+
+    // --------------------------------------------------------------------------------------------
+    // Stream graph generation and execution
+    // --------------------------------------------------------------------------------------------
+
     public abstract JobExecutionResult execute(StreamGraph streamGraph) throws Exception;
 
     public JobExecutionResult execute(String jobName) throws Exception {
-        return execute(getStreamGraph(jobName));
+        config.setJobName(jobName);
+        return execute(getStreamGraph());
     }
 
-    public StreamGraph getStreamGraph(String jobName) {
-        return getStreamGraphGenerator().setJobName(jobName).generate();
+    public StreamGraph getStreamGraph() {
+        return getStreamGraphGenerator().generate();
+    }
+
+    private StreamGraphGenerator getStreamGraphGenerator() {
+        return new StreamGraphGenerator(transformables, config);
     }
 
     // --------------------------------------------------------------------------------------------
@@ -62,7 +84,9 @@ public abstract class ExecutionEnvironment implements Environment{
         }
 
         SourceOperator sourceOperator = new SourceOperator(function);
-        return new DataStreamSource<>(this, null, sourceOperator);
+        DataStreamSource streamSource = new DataStreamSource<>(this, null, sourceOperator);
+        transformables.add(streamSource);
+        return streamSource;
     }
 
 }

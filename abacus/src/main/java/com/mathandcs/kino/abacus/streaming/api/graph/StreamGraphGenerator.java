@@ -15,26 +15,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class StreamGraphGenerator {
 
     private static final Logger LOG = LoggerFactory.getLogger(StreamGraphGenerator.class);
 
-    private final List<Transformable> transformableList;
+    private final List<Transformable> transformables;
     private final ExecutionConfig executionConfig;
     private Map<Transformable, Collection<AbstractID>> alreadyTransformed;
     private StreamGraph streamGraph;
 
-    public StreamGraphGenerator(List<Transformable> transformableList, ExecutionConfig executionConfig) {
-        this.transformableList = transformableList;
+    public StreamGraphGenerator(List<Transformable> transformables, ExecutionConfig executionConfig) {
+        this.transformables = transformables;
         this.executionConfig = executionConfig;
         this.alreadyTransformed = new HashMap<>();
     }
 
-    private StreamGraph generate() {
+    public StreamGraph generate() {
         streamGraph = new StreamGraph(executionConfig);
 
-        for (Transformable transformable : transformableList) {
+        for (Transformable transformable : transformables) {
             transform(transformable);
         }
 
@@ -58,7 +57,7 @@ public class StreamGraphGenerator {
         Collection<AbstractID> transformedIds;
         if (transformable instanceof OneInputDataStream<?, ?>) {
             // one input operator
-            transformedIds = transformOneInputTransform((OneInputDataStream<?, ?>) transformable);
+            transformedIds = transformOneInputTransformable((OneInputDataStream<?, ?>) transformable);
         } else if (transformable instanceof DataStreamSource<?>) {
             // source operator
             transformedIds = transformSource((DataStreamSource<?>) transformable);
@@ -89,7 +88,7 @@ public class StreamGraphGenerator {
         return Collections.emptyList();
     }
 
-    private Collection<AbstractID> transformOneInputTransform(OneInputDataStream transformable) {
+    private Collection<AbstractID> transformOneInputTransformable(OneInputDataStream transformable) {
         Collection<AbstractID> inputIds = transform(transformable.getInput());
 
         // the recursive call might have already transformed this

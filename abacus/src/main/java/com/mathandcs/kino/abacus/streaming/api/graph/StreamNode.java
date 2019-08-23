@@ -22,7 +22,6 @@ public class StreamNode implements Serializable {
     private int maxParallelism;
     private KeySelector<?, ?> statePartitioner1;
     private KeySelector<?, ?> statePartitioner2;
-    private List<OutputSelector<?>> outputSelectors;
 
     private List<StreamEdge> inEdges = new ArrayList();
     private List<StreamEdge> outEdges = new ArrayList();
@@ -32,12 +31,10 @@ public class StreamNode implements Serializable {
     public StreamNode(
             AbstractID id,
             Operator operator,
-            List<OutputSelector<?>> outputSelectors,
             Class<? extends AbstractInvokable> jobVertexClass) {
 
         this.id = id;
         this.operator = operator;
-        this.outputSelectors = outputSelectors;
         this.jobVertexClass = jobVertexClass;
     }
 

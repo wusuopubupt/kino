@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
+import com.mathandcs.kino.abacus.streaming.api.common.OperatorName;
 import com.mathandcs.kino.abacus.streaming.api.functions.MapFunction;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
 import com.mathandcs.kino.abacus.streaming.runtime.record.Watermark;
@@ -25,5 +26,10 @@ public class MapOperator<T, R> extends AbstractOperator<R, MapFunction<T, R>> im
     @Override
     public void processWatermark(Watermark mark) throws Exception {
 
+    }
+
+    @Override
+    public String getName() {
+        return OperatorName.MAP.toString();
     }
 }

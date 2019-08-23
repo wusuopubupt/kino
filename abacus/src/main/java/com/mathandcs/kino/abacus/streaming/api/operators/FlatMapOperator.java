@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
 import com.mathandcs.kino.abacus.streaming.api.collector.TimestampedCollector;
+import com.mathandcs.kino.abacus.streaming.api.common.OperatorName;
 import com.mathandcs.kino.abacus.streaming.api.functions.FlatMapFunction;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
 import com.mathandcs.kino.abacus.streaming.runtime.record.Watermark;
@@ -27,5 +28,10 @@ public class FlatMapOperator<IN, OUT> extends AbstractOperator<OUT, FlatMapFunct
 
     public void processWatermark(Watermark mark) throws Exception {
 
+    }
+
+    @Override
+    public String getName() {
+        return OperatorName.FLATMAP.toString();
     }
 }

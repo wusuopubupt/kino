@@ -17,7 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-import java.util.*;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -82,7 +86,6 @@ public class StreamGraph extends StreamPlan {
         StreamNode vertex = new StreamNode(
                 vertexID,
                 operator,
-                new ArrayList<OutputSelector<?>>(),
                 vertexClass);
 
         streamNodes.put(vertexID, vertex);
@@ -124,13 +127,17 @@ public class StreamGraph extends StreamPlan {
 
     @Override
     public JobGraph getJobGraph(@Nullable JobID jobID) {
-        return StreamingJobGraphGenerator.createJobGraph(this, jobID);
+        // TODO
+        //return StreamingJobGraphGenerator.createJobGraph(this, jobID);
+        return null;
     }
 
     @Override
     public String toJson() {
         try {
-            return new JSONGenerator(this).getJSON();
+            // TODO
+            //return new JSONGenerator(this).getJSON();
+            return this.toString();
         } catch (Exception e) {
             throw new RuntimeException("JSON plan creation failed", e);
         }

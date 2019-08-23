@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
+import com.mathandcs.kino.abacus.streaming.api.common.OperatorName;
 import com.mathandcs.kino.abacus.streaming.api.functions.SinkFunction;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
 import com.mathandcs.kino.abacus.streaming.runtime.record.Watermark;
@@ -62,5 +63,10 @@ public class SinkOperator<IN> extends AbstractOperator<Object, SinkFunction<IN>>
             }
             return null;
         }
+    }
+
+    @Override
+    public String getName() {
+        return OperatorName.SINK.toString();
     }
 }

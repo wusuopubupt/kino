@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
 import com.mathandcs.kino.abacus.streaming.api.collector.Output;
+import com.mathandcs.kino.abacus.streaming.api.common.OperatorName;
 import com.mathandcs.kino.abacus.streaming.api.functions.SourceFunction;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
 import com.mathandcs.kino.abacus.streaming.runtime.record.Watermark;
@@ -64,4 +65,8 @@ public class SourceOperator<OUT, F extends SourceFunction<OUT>> extends Abstract
         return canceledOrStopped;
     }
 
+    @Override
+    public String getName() {
+        return OperatorName.SOURCE.toString();
+    }
 }
