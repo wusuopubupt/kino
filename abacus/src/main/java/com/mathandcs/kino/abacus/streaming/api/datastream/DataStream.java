@@ -6,7 +6,7 @@ import com.mathandcs.kino.abacus.streaming.api.functions.FlatMapFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.MapFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.sink.PrintSinkFunction;
 import com.mathandcs.kino.abacus.streaming.api.operators.*;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 
 /**
  * A DataStream represents a stream of elements of the same type.A DataStream

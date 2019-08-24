@@ -5,7 +5,7 @@ import com.mathandcs.kino.abacus.streaming.api.datastream.DataStreamSink;
 import com.mathandcs.kino.abacus.streaming.api.datastream.DataStreamSource;
 import com.mathandcs.kino.abacus.streaming.api.datastream.OneInputDataStream;
 import com.mathandcs.kino.abacus.streaming.api.datastream.Transformable;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

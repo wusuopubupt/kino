@@ -1,9 +1,6 @@
-package com.mathandcs.kino.abacus.streaming.runtime.utils;
+package com.mathandcs.kino.abacus.streaming.api.common;
 
 import java.util.UUID;
-
-import com.google.common.base.MoreObjects;
-import lombok.Data;
 
 public class AbstractID {
 

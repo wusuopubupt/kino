@@ -13,7 +13,7 @@ import com.mathandcs.kino.abacus.streaming.runtime.io.partition.ForwardPartition
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.RebalancePartitioner;
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.StreamPartitioner;
 import com.mathandcs.kino.abacus.streaming.runtime.jobgraph.JobGraph;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,5 +152,21 @@ public class StreamGraph extends StreamPlan {
                 .add("sources", sources)
                 .add("sinks", sinks)
                 .toString();
+    }
+
+    public ExecutionConfig getExecutionConfig() {
+        return executionConfig;
+    }
+
+    public Map<AbstractID, StreamNode> getStreamNodes() {
+        return streamNodes;
+    }
+
+    public Set<AbstractID> getSources() {
+        return sources;
+    }
+
+    public Set<AbstractID> getSinks() {
+        return sinks;
     }
 }

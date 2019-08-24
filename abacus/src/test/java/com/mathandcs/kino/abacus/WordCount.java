@@ -35,7 +35,7 @@ public class WordCount {
         counts.print();
 
         // execute program
-        env.execute("");
+        env.execute();
     }
 
     // *************************************************************************

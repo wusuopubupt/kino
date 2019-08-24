@@ -1,7 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.api.datastream;
 
 import com.mathandcs.kino.abacus.streaming.api.operators.SinkOperator;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 
 public class DataStreamSink<T> extends AbstractTransformable {
 

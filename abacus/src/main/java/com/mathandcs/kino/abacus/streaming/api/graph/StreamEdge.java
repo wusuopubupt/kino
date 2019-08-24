@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.streaming.api.graph;
 
 import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.StreamPartitioner;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 
 import java.io.Serializable;
 

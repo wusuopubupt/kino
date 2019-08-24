@@ -58,8 +58,7 @@ public abstract class ExecutionEnvironment implements Environment{
 
     public abstract JobExecutionResult execute(StreamGraph streamGraph) throws Exception;
 
-    public JobExecutionResult execute(String jobName) throws Exception {
-        config.setJobName(jobName);
+    public JobExecutionResult execute() throws Exception {
         return execute(getStreamGraph());
     }
 

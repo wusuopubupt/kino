@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.mathandcs.kino.abacus.streaming.api.functions.KeySelector;
 import com.mathandcs.kino.abacus.streaming.api.graph.tasks.AbstractInvokable;
 import com.mathandcs.kino.abacus.streaming.api.operators.Operator;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 
 import java.io.Serializable;
 import java.util.ArrayList;

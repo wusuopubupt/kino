@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.streaming.api.datastream;
 import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.api.environment.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.operators.Operator;
-import com.mathandcs.kino.abacus.streaming.runtime.utils.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 
 public class AbstractTransformable implements Transformable {
 
