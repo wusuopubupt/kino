@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class MapOperator<T, R> extends AbstractOperator<R, MapFunction<T, R>> implements OneInputOperator<T, R>{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MapOperator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MapOperator.class);
 
     public MapOperator(MapFunction<T, R> mapper) {
         super(mapper);

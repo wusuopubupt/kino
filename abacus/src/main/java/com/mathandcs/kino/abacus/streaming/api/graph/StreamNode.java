@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import com.mathandcs.kino.abacus.streaming.api.functions.KeySelector;
 import com.mathandcs.kino.abacus.streaming.api.graph.tasks.AbstractInvokable;
 import com.mathandcs.kino.abacus.streaming.api.operators.Operator;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class StreamNode implements Serializable {
 
     private static final long serialVersionID = 1L;
 
-    private final AbstractID id;
+    private final UniqueId id;
     private final Operator operator;
     private int parallelism;
     private int maxParallelism;
@@ -28,7 +28,7 @@ public class StreamNode implements Serializable {
     private final Class<? extends AbstractInvokable> jobVertexClass;
 
     public StreamNode(
-            AbstractID id,
+            UniqueId id,
             Operator operator,
             Class<? extends AbstractInvokable> jobVertexClass) {
 
@@ -49,7 +49,7 @@ public class StreamNode implements Serializable {
         outEdges.add(outEdge);
     }
 
-    public AbstractID getId() {
+    public UniqueId getId() {
         return id;
     }
 

@@ -5,7 +5,7 @@ import com.mathandcs.kino.abacus.streaming.api.datastream.DataStreamSink;
 import com.mathandcs.kino.abacus.streaming.api.datastream.DataStreamSource;
 import com.mathandcs.kino.abacus.streaming.api.datastream.OneInputDataStream;
 import com.mathandcs.kino.abacus.streaming.api.datastream.Transformable;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +21,7 @@ public class StreamGraphGenerator {
 
     private final List<Transformable> transformables;
     private final ExecutionConfig executionConfig;
-    private Map<Transformable, Collection<AbstractID>> alreadyTransformed;
+    private Map<Transformable, Collection<UniqueId>> alreadyTransformed;
     private StreamGraph streamGraph;
 
     public StreamGraphGenerator(List<Transformable> transformables, ExecutionConfig executionConfig) {
@@ -49,14 +49,14 @@ public class StreamGraphGenerator {
         return builtStreamGraph;
     }
 
-    private Collection<AbstractID> transform(Transformable transformable) {
+    private Collection<UniqueId> transform(Transformable transformable) {
         if (alreadyTransformed.containsKey(transformable)) {
             return alreadyTransformed.get(transformable);
         }
 
         LOG.info("Transforming " + transformable.toString());
 
-        Collection<AbstractID> transformedIds;
+        Collection<UniqueId> transformedIds;
         if (transformable instanceof OneInputDataStream<?, ?>) {
             // one input operator
             transformedIds = transformOneInputTransformable((OneInputDataStream<?, ?>) transformable);
@@ -73,25 +73,25 @@ public class StreamGraphGenerator {
         return transformedIds;
     }
 
-    private Collection<AbstractID> transformSource(DataStreamSource source) {
+    private Collection<UniqueId> transformSource(DataStreamSource source) {
         streamGraph.addSource(source.getId(), source.getOperator());
         return Collections.singleton(source.getId());
     }
 
-    private Collection<AbstractID> transformSink(DataStreamSink sink) {
-        Collection<AbstractID> inputIds = transform(sink.getInput());
+    private Collection<UniqueId> transformSink(DataStreamSink sink) {
+        Collection<UniqueId> inputIds = transform(sink.getInput());
 
         streamGraph.addSink(sink.getId(), sink.getOperator());
 
-        for (AbstractID inputId: inputIds) {
+        for (UniqueId inputId: inputIds) {
             streamGraph.addEdge(inputId, sink.getId(), null);
         }
 
         return Collections.emptyList();
     }
 
-    private Collection<AbstractID> transformOneInputTransformable(OneInputDataStream transformable) {
-        Collection<AbstractID> inputIds = transform(transformable.getInput());
+    private Collection<UniqueId> transformOneInputTransformable(OneInputDataStream transformable) {
+        Collection<UniqueId> inputIds = transform(transformable.getInput());
 
         // the recursive call might have already transformed this
         if (alreadyTransformed.containsKey(transformable)) {
@@ -100,7 +100,7 @@ public class StreamGraphGenerator {
 
         streamGraph.addOperator(transformable.getId(),transformable.getOperator());
 
-        for (AbstractID inputId: inputIds) {
+        for (UniqueId inputId: inputIds) {
             streamGraph.addEdge(inputId, transformable.getId(), null);
         }
 

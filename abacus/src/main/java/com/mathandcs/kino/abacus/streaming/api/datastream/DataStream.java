@@ -4,9 +4,10 @@ import com.mathandcs.kino.abacus.streaming.api.environment.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.functions.FilterFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.FlatMapFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.MapFunction;
+import com.mathandcs.kino.abacus.streaming.api.functions.SinkFunction;
 import com.mathandcs.kino.abacus.streaming.api.functions.sink.PrintSinkFunction;
 import com.mathandcs.kino.abacus.streaming.api.operators.*;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
 /**
  * A DataStream represents a stream of elements of the same type.A DataStream
@@ -21,14 +22,14 @@ import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 public class DataStream<IN> extends AbstractTransformable {
 
     public DataStream(ExecutionEnvironment env, DataStream input, Operator operator) {
-        this.id = new AbstractID();
+        this.id = new UniqueId();
         this.env = env;
         this.input = input;
         this.operator = operator;
     }
 
     public DataStream(DataStream<IN> input, Operator operator) {
-        this.id = new AbstractID();
+        this.id = new UniqueId();
         this.env = input.env;
         this.input = input;
         this.operator = operator;
@@ -52,12 +53,16 @@ public class DataStream<IN> extends AbstractTransformable {
         return flatMapDataStream;
     }
 
-    public DataStreamSink<IN> print() {
-        PrintSinkFunction<IN> printFunction = new PrintSinkFunction<>();
-        SinkOperator sinkOperator = new SinkOperator(printFunction);
+    public <OUT> DataStreamSink<OUT> sink(SinkFunction<IN> sinkFunction) {
+        SinkOperator sinkOperator = new SinkOperator(sinkFunction);
         DataStreamSink sink = new DataStreamSink(this, sinkOperator);
         env.addTransformable(sink);
         return sink;
+    }
+
+    public DataStreamSink<IN> print() {
+        PrintSinkFunction<IN> printFunction = new PrintSinkFunction<>();
+        return sink(printFunction);
     }
 
 }

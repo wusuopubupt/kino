@@ -2,11 +2,11 @@ package com.mathandcs.kino.abacus.streaming.api.common;
 
 import java.util.UUID;
 
-public class AbstractID {
+public class UniqueId {
 
     private UUID id;
 
-    public AbstractID() {
+    public UniqueId() {
         id = UUID.randomUUID();
     }
 

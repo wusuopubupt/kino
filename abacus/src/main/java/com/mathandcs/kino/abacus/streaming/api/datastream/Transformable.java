@@ -1,11 +1,11 @@
 package com.mathandcs.kino.abacus.streaming.api.datastream;
 
 import com.mathandcs.kino.abacus.streaming.api.operators.Operator;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
 public interface Transformable {
 
-    AbstractID getId();
+    UniqueId getId();
 
     Operator getOperator();
 

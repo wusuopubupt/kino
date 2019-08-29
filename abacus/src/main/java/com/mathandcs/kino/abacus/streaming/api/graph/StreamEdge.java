@@ -2,7 +2,7 @@ package com.mathandcs.kino.abacus.streaming.api.graph;
 
 import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.StreamPartitioner;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
 import java.io.Serializable;
 
@@ -20,11 +20,11 @@ public class StreamEdge implements Serializable {
         this.outputPartitioner = partitioner;
     }
 
-    public AbstractID getSourceId() {
+    public UniqueId getSourceId() {
         return source.getId();
     }
 
-    public AbstractID getTargetId() {
+    public UniqueId getTargetId() {
         return target.getId();
     }
 

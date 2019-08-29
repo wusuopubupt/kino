@@ -1,8 +1,8 @@
 package com.mathandcs.kino.abacus.streaming.runtime.jobgraph;
 
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
-public class IntermediateDataSetID extends AbstractID {
+public class IntermediateDataSetID extends UniqueId {
 
 	public IntermediateDataSetID() {
 		super();

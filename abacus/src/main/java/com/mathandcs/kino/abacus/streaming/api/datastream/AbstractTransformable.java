@@ -3,17 +3,17 @@ package com.mathandcs.kino.abacus.streaming.api.datastream;
 import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.streaming.api.environment.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.operators.Operator;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 
 public class AbstractTransformable implements Transformable {
 
-    protected AbstractID id;
+    protected UniqueId id;
     protected ExecutionEnvironment env;
     protected DataStream input;
     protected Operator   operator;
 
     @Override
-    public AbstractID getId() {
+    public UniqueId getId() {
         return id;
     }
 

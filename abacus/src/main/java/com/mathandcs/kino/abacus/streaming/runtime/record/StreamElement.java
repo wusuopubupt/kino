@@ -1,9 +1,14 @@
 package com.mathandcs.kino.abacus.streaming.runtime.record;
 
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
+
 /**
  * An element in a data stream. Can be a record or a Watermark.
  */
 public abstract class StreamElement {
+
+    /** The source edge which produced this record */
+    protected UniqueId fromEdgeId;
 
     /**
      * Checks whether this element is a watermark.
@@ -38,5 +43,13 @@ public abstract class StreamElement {
      */
     public final Watermark asWatermark() {
         return (Watermark) this;
+    }
+
+    public UniqueId getFromEdgeId() {
+        return fromEdgeId;
+    }
+
+    public void setFromEdgeId(UniqueId fromEdgeId) {
+        this.fromEdgeId = fromEdgeId;
     }
 }

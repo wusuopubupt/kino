@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.api.graph;
 
 import com.google.common.base.MoreObjects;
+import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
 import com.mathandcs.kino.abacus.streaming.api.common.ExecutionConfig;
 import com.mathandcs.kino.abacus.streaming.api.common.JobID;
 import com.mathandcs.kino.abacus.streaming.api.graph.tasks.AbstractInvokable;
@@ -13,16 +14,15 @@ import com.mathandcs.kino.abacus.streaming.runtime.io.partition.ForwardPartition
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.RebalancePartitioner;
 import com.mathandcs.kino.abacus.streaming.runtime.io.partition.StreamPartitioner;
 import com.mathandcs.kino.abacus.streaming.runtime.jobgraph.JobGraph;
-import com.mathandcs.kino.abacus.streaming.api.common.AbstractID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -38,9 +38,9 @@ public class StreamGraph extends StreamPlan {
     private final ExecutionConfig executionConfig;
 
     // NodeID -> Node
-    private Map<AbstractID, StreamNode> streamNodes;
-    private Set<AbstractID> sources;
-    private Set<AbstractID> sinks;
+    private Map<UniqueId, StreamNode> streamNodes;
+    private Set<UniqueId> sourceIds;
+    private Set<UniqueId> sinkIds;
 
     public StreamGraph(ExecutionConfig executionConfig) {
         this.executionConfig = checkNotNull(executionConfig);
@@ -49,24 +49,24 @@ public class StreamGraph extends StreamPlan {
 
     public void clear() {
         streamNodes = new HashMap();
-        sources = new HashSet();
-        sinks = new HashSet();
+        sourceIds = new HashSet();
+        sinkIds = new HashSet();
     }
 
-    public <OUT> void addSource(AbstractID vertexID,
+    public <OUT> void addSource(UniqueId vertexID,
                                 Operator<OUT> operator) {
         addOperator(vertexID, operator);
-        sources.add(vertexID);
+        sourceIds.add(vertexID);
     }
 
-    public <OUT> void addSink(AbstractID vertexID,
+    public <OUT> void addSink(UniqueId vertexID,
                               Operator<OUT> operator) {
         addOperator(vertexID, operator);
-        sinks.add(vertexID);
+        sinkIds.add(vertexID);
     }
 
     public <IN, OUT> void addOperator(
-            AbstractID vertexID,
+            UniqueId vertexID,
             Operator<OUT> operator) {
 
         if (operator instanceof SourceOperator) {
@@ -76,7 +76,7 @@ public class StreamGraph extends StreamPlan {
         }
     }
 
-    protected StreamNode addNode(AbstractID vertexID,
+    protected StreamNode addNode(UniqueId vertexID,
                                  Class<? extends AbstractInvokable> vertexClass,
                                  Operator<?> operator) {
 
@@ -95,7 +95,7 @@ public class StreamGraph extends StreamPlan {
     }
 
     // TODO: add partitioner
-    protected void addEdge(AbstractID sourceId, AbstractID targetId, StreamPartitioner partitioner) {
+    protected void addEdge(UniqueId sourceId, UniqueId targetId, StreamPartitioner partitioner) {
         StreamNode sourceNode = getStreamNode(sourceId);
         StreamNode targetNode = getStreamNode(targetId);
 
@@ -122,7 +122,7 @@ public class StreamGraph extends StreamPlan {
         getStreamNode(edge.getTargetId()).addInEdge(edge);
     }
 
-    private StreamNode getStreamNode(AbstractID id) {
+    private StreamNode getStreamNode(UniqueId id) {
         return streamNodes.get(id);
     }
 
@@ -149,8 +149,8 @@ public class StreamGraph extends StreamPlan {
         return MoreObjects.toStringHelper(this)
                 .add("executionConfig", executionConfig)
                 .add("streamNodes", streamNodes)
-                .add("sources", sources)
-                .add("sinks", sinks)
+                .add("sourceIds", sourceIds)
+                .add("sinkIds", sinkIds)
                 .toString();
     }
 
@@ -158,15 +158,21 @@ public class StreamGraph extends StreamPlan {
         return executionConfig;
     }
 
-    public Map<AbstractID, StreamNode> getStreamNodes() {
+    public Map<UniqueId, StreamNode> getStreamNodes() {
         return streamNodes;
     }
 
-    public Set<AbstractID> getSources() {
-        return sources;
+    public Set<StreamNode> getSources() {
+        return streamNodes.entrySet().stream()
+                .filter(entry -> sourceIds.contains(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toSet());
     }
 
-    public Set<AbstractID> getSinks() {
-        return sinks;
+    public Set<StreamNode> getSinks() {
+        return streamNodes.entrySet().stream()
+                .filter(entry -> sinkIds.contains(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toSet());
     }
 }
