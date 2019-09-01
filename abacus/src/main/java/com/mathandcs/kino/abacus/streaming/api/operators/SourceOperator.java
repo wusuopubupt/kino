@@ -1,6 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.api.operators;
 
-import com.mathandcs.kino.abacus.streaming.api.collector.Output;
+import com.mathandcs.kino.abacus.streaming.api.collector.StreamCollector;
 import com.mathandcs.kino.abacus.streaming.api.common.OperatorName;
 import com.mathandcs.kino.abacus.streaming.api.functions.SourceFunction;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamRecord;
@@ -18,7 +18,7 @@ public class SourceOperator<OUT, F extends SourceFunction<OUT>> extends Abstract
         this.chainingStrategy = ChainingStrategy.HEAD;
     }
 
-    public void run(final Output<StreamRecord<OUT>> collector) throws Exception {
+    public void run(final StreamCollector<StreamRecord<OUT>> collector) throws Exception {
         Preconditions.checkNotNull(ctx, "Source Context must not be null.");
         try {
             userFunction.run(ctx);

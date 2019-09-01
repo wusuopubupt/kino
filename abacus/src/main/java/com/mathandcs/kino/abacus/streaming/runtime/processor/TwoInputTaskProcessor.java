@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.streaming.runtime.processor;
 
 import com.mathandcs.kino.abacus.streaming.api.common.UniqueId;
+import com.mathandcs.kino.abacus.streaming.api.environment.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.operators.TwoInputOperator;
 import com.mathandcs.kino.abacus.streaming.runtime.io.channel.Consumer;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamElement;
@@ -26,6 +27,11 @@ public class TwoInputTaskProcessor<IN1, IN2> implements TaskProcessor {
         this.consumer = consumer;
         this.leftInputEdgeId = leftInputEdgeId;
         this.rightInputEdgeId = rightInputEdgeId;
+    }
+
+    @Override
+    public void setUp(ExecutionEnvironment executionEnvironment) {
+
     }
 
     @Override

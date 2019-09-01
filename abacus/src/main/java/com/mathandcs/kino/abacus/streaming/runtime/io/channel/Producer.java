@@ -6,8 +6,8 @@ public interface Producer<T> {
 
     /**
      * produce msg to target channel
-     * @param msg
+     * @param payload
      */
-    void produce(T msg, UniqueId targetChannelId);
+    void produce(T payload, UniqueId targetChannelId);
 
 }

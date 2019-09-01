@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.streaming.runtime.processor;
 
+import com.mathandcs.kino.abacus.streaming.api.environment.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.streaming.api.operators.OneInputOperator;
 import com.mathandcs.kino.abacus.streaming.runtime.io.channel.Consumer;
 import com.mathandcs.kino.abacus.streaming.runtime.record.StreamElement;
@@ -20,6 +21,11 @@ public final class OneInputTaskProcessor<IN> implements TaskProcessor {
     public OneInputTaskProcessor(Consumer input, OneInputOperator<IN, ?> streamOperator) {
         this.consumer = input;
         this.streamOperator = streamOperator;
+    }
+
+    @Override
+    public void setUp(ExecutionEnvironment executionEnvironment) {
+
     }
 
     @Override

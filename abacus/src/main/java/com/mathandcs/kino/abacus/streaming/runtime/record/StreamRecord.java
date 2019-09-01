@@ -22,6 +22,12 @@ public final class StreamRecord<T> extends StreamElement {
         this.hasTimestamp = hasTimestamp;
     }
 
+    public StreamRecord(T value, long timestamp) {
+        this.value = value;
+        this.timestamp = timestamp;
+        this.hasTimestamp = timestamp > 0 ? true : false;
+    }
+
     /**
      * Replace the currently stored value by the given new value
      * @param element
