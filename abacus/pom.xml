@@ -13,7 +13,7 @@
     <name>${project.artifactId}</name>
 
     <properties>
-        <quartz.version>2.2.3</quartz.version>
+        <quartz.version>2.3.2</quartz.version>
         <spark.avro.version>2.0.1</spark.avro.version>
     </properties>
 
