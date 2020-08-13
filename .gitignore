@@ -85,3 +85,8 @@ project/plugins/project/
 
 # py
 *.pyc
+
+.classpath
+.factorypath
+.project
+.settings
