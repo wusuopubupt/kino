@@ -10,7 +10,6 @@
 
     <modules>
         <module>abacus</module>
-        <module>agile</module>
         <module>effective-java</module>
     </modules>
 
@@ -19,57 +18,59 @@
         <java.version>1.8</java.version>
         <hadoop.version>2.7.1</hadoop.version>
         <spark.version>1.6.0</spark.version>
-        <scala.version>2.10.6</scala.version>
-        <scala.maven.version>2.10.6</scala.maven.version>
-        <scala.version.suffix>_2.10</scala.version.suffix>
-        <spring.boot.version>1.3.5.RELEASE</spring.boot.version>
+        <scala.version>2.11.8</scala.version>
+        <scala.version.suffix>_2.11</scala.version.suffix>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <surefire.version>2.19.1</surefire.version>
-        <akka.version>2.5.19</akka.version>
+        <akka.version>2.5.25</akka.version>
         <influxdb.version>2.16</influxdb.version>
+        <slf4j.version>1.7.21</slf4j.version>
+        <log4j.version>1.2.17</log4j.version>
+        <junit.version>4.12</junit.version>
+        <abacus.version>1.0-SNAPSHOT</abacus.version>
     </properties>
 
-    <dependencies>
-        <!--log-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.21</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.21</version>
-        </dependency>
-
-        <!--unit test-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!--common-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
-        </dependency>
-
-    </dependencies>
-
     <dependencyManagement>
+
         <dependencies>
+
+            <!--log-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
+            <!--unit test-->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!--common-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+
             <!--spark-->
             <dependency>
                 <groupId>org.apache.spark</groupId>
@@ -107,6 +108,7 @@
                 <version>${spark.version}</version>
                 <scope>compile</scope>
             </dependency>
+
             <!--hadoop-->
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -144,6 +146,7 @@
                 <version>${hadoop.version}</version>
                 <scope>compile</scope>
             </dependency>
+
             <!--Database-->
             <dependency>
                 <groupId>org.mariadb.jdbc</groupId>
@@ -188,6 +191,7 @@
                 <version>3.0.1</version>
                 <scope>test</scope>
             </dependency>
+
             <!-- scala compile -->
             <dependency>
                 <groupId>org.scala-lang</groupId>
@@ -204,20 +208,21 @@
             <dependency>
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest${scala.version.suffix}</artifactId>
-                <version>2.0</version>
+                <version>3.0.4</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-actor_2.12</artifactId>
+                <artifactId>akka-actor${scala.version.suffix}</artifactId>
                 <version>${akka.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.akka</groupId>
-                <artifactId>akka-testkit_2.12</artifactId>
+                <artifactId>akka-testkit${scala.version.suffix}</artifactId>
                 <version>${akka.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <!-- kryo relations -->
             <dependency>
                 <groupId>com.esotericsoftware</groupId>
@@ -263,7 +268,73 @@
             </dependency>
             <!-- tracing end-->
 
+            <dependency>
+                <groupId>org.python</groupId>
+                <artifactId>jython-standalone</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId> com.esotericsoftware.yamlbeans</groupId>
+                <artifactId>yamlbeans</artifactId>
+                <version>RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>4.1.51.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-framework</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.curator</groupId>
+                <artifactId>curator-recipes</artifactId>
+                <version>2.7.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>3.0.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.mathandcs</groupId>
+                <artifactId>abacus-api</artifactId>
+                <version>${abacus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mathandcs</groupId>
+                <artifactId>abacus-core</artifactId>
+                <version>${abacus.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
+
     </dependencyManagement>
 
     <build>

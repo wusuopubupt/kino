@@ -13,11 +13,6 @@
     <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
 
-    <properties>
-        <quartz.version>2.2.3</quartz.version>
-        <spark.avro.version>2.0.1</spark.avro.version>
-    </properties>
-
     <modules>
         <module>abacus-core</module>
         <module>abacus-api</module>
@@ -56,15 +51,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>com.databricks</groupId>
-            <artifactId>spark-avro${scala.version.suffix}</artifactId>
-            <version>${spark.avro.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming-kafka${scala.version.suffix}</artifactId>
-        </dependency>
         <!--scala compile-->
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -77,79 +63,6 @@
         <dependency>
             <groupId>org.scalatest</groupId>
             <artifactId>scalatest${scala.version.suffix}</artifactId>
-        </dependency>
-
-        <!-- others -->
-        <dependency>
-            <groupId>com.esotericsoftware.yamlbeans</groupId>
-            <artifactId>yamlbeans</artifactId>
-            <version>1.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json4s</groupId>
-            <artifactId>json4s-native${scala.version.suffix}</artifactId>
-            <version>3.2.10</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>log4j-over-slf4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>ch.qos.logback</groupId>
-                    <artifactId>logback-classic</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>19.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-yarn-common</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>${spring.boot.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.4.4</version>
-        </dependency>
-        <dependency>
-            <groupId>net.objecthunter</groupId>
-            <artifactId>exp4j</artifactId>
-            <version>0.4.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz</artifactId>
-            <version>${quartz.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.quartz-scheduler</groupId>
-            <artifactId>quartz-jobs</artifactId>
-            <version>${quartz.version}</version>
         </dependency>
         <dependency>
             <groupId>com.esotericsoftware</groupId>
@@ -168,16 +81,29 @@
             <artifactId>influxdb-java</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.influxdb</groupId>
-            <artifactId>influxdb-java</artifactId>
-            <version>2.16</version>
+            <groupId>com.typesafe.akka</groupId>
+            <artifactId>akka-actor${scala.version.suffix}</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
-        <sourceDirectory>abacus-runtime/src/main/scala</sourceDirectory>
-        <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <sourceDirectory>abacus-runtime/src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
         <plugins>
             <plugin> 
                  <groupId>org.codehaus.mojo</groupId>  
@@ -198,6 +124,8 @@
                    </execution> 
                  </executions> 
             </plugin>
+            <!-- DO NOT COMPILE SCALA -->
+            <!--
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
@@ -210,7 +138,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin> -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>

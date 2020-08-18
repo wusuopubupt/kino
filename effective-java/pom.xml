@@ -7,32 +7,12 @@
     <groupId>com.mathandcs</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+
   <groupId>com.mathandcs</groupId>
   <artifactId>effective-java</artifactId>
   <version>1.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
-  <inceptionYear>2010</inceptionYear>
-  <licenses>
-    <license>
-      <name>My License</name>
-      <url>http://....</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
 
-  <properties>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <encoding>UTF-8</encoding>
-    <scala.version>2.10.0</scala.version>
-    <jython.standalone.version>2.7.0</jython.standalone.version>
-  </properties>
-
-  <repositories>
-  </repositories>
-
-  <pluginRepositories>
-  </pluginRepositories>
 
   <dependencies>
     <dependency>
@@ -42,7 +22,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -52,18 +31,15 @@
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
-      <version>2.6.2</version>
     </dependency>
     <dependency>
       <groupId>com.esotericsoftware.yamlbeans</groupId>
       <artifactId>yamlbeans</artifactId>
-      <version>RELEASE</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
-      <version>4.0.29.Final</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.janino</groupId>
@@ -72,20 +48,18 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.python</groupId>
       <artifactId>jython-standalone</artifactId>
-      <version>${jython.standalone.version}</version>
     </dependency>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-actor_2.12</artifactId>
+      <artifactId>akka-actor${scala.version.suffix}</artifactId>
     </dependency>
     <dependency>
       <groupId>com.typesafe.akka</groupId>
-      <artifactId>akka-testkit_2.12</artifactId>
+      <artifactId>akka-testkit${scala.version.suffix}</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- kryo relations -->
@@ -121,19 +95,16 @@
     <dependency>
       <groupId>org.apache.curator</groupId>
       <artifactId>curator-framework</artifactId>
-      <version>2.12.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>com.google.code.findbugs</groupId>
       <artifactId>jsr305</artifactId>
-      <version>3.0.2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.curator</groupId>
       <artifactId>curator-recipes</artifactId>
-      <version>2.12.0</version>
       <scope>compile</scope>
     </dependency>
 
