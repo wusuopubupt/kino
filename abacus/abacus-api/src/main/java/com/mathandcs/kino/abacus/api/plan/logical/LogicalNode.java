@@ -57,4 +57,12 @@ public class LogicalNode implements Serializable {
     public int getParallelism() {
         return parallelism;
     }
+
+    public boolean isSource() {
+        return inputEdges.isEmpty();
+    }
+
+    public boolean isSink() {
+        return outputEdges.isEmpty();
+    }
 }

@@ -21,7 +21,7 @@ public class LogicalPlanGeneratorTest {
     System.out.println(logicalPlan.toDigraph());
 
     Assert.assertNotNull(logicalPlan);
-    Assert.assertEquals(4, logicalPlan.getLogicalNodes().size());
+    Assert.assertEquals(4, logicalPlan.getIdToNodeMap().size());
   }
 
   public LogicalPlan buildPipelinePlan() {

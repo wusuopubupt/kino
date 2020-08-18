@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,22 +19,26 @@ public class LogicalPlan implements Plan {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogicalPlan.class);
 
-    private Map<DataStreamId, LogicalNode> logicalNodes = new HashMap<>();
+    private Map<DataStreamId, LogicalNode> idToNodeMap = new HashMap<>();
 
     public LogicalPlan() {
 
     }
 
     public void addNode(LogicalNode node) {
-        if (logicalNodes.containsKey(node.getId())) {
+        if (idToNodeMap.containsKey(node.getId())) {
             LOG.warn("Node {} already in plan!", node.getId());
             return;
         }
-        logicalNodes.put(node.getId(), node);
+        idToNodeMap.put(node.getId(), node);
     }
 
-    public Map<DataStreamId, LogicalNode> getLogicalNodes() {
-        return logicalNodes;
+    public Map<DataStreamId, LogicalNode> getIdToNodeMap() {
+        return idToNodeMap;
+    }
+
+    public List<LogicalNode> getAllNodes() {
+        return idToNodeMap.values().stream().collect(Collectors.toList());
     }
 
     @Override
@@ -41,7 +46,7 @@ public class LogicalPlan implements Plan {
         StringBuilder digraph = new StringBuilder();
         digraph.append("digraph G { \n");
 
-        logicalNodes.values().stream().forEach(
+        idToNodeMap.values().stream().forEach(
             node -> {
                 List<LogicalEdge> edges = new ArrayList<>();
                 edges.addAll(node.getInputEdges());

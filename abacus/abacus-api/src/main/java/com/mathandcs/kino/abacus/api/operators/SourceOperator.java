@@ -10,13 +10,11 @@ public class SourceOperator<OUT, F extends SourceFunction<OUT>> extends Abstract
 
     private transient SourceFunction.SourceContext<OUT> ctx;
 
-    private transient volatile boolean canceledOrStopped = false;
-
     public SourceOperator(F sourceFunction) {
         super(sourceFunction);
     }
 
-    public void run(final StreamEmitter<StreamRecord<OUT>> collector) throws Exception {
+    public void run() throws Exception {
         Preconditions.checkNotNull(ctx, "Source Context must not be null.");
         try {
             userFunction.run(ctx);
