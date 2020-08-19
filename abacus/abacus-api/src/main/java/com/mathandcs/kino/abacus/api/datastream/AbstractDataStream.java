@@ -3,7 +3,7 @@ package com.mathandcs.kino.abacus.api.datastream;
 import com.google.common.base.MoreObjects;
 import com.mathandcs.kino.abacus.api.env.ExecutionEnvironment;
 import com.mathandcs.kino.abacus.api.operators.Operator;
-import com.mathandcs.kino.abacus.core.io.Partitioner;
+import com.mathandcs.kino.abacus.api.partition.Partitioner;
 
 public class AbstractDataStream<T> implements IDataStream<T> {
 

@@ -31,11 +31,11 @@ public class RecordWriter<T> {
 		this.stream = stream;
 	}
 
-	public void emit(T record) {
-		emit(record, channelSelector.selectChannel(record));
+	public void write(T record) {
+		write(record, channelSelector.selectChannel(record));
 	}
 
-	public void emit(T record, int channelIndex) {
+	public void write(T record, int channelIndex) {
 		ByteBuffer buffer = ByteBuffer.wrap(Serializer.encode(record));
 		// TODO(@fandu)
 	}

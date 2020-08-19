@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.runtime.io.messages;
+package com.mathandcs.kino.abacus.runtime.io.messages.worker;
 
 public class StartingMessage implements WorkerMessage {
 

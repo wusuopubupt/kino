@@ -1,6 +1,7 @@
 package com.mathandcs.kino.abacus.api.plan.logical;
 
-import com.mathandcs.kino.abacus.core.io.Partitioner;
+import akka.actor.ActorRef;
+import com.mathandcs.kino.abacus.api.partition.Partitioner;
 import java.io.Serializable;
 
 public class LogicalEdge implements Serializable {
@@ -9,6 +10,8 @@ public class LogicalEdge implements Serializable {
     private final LogicalNode source;
     private final LogicalNode target;
     private final Partitioner partitioner;
+
+    private ActorRef actor;
 
     public LogicalEdge(LogicalNode source, LogicalNode target, Partitioner partitioner) {
         this.source = source;
@@ -37,4 +40,5 @@ public class LogicalEdge implements Serializable {
     public Partitioner getPartitioner() {
         return partitioner;
     }
+
 }

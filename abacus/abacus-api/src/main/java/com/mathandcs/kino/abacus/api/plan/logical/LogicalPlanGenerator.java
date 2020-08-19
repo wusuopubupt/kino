@@ -88,17 +88,21 @@ public class LogicalPlanGenerator implements PlanGenerator<LogicalPlan> {
     private Collection<DataStreamId> processOneInput(OneInputDataStream stream) {
         // Add current node to logical plan.
         LogicalNode node = buildLocalNodeByDataStream(stream);
-        logicalPlan.addNode(node);
 
-        // Get input node.
+        // Get input node, if input node already in logicalPlan we just use it, else create a new one.
         IDataStream input = stream.getInput();
-        LogicalNode inputNode = new LogicalNode(input.getId(), input.getOperator(), input.getParallelism());
-        logicalPlan.addNode(inputNode);
+        LogicalNode inputNode = logicalPlan.getNode(input.getId());
+        if (null == inputNode) {
+            inputNode = new LogicalNode(input.getId(), input.getOperator(), input.getParallelism());
+        }
 
         // Set input/output edges for current node and input node.
         LogicalEdge edge = new LogicalEdge(inputNode, node, input.getPartitioner());
         node.addInputEdge(edge);
         inputNode.addOutputEdge(edge);
+
+        logicalPlan.addNode(node);
+        logicalPlan.addNode(inputNode);
 
         return Collections.singleton(stream.getId());
     }
@@ -106,17 +110,21 @@ public class LogicalPlanGenerator implements PlanGenerator<LogicalPlan> {
     private Collection<DataStreamId> processSink(DataStreamSink sink) {
         // Add current node to logical plan.
         LogicalNode node = buildLocalNodeByDataStream(sink);
-        logicalPlan.addNode(node);
 
-        // Get input node.
+        // Get input node, if input node already in logicalPlan we just use it, else create a new one.
         IDataStream input = sink.getInput();
-        LogicalNode inputNode = new LogicalNode(input.getId(), input.getOperator(), input.getParallelism());
-        logicalPlan.addNode(inputNode);
+        LogicalNode inputNode = logicalPlan.getNode(input.getId());
+        if (null == inputNode) {
+            inputNode = new LogicalNode(input.getId(), input.getOperator(), input.getParallelism());
+        }
 
         // Set input/output edges for current node and input node.
         LogicalEdge edge = new LogicalEdge(inputNode, node, input.getPartitioner());
         node.addInputEdge(edge);
         inputNode.addOutputEdge(edge);
+
+        logicalPlan.addNode(node);
+        logicalPlan.addNode(inputNode);
 
         return Collections.singleton(sink.getId());
     }

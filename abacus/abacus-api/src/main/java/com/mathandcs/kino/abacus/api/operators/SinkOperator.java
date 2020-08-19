@@ -14,11 +14,6 @@ public class SinkOperator<IN> extends AbstractOperator<Object, SinkFunction<IN>>
     }
 
     @Override
-    public void open() throws Exception {
-        super.open();
-    }
-
-    @Override
     public void process(StreamRecord<IN> element) throws Exception {
         userFunction.sink(element.getValue());
     }

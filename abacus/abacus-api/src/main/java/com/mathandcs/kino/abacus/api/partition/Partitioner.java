@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.core.io;
+package com.mathandcs.kino.abacus.api.partition;
 
 public interface Partitioner<T> {
 

@@ -1,5 +1,6 @@
 package com.mathandcs.kino.abacus.api.plan.logical;
 
+import akka.actor.ActorRef;
 import com.mathandcs.kino.abacus.api.datastream.DataStreamId;
 import com.mathandcs.kino.abacus.api.operators.Operator;
 import java.io.Serializable;
@@ -14,6 +15,8 @@ public class LogicalNode implements Serializable {
 
     private List<LogicalEdge> inputEdges = new ArrayList<>();
     private List<LogicalEdge> outputEdges = new ArrayList<>();
+
+    private ActorRef actor;
 
     public LogicalNode(DataStreamId id,
                        Operator operator,
@@ -64,5 +67,13 @@ public class LogicalNode implements Serializable {
 
     public boolean isSink() {
         return outputEdges.isEmpty();
+    }
+
+    public ActorRef getActor() {
+        return actor;
+    }
+
+    public void setActor(ActorRef actor) {
+        this.actor = actor;
     }
 }

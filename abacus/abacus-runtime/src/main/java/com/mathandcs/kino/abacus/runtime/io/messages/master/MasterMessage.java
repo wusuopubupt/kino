@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.runtime.io.messages;
+package com.mathandcs.kino.abacus.runtime.io.messages.master;
 
 import java.io.Serializable;
 

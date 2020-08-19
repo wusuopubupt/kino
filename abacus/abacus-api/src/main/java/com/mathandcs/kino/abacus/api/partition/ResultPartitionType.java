@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.runtime.io.partition;
+package com.mathandcs.kino.abacus.api.partition;
 
 /**
  * Type of a result partition.

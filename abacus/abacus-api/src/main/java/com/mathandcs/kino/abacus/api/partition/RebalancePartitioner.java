@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.runtime.io.partition;
+package com.mathandcs.kino.abacus.api.partition;
 
 public class RebalancePartitioner<T> extends StreamPartitioner<T> {
 	private static final long serialVersionUID = 1L;

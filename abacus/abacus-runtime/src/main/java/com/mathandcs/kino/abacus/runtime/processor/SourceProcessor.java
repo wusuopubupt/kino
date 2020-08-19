@@ -5,14 +5,12 @@ import com.mathandcs.kino.abacus.api.record.StreamRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SourceProcessor extends AbstractProcessor {
+public class SourceProcessor extends AbstractProcessor<SourceOperator> {
 
     private static final Logger LOG = LoggerFactory.getLogger(SourceProcessor.class);
 
-    private SourceOperator operator;
-
     public SourceProcessor(SourceOperator operator) {
-        this.operator = operator;
+        super(operator);
     }
 
     @Override

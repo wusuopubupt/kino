@@ -26,11 +26,11 @@ public class LogicalPlan implements Plan {
     }
 
     public void addNode(LogicalNode node) {
-        if (idToNodeMap.containsKey(node.getId())) {
-            LOG.warn("Node {} already in plan!", node.getId());
-            return;
-        }
         idToNodeMap.put(node.getId(), node);
+    }
+
+    public LogicalNode getNode(DataStreamId id) {
+        return idToNodeMap.get(id);
     }
 
     public Map<DataStreamId, LogicalNode> getIdToNodeMap() {

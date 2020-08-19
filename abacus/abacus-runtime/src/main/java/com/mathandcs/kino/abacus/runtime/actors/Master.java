@@ -6,11 +6,11 @@ import akka.actor.Props;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.mathandcs.kino.abacus.api.plan.logical.LogicalPlan;
-import com.mathandcs.kino.abacus.runtime.io.messages.JobSubmissionMessage;
+import com.mathandcs.kino.abacus.runtime.io.messages.master.JobSubmissionMessage;
 import com.mathandcs.kino.abacus.runtime.schedule.Scheduler;
 
 /**
- * Abacus Job Master
+ * Abacus Master Actor.
  */
 public class Master extends AbstractActor {
 

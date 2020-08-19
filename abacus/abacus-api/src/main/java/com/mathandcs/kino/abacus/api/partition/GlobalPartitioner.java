@@ -1,4 +1,4 @@
-package com.mathandcs.kino.abacus.runtime.io.partition;
+package com.mathandcs.kino.abacus.api.partition;
 
 /**
  * Partitioner that sends all elements to the downstream operator with subtask ID=0.

@@ -17,15 +17,6 @@ public abstract class AbstractOperator<OUT, Func extends Function> implements Op
     protected ExecutionEnvironment env;
     protected List<Emitter> emitters;
 
-    public AbstractOperator(Func userFunction,
-                            ExecutionEnvironment env,
-                            List<Emitter> emitters) {
-
-        this.userFunction = userFunction;
-        this.env = env;
-        this.emitters = emitters;
-    }
-
     public AbstractOperator(Func userFunction) {
         this.userFunction = userFunction;
     }
@@ -45,8 +36,9 @@ public abstract class AbstractOperator<OUT, Func extends Function> implements Op
     }
 
     @Override
-    public void open() throws Exception {
-
+    public void open(ExecutionEnvironment env, List<Emitter> emitters) throws Exception {
+        this.env = env;
+        this.emitters = emitters;
     }
 
     @Override

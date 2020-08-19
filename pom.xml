@@ -314,11 +314,6 @@
                 <artifactId>abacus-api</artifactId>
                 <version>${abacus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.mathandcs</groupId>
-                <artifactId>abacus-core</artifactId>
-                <version>${abacus.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
